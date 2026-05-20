@@ -1,0 +1,25 @@
+{
+  "title": "Extended Cyber Kill Chain for AI-Era Threats",
+  "description": "A defender-side extension of the Lockheed Martin Cyber Kill Chain for LLM and agentic AI threats. Adds a model supply chain compromise pre-attack stage (Stage 0), AI-specific sub-techniques across the original seven stages, and a split of Actions on Objectives into classical data exfiltration, model extraction, and agentic pivot. Includes mappings to MITRE ATLAS and the OWASP Top 10 for LLM Applications.",
+  "upload_type": "software",
+  "version": "1.0",
+  "license": "CC-BY-4.0",
+  "creators": [
+    {
+      "name": "Nagar, Gourav",
+      "orcid": "0000-0000-0000-0000"
+    }
+  ],
+  "keywords": [
+    "cybersecurity",
+    "ai-security",
+    "llm-security",
+    "cyber kill chain",
+    "prompt injection",
+    "agentic ai",
+    "threat modeling",
+    "mitre atlas",
+    "owasp llm top 10",
+    "detection engineering"
+  ]
+}
