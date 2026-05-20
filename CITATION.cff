@@ -1,0 +1,61 @@
+cff-version: 1.2.0
+message: "If you use this framework, please cite it using the metadata below."
+title: "Extended Cyber Kill Chain for AI-Era Threats"
+abstract: >-
+  A defender-side framework that extends the Lockheed Martin Cyber Kill Chain
+  with one new pre-attack stage (Model Supply Chain Compromise), AI-augmented
+  sub-techniques across the original seven stages, and an expanded
+  Actions-on-Objectives stage covering Model Extraction and Agentic Pivot as
+  first-class adversary objectives. Designed to integrate AI-era threats into
+  existing kill-chain-based SOC and detection-engineering operations rather
+  than maintain a parallel taxonomy.
+authors:
+  - family-names: Nagar
+    given-names: Gourav
+    affiliation: "Upwind Security"
+    orcid: "https://orcid.org/0000-0000-0000-0000"
+type: software
+version: "1.0"
+date-released: "2026-05-19"
+license: CC-BY-4.0
+repository-code: "https://github.com/gouravnagar-infosec/ai-kill-chain"
+url: "https://github.com/gouravnagar-infosec/ai-kill-chain"
+keywords:
+  - cybersecurity
+  - kill chain
+  - artificial intelligence
+  - large language models
+  - prompt injection
+  - model extraction
+  - agentic AI
+  - threat modeling
+  - detection engineering
+  - MITRE ATLAS
+  - OWASP LLM Top 10
+references:
+  - type: book
+    title: "Cyber Security Kill Chain - Tactics and Strategies: Breaking down the cyberattack process and responding to threats"
+    authors:
+      - family-names: Nagar
+        given-names: Gourav
+      - family-names: Kumar
+        given-names: Shreyas
+    publisher:
+      name: Packt Publishing
+    year: 2025
+    isbn: "978-1835466094"
+  - type: article
+    title: >-
+      Intelligence-driven computer network defense informed by analysis of
+      adversary campaigns and intrusion kill chains
+    authors:
+      - family-names: Hutchins
+        given-names: Eric M.
+      - family-names: Cloppert
+        given-names: Michael J.
+      - family-names: Amin
+        given-names: Rohan M.
+    journal: "Leading Issues in Information Warfare & Security Research"
+    volume: 1
+    issue: 1
+    year: 2011
