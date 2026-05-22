@@ -6,6 +6,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 A major version bump indicates a structural change to the stage list or the EKC sub-technique ID scheme. A minor bump indicates new sub-techniques, mapping entries, or case studies. A patch bump indicates editorial corrections.
 
+## [1.0.1] 2026-05-22
+
+Editorial patch release. No changes to the framework itself: no new stages, sub-technique IDs, mappings, or case studies.
+
+### Fixed
+
+- Repo layout: flattened the duplicated `ai-kill-chain/ai-kill-chain/` subdirectory. README relative links (`./examples/...`, `./mappings/...`) now resolve from the repo root. Duplicate `README.md`, `LICENSE`, `CITATION.cff`, `PUBLISH.md`, and the stray top-level `extended-kill-chain.svg` removed. File history preserved via `git mv`.
+- `CITATION.cff` placeholder ORCID `0000-0000-0000-0000` corrected to the real ORCID `0009-0008-7320-5927` (matching `.zenodo.json`).
+
+### Added
+
+- Zenodo DOI `10.5281/zenodo.20349357` wired into the README badge, the "Cite as" line, the APA recommended citation, the BibTeX block, and `CITATION.cff` (top-level `doi:` field and an `identifiers:` entry marked as the concept DOI).
+- Reverse-direction lookup tables in both mapping files:
+  - `mappings/owasp-llm-mapping.md`: per EKC stage, which OWASP categories surface there. Highlights LLM01 spanning Stages 3-6 and LLM06 manifesting only at Stage 7c.
+  - `mappings/mitre-atlas-mapping.md`: per ATLAS tactic, which EKC stages and sub-techniques. Notes two structural deltas (ATLAS Persistence splits across EKC Stages 4 and 5; ATLAS Lateral Movement and Privilege Escalation both collapse into EKC Stage 7c).
+- `.gitignore` for `.DS_Store` and common editor cruft.
+
+### Notes
+
+- Tag name is `1.0.1` (no `v` prefix) to match the existing `1.0` tag convention.
+
 ## [1.0] 2026-05-19
 
 ### Added (initial public release)
