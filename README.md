@@ -5,14 +5,14 @@ An update to the Lockheed Martin Cyber Kill Chain for defenders working against 
 [![Version](https://img.shields.io/badge/version-1.0-blue)](./CHANGELOG.md)
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](./LICENSE)
 [![Last Updated](https://img.shields.io/badge/last%20updated-2026--05--19-green)]()
-[![DOI](https://img.shields.io/badge/DOI-pending--zenodo-orange)]()
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20349357.svg)](https://doi.org/10.5281/zenodo.20349357)
 
 Author: Gourav Nagar
 Version: 1.0
 Date: May 19, 2026
 Repository: https://github.com/gouravnagar-infosec/ai-kill-chain
 
-Cite as: Nagar, G. (2026). *Extended Cyber Kill Chain for AI-Era Threats* (Version 1.0). https://github.com/gouravnagar-infosec/ai-kill-chain
+Cite as: Nagar, G. (2026). *Extended Cyber Kill Chain for AI-Era Threats* (Version 1.0). Zenodo. https://doi.org/10.5281/zenodo.20349357
 
 ## Table of contents
 
@@ -333,7 +333,7 @@ The framework builds on the Lockheed Martin Cyber Kill Chain (Hutchins, Cloppert
 
 Recommended citation (APA):
 
-> Nagar, G. (2026). *Extended Cyber Kill Chain for AI-Era Threats* (Version 1.0) [Framework]. GitHub. https://github.com/gouravnagar-infosec/ai-kill-chain
+> Nagar, G. (2026). *Extended Cyber Kill Chain for AI-Era Threats* (Version 1.0) [Framework]. Zenodo. https://doi.org/10.5281/zenodo.20349357
 
 BibTeX:
 
@@ -344,14 +344,15 @@ BibTeX:
   year         = {2026},
   month        = {5},
   version      = {1.0},
-  publisher    = {GitHub},
-  url          = {https://github.com/gouravnagar-infosec/ai-kill-chain},
-  howpublished = {\url{https://github.com/gouravnagar-infosec/ai-kill-chain}},
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.20349357},
+  url          = {https://doi.org/10.5281/zenodo.20349357},
+  howpublished = {\url{https://doi.org/10.5281/zenodo.20349357}},
   note         = {Extends the kill-chain treatment in Nagar and Kumar (2025), Cyber Security Kill Chain: Tactics and Strategies, Packt Publishing.}
 }
 ```
 
-The `CITATION.cff` file in the repository drives GitHub's "Cite this repository" button. A Zenodo DOI will be issued on the first tagged release.
+The `CITATION.cff` file in the repository drives GitHub's "Cite this repository" button. The Zenodo DOI [10.5281/zenodo.20349357](https://doi.org/10.5281/zenodo.20349357) is the version-1.0 concept DOI; subsequent tagged releases will mint their own version DOIs under the same concept.
 
 ## References
 

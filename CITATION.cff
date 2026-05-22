@@ -13,13 +13,18 @@ authors:
   - family-names: Nagar
     given-names: Gourav
     affiliation: "Upwind Security"
-    orcid: "https://orcid.org/0000-0000-0000-0000"
+    orcid: "https://orcid.org/0009-0008-7320-5927"
 type: software
 version: "1.0"
 date-released: "2026-05-19"
 license: CC-BY-4.0
+doi: "10.5281/zenodo.20349357"
 repository-code: "https://github.com/gouravnagar-infosec/ai-kill-chain"
 url: "https://github.com/gouravnagar-infosec/ai-kill-chain"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.20349357"
+    description: "Concept DOI for all versions"
 keywords:
   - cybersecurity
   - kill chain

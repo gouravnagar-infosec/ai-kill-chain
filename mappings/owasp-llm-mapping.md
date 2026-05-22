@@ -21,6 +21,27 @@ OWASP organizes its content as a risk-prioritization list for application builde
 | LLM09 | Misinformation | Stage 7a (Impact variant) | The downstream impact stage. Cross-references to Stage 4 when the misinformation is induced by adversarial input rather than spontaneous hallucination. |
 | LLM10 | Unbounded Consumption | Stages 7a (cost-impact) and 7b (extraction queries at scale) | High-volume programmatic queries map to either resource-exhaustion impact or to model-extraction objective depending on the adversary's goal. |
 
+## Reverse view: OWASP categories present at each EKC stage
+
+The forward table above is OWASP-first. This reverse view is kill-chain-first, for a defender starting from a stage and asking "which OWASP categories should I be looking for here?"
+
+| EKC stage | OWASP categories present |
+|---|---|
+| Stage 0. Model Supply Chain Compromise | LLM03 (Supply Chain); LLM04 (Data and Model Poisoning, training-time) |
+| Stage 1. Reconnaissance | LLM07 (System Prompt Leakage, used as precursor) |
+| Stage 2. Weaponization | None directly. OWASP does not catalog weaponization-stage activity as a vulnerability class. |
+| Stage 3. Delivery | LLM01 (Prompt Injection, indirect delivery); LLM04 (Data and Model Poisoning, fresh RAG ingest); LLM08 (Vector and Embedding Weaknesses, ingest-time) |
+| Stage 4. Exploitation | LLM01 (Prompt Injection, exploitation); LLM05 (Improper Output Handling, when LLM output drives a pivot in the same step) |
+| Stage 5. Installation | LLM01 (injection used to write to persistent memory); LLM04 (RAG corpus persistence); LLM08 (Vector and Embedding Weaknesses, retention-time) |
+| Stage 6. Command and Control | LLM01 (RAG-mediated and memory-mediated C2 are injection-driven channels) |
+| Stage 7a. Data Exfiltration | LLM02 (Sensitive Information Disclosure); LLM09 (Misinformation, impact variant); LLM10 (Unbounded Consumption, cost-impact variant) |
+| Stage 7b. Model Extraction | LLM02 (when the disclosed information class is the model itself); LLM07 (when the system prompt is the exfiltration target); LLM10 (extraction-query volume) |
+| Stage 7c. Agentic Pivot | LLM05 (Improper Output Handling); LLM06 (Excessive Agency) |
+
+LLM01 (Prompt Injection) appears at Stages 3, 4, 5, and 6 because injection is not a single-stage phenomenon. The same primitive becomes delivery, exploitation, persistence, or command-and-control depending on where in the chain it is applied. Coverage of LLM01 by a single control class (input filtering, say) leaves the persistence and C2 cases unaddressed.
+
+LLM06 (Excessive Agency) appears only at Stage 7c because its impact is realized when the agent acts. Controls on it (per-tool permissions, human-in-the-loop) operate at the action surface, not the input surface.
+
 ## Reading the mapping
 
 For a SOC or detection engineering team that already uses the kill-chain framing, this mapping converts OWASP's vulnerability-class taxonomy into a stage-by-stage operational view.

@@ -68,6 +68,29 @@ This mapping tracks against v5.4.0. Later ATLAS releases will shift specific cro
 | EKC-7c.4 | Recursive agent abuse | Lateral Movement | Deploy AI Agent (AML.T0103); AI Agent (AML.T0108, added v5.4.0) |
 | EKC-7c.5 | Workflow weaponization | Lateral Movement; Impact | Modify AI Agent Configuration (AML.T0081); Data Destruction via AI Agent Tool Invocation (AML.T0101) |
 
+## Reverse view: ATLAS tactics surfacing at each EKC stage
+
+The forward table above is EKC-first. This reverse view is ATLAS-first, for a defender or red teamer who arrives via the ATLAS matrix and needs to locate the equivalent kill chain stage. Tactic names follow the v5.4.0 ATLAS matrix.
+
+| ATLAS tactic | EKC stages where it surfaces | EKC sub-techniques |
+|---|---|---|
+| Reconnaissance | Stage 1 | EKC-1.1, EKC-1.4 |
+| Resource Development | Stage 0; Stage 2 | EKC-0.1, EKC-0.2, EKC-0.3, EKC-0.4, EKC-0.5, EKC-2.3, EKC-2.5 |
+| Initial Access | Stage 3; Stage 5 (connector install path) | EKC-3.1, EKC-3.2, EKC-3.3, EKC-3.4, EKC-3.5, EKC-3.6, EKC-5.3 |
+| ML Model Access | Stage 1 | EKC-1.1, EKC-1.2, EKC-1.3 |
+| Execution | Stage 4 | EKC-4.1, EKC-4.2, EKC-4.3 |
+| Persistence | Stage 5; also Stage 4 (memory pollution as persistence) | EKC-4.5, EKC-5.1, EKC-5.2, EKC-5.3, EKC-5.4, EKC-5.5 |
+| Privilege Escalation | Stage 7c | EKC-7c.3 |
+| Defense Evasion | Stage 4 | EKC-4.4 |
+| Discovery | Stage 1 | EKC-1.1, EKC-1.2, EKC-1.3, EKC-1.4, EKC-1.5 |
+| Lateral Movement (AML.TA0015) | Stage 7c | EKC-7c.1, EKC-7c.2, EKC-7c.3, EKC-7c.4, EKC-7c.5 |
+| ML Attack Staging | Stage 0 (training-time); Stage 2 (deployed-model attack craft) | EKC-0.1, EKC-0.2, EKC-2.1, EKC-2.2, EKC-2.4 |
+| Command and Control (AML.TA0014) | Stage 6 | EKC-6.1, EKC-6.2, EKC-6.3, EKC-6.4, EKC-6.5 |
+| Exfiltration | Stage 7a; Stage 7b | EKC-7a, EKC-7b.1, EKC-7b.2, EKC-7b.3, EKC-7b.4 |
+| Impact | Stage 7a; Stage 7b (capability mining); Stage 7c (workflow weaponization) | EKC-7a, EKC-7b.5, EKC-7c.5 |
+
+Two structural observations from the reverse view. First, ATLAS Persistence collapses what the kill chain separates into Stage 4 (a single-session memory pollution event) and Stage 5 (cross-session installation). The kill-chain split matters for defender control placement: Stage 4 controls run at the conversation surface; Stage 5 controls run on the memory and configuration stores. Second, ATLAS Lateral Movement and Privilege Escalation both surface inside EKC Stage 7c. The kill chain treats agentic pivot as a single sub-stage of Actions on Objectives because the adversary's goal is mission completion; the tactic distinction matters less for SOC playbook design than for red-team taxonomy.
+
 ## Notes on the mapping
 
 The EKC puts agentic-pivot and memory-mediated C2 inside Stage 7c and Stage 6 (kill chain stages). ATLAS catalogs the same primitive techniques under its tactics matrix (Lateral Movement AML.TA0015, Command and Control AML.TA0014). Defenders who reason in kill-chain stages get the temporal view from the EKC. Defenders who reason in tactics matrices get the catalog view from ATLAS.
