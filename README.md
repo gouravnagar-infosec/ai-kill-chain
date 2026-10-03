@@ -2,9 +2,9 @@
 
 An update to the Lockheed Martin Cyber Kill Chain for defenders working against LLM and agentic AI attacks. Adds a pre-attack stage for model supply chain compromise. Adds AI-specific sub-techniques to each of the original seven stages. Splits the Actions on Objectives stage into three peer sub-stages: classical data exfiltration, model extraction, and agentic pivot.
 
-[![Version](https://img.shields.io/badge/version-1.0-blue)](./CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-1.0.1-blue)](./CHANGELOG.md)
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](./LICENSE)
-[![Last Updated](https://img.shields.io/badge/last%20updated-2026--05--19-green)]()
+[![Last Updated](https://img.shields.io/badge/last%20updated-2026--05--22-green)]()
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20349357.svg)](https://doi.org/10.5281/zenodo.20349357)
 
 Author: Gourav Nagar
