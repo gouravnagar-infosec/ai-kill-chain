@@ -36,11 +36,28 @@ The forward table above is OWASP-first. This reverse view is kill-chain-first, f
 | Stage 6. Command and Control | LLM01 (RAG-mediated and memory-mediated C2 are injection-driven channels) |
 | Stage 7a. Data Exfiltration | LLM02 (Sensitive Information Disclosure); LLM09 (Misinformation, impact variant); LLM10 (Unbounded Consumption, cost-impact variant) |
 | Stage 7b. Model Extraction | LLM02 (when the disclosed information class is the model itself); LLM07 (when the system prompt is the exfiltration target); LLM10 (extraction-query volume) |
-| Stage 7c. Agentic Pivot | LLM05 (Improper Output Handling); LLM06 (Excessive Agency) |
+| Stage 7c. Agentic Pivot | LLM05 (Improper Output Handling); LLM06 (Excessive Agency); LLM02 (Sensitive Information Disclosure, when the agent's own credentials leak, EKC-7c.6) |
 
 LLM01 (Prompt Injection) appears at Stages 3, 4, 5, and 6 because injection is not a single-stage phenomenon. The same primitive becomes delivery, exploitation, persistence, or command-and-control depending on where in the chain it is applied. Coverage of LLM01 by a single control class (input filtering, say) leaves the persistence and C2 cases unaddressed.
 
-LLM06 (Excessive Agency) appears only at Stage 7c because its impact is realized when the agent acts. Controls on it (per-tool permissions, human-in-the-loop) operate at the action surface, not the input surface.
+LLM06 (Excessive Agency) appears mainly at Stage 7c because its impact is realized when the agent acts. Controls on it (per-tool permissions, human-in-the-loop) operate at the action surface, not the input surface.
+
+## v1.1 additions
+
+The eight sub-techniques added in v1.1 are agent-specific, so most of them map more naturally to the OWASP Top 10 for Agentic Applications (see [`owasp-agentic-mapping.md`](./owasp-agentic-mapping.md)). Their LLM Top 10 tags, for teams that track only this list:
+
+| EKC ID | LLM Top 10 |
+|---|---|
+| EKC-1.6 Peer agent and Agent Card enumeration | None directly |
+| EKC-3.7 Crafted assistant link delivery | LLM01 |
+| EKC-3.8 Malicious or impersonated peer agent | LLM01 |
+| EKC-3.9 Interface-layer injection against computer-use agents | LLM01 |
+| EKC-4.6 Computer-use action hijack | LLM05, LLM06 |
+| EKC-5.6 Shared agent memory poisoning | LLM04, LLM08 |
+| EKC-6.6 Inter-agent session smuggling | LLM01 |
+| EKC-7c.6 Agent credential and token theft | LLM02, LLM06 |
+
+The per-ID tags for every sub-technique are in [`data/ekc.yaml`](../data/ekc.yaml) and `data/ekc.json`.
 
 ## Reading the mapping
 
