@@ -1,0 +1,35 @@
+title: EKC Example - Remote Agent Asks Client Agent for Its Instructions or Tools
+id: 7508e278-a5af-4194-b030-cfebfb0106fc
+status: experimental
+description: |
+  EXAMPLE RULE. Not production-tuned.
+  In an open A2A session the remote agent should be returning task results. A remote turn asking the
+  client for its system instructions, tool schemas or conversation history matches the first step of
+  the agent session smuggling technique Unit 42 demonstrated over A2A (EKC-6.6). Needs the remote
+  agent's message text logged on the client side.
+references:
+  - https://unit42.paloaltonetworks.com/agent-session-smuggling-in-agent2agent-systems/
+author: Gourav Nagar
+date: 2026-11-08
+tags:
+  - ekc.6.6
+  - ekc.1.2
+logsource:
+  product: ai_agent
+  category: agent_delegation
+detection:
+  selection_remote:
+    ekc.message.origin: 'peer_agent'
+  selection_text:
+    ekc.message.text|contains:
+      - 'system prompt'
+      - 'system instructions'
+      - 'your instructions'
+      - 'tool schema'
+      - 'available tools'
+      - 'conversation history'
+      - 'previous messages'
+  condition: all of selection_*
+falsepositives:
+  - Orchestrator agents that legitimately negotiate capabilities. Restrict to peers that are not orchestrators.
+level: medium

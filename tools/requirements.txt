@@ -1,0 +1,5 @@
+pyyaml>=6.0
+jsonschema>=4.21
+stix2>=3.0
+stix2-validator>=3.2
+pysigma>=0.11

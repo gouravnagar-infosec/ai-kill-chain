@@ -1,0 +1,28 @@
+title: EKC Example - MCP Server Received a Token Not Issued to It
+id: 581c6d30-88d3-4dfa-8a23-4ac521d83cc8
+status: experimental
+description: |
+  EXAMPLE RULE. Not production-tuned.
+  The MCP authorization specification says servers MUST NOT accept tokens that were not explicitly
+  issued for them ("token passthrough"). A request carrying a token for a different audience means a
+  misbehaving client, a proxy forwarding upstream tokens, or someone replaying a stolen token. Any of
+  those is a path to EKC-7c.6. Requires the server or gateway to log the audience check result in
+  ekc.token.audience_valid.
+references:
+  - https://modelcontextprotocol.io/specification/2025-11-25/basic/security_best_practices
+  - https://github.com/danny-avila/LibreChat/security/advisories/GHSA-pmw7-gqwj-f954
+author: Gourav Nagar
+date: 2026-11-08
+tags:
+  - ekc.7c.6
+  - ekc.7c.3
+logsource:
+  product: mcp
+  category: authorization
+detection:
+  selection:
+    ekc.token.audience_valid: false
+  condition: selection
+falsepositives:
+  - Misconfigured resource indicators during rollout. These are worth fixing anyway.
+level: high

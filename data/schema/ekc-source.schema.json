@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/gouravnagar-infosec/ai-kill-chain/data/schema/ekc-source.schema.json",
+  "title": "EKC source file (data/ekc.yaml)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["framework", "reference_versions", "stages"],
+  "properties": {
+    "framework": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "short_name", "version", "release_date", "author", "license", "repository"],
+      "properties": {
+        "name": {"type": "string"},
+        "short_name": {"const": "EKC"},
+        "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+(\\.[0-9]+)?$"},
+        "release_date": {"type": "string", "format": "date"},
+        "author": {"type": "string"},
+        "orcid": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]$"},
+        "license": {"type": "string"},
+        "doi_concept": {"type": "string", "pattern": "^10\\.[0-9]+/.+$"},
+        "repository": {"type": "string", "format": "uri"}
+      }
+    },
+    "reference_versions": {
+      "type": "object",
+      "additionalProperties": {"type": "string"},
+      "required": ["mitre_atlas", "owasp_llm_top10", "owasp_agentic_top10"]
+    },
+    "stages": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/stage"}
+    }
+  },
+  "$defs": {
+    "nonEmptyStrings": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "stage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "status", "summary", "detection_signals", "mitigations", "sub_techniques"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^([0-6]|7[abc])$"},
+        "parent": {"const": "7"},
+        "name": {"type": "string"},
+        "status": {"enum": ["new", "ai-augmented", "classical"]},
+        "summary": {"type": "string"},
+        "detection_signals": {"$ref": "#/$defs/nonEmptyStrings"},
+        "mitigations": {"$ref": "#/$defs/nonEmptyStrings"},
+        "sub_techniques": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/subTechnique"}}
+      }
+    },
+    "subTechnique": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "added_in", "description", "atlas", "owasp_llm", "owasp_agentic"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^EKC-([0-6]\\.[0-9]+|7a|7[bc]\\.[0-9]+)$"},
+        "name": {"type": "string", "minLength": 3},
+        "added_in": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+(\\.[0-9]+)?$"},
+        "description": {"type": "string", "minLength": 20},
+        "atlas": {"type": "array", "items": {"type": "string", "pattern": "^AML\\.T[0-9]{4}(\\.[0-9]{3})?$"}},
+        "atlas_case_studies": {"type": "array", "items": {"type": "string", "pattern": "^AML\\.CS[0-9]{4}$"}},
+        "owasp_llm": {"type": "array", "items": {"enum": ["LLM01", "LLM02", "LLM03", "LLM04", "LLM05", "LLM06", "LLM07", "LLM08", "LLM09", "LLM10"]}},
+        "owasp_agentic": {"type": "array", "items": {"enum": ["ASI01", "ASI02", "ASI03", "ASI04", "ASI05", "ASI06", "ASI07", "ASI08", "ASI09", "ASI10"]}},
+        "detection_signals": {"$ref": "#/$defs/nonEmptyStrings"},
+        "mitigations": {"$ref": "#/$defs/nonEmptyStrings"},
+        "references": {"type": "array", "items": {"type": "string", "format": "uri"}}
+      }
+    }
+  }
+}

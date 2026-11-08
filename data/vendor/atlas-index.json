@@ -1,0 +1,2126 @@
+{
+ "source": "https://github.com/mitre-atlas/atlas-data",
+ "atlas_version": "2026.10",
+ "data_format": "6.1.0",
+ "modified": "2026-10-28",
+ "license_note": "IDs and names from MITRE ATLAS (atlas-data), Copyright 2021-2026 MITRE, Apache License 2.0.",
+ "entries": {
+  "AML.CS0000": {
+   "type": "case-study",
+   "name": "Evasion of Deep Learning Detector for Malware C&C Traffic"
+  },
+  "AML.CS0001": {
+   "type": "case-study",
+   "name": "Botnet Domain Generation Algorithm (DGA) Detection Evasion"
+  },
+  "AML.CS0002": {
+   "type": "case-study",
+   "name": "VirusTotal Poisoning"
+  },
+  "AML.CS0003": {
+   "type": "case-study",
+   "name": "Bypassing Cylance's AI Malware Detection"
+  },
+  "AML.CS0004": {
+   "type": "case-study",
+   "name": "Camera Hijack Attack on Facial Recognition System"
+  },
+  "AML.CS0005": {
+   "type": "case-study",
+   "name": "Attack on Machine Translation Services"
+  },
+  "AML.CS0006": {
+   "type": "case-study",
+   "name": "ClearviewAI Misconfiguration"
+  },
+  "AML.CS0007": {
+   "type": "case-study",
+   "name": "GPT-2 Model Replication"
+  },
+  "AML.CS0008": {
+   "type": "case-study",
+   "name": "ProofPoint Evasion"
+  },
+  "AML.CS0009": {
+   "type": "case-study",
+   "name": "Tay Poisoning"
+  },
+  "AML.CS0010": {
+   "type": "case-study",
+   "name": "Microsoft Azure Service Disruption"
+  },
+  "AML.CS0011": {
+   "type": "case-study",
+   "name": "Microsoft Edge AI Evasion"
+  },
+  "AML.CS0012": {
+   "type": "case-study",
+   "name": "Face Identification System Evasion via Physical Countermeasures"
+  },
+  "AML.CS0013": {
+   "type": "case-study",
+   "name": "Backdoor Attack on Deep Learning Models in Mobile Apps"
+  },
+  "AML.CS0014": {
+   "type": "case-study",
+   "name": "Confusing Antimalware Neural Networks"
+  },
+  "AML.CS0015": {
+   "type": "case-study",
+   "name": "Compromised PyTorch Dependency Chain"
+  },
+  "AML.CS0016": {
+   "type": "case-study",
+   "name": "Achieving Code Execution in MathGPT via Prompt Injection"
+  },
+  "AML.CS0017": {
+   "type": "case-study",
+   "name": "Bypassing ID.me Identity Verification"
+  },
+  "AML.CS0018": {
+   "type": "case-study",
+   "name": "Arbitrary Code Execution with Google Colab"
+  },
+  "AML.CS0019": {
+   "type": "case-study",
+   "name": "PoisonGPT"
+  },
+  "AML.CS0020": {
+   "type": "case-study",
+   "name": "Indirect Prompt Injection Threats: Bing Chat Data Pirate"
+  },
+  "AML.CS0021": {
+   "type": "case-study",
+   "name": "ChatGPT Conversation Exfiltration"
+  },
+  "AML.CS0022": {
+   "type": "case-study",
+   "name": "ChatGPT Package Hallucination"
+  },
+  "AML.CS0023": {
+   "type": "case-study",
+   "name": "ShadowRay: Hijacking Exposed Ray Clusters"
+  },
+  "AML.CS0024": {
+   "type": "case-study",
+   "name": "Morris II Worm: RAG-Based Attack"
+  },
+  "AML.CS0025": {
+   "type": "case-study",
+   "name": "Web-Scale Data Poisoning: Split-View Attack"
+  },
+  "AML.CS0026": {
+   "type": "case-study",
+   "name": "Financial Transaction Hijacking with M365 Copilot as an Insider"
+  },
+  "AML.CS0027": {
+   "type": "case-study",
+   "name": "Organization Confusion on Hugging Face"
+  },
+  "AML.CS0028": {
+   "type": "case-study",
+   "name": "AI Model Tampering via Supply Chain Attack"
+  },
+  "AML.CS0029": {
+   "type": "case-study",
+   "name": "Google Bard Conversation Exfiltration"
+  },
+  "AML.CS0030": {
+   "type": "case-study",
+   "name": "LLMjacking: Stolen Cloud Credentials Used to Access Cloud LLM Services"
+  },
+  "AML.CS0031": {
+   "type": "case-study",
+   "name": "Malicious Models on Hugging Face"
+  },
+  "AML.CS0032": {
+   "type": "case-study",
+   "name": "Attempted Evasion of ML Phishing Webpage Detection System"
+  },
+  "AML.CS0033": {
+   "type": "case-study",
+   "name": "Live Deepfake Image Injection to Evade Mobile KYC Verification"
+  },
+  "AML.CS0034": {
+   "type": "case-study",
+   "name": "ProKYC: Deepfake Tool for Account Fraud Attacks"
+  },
+  "AML.CS0035": {
+   "type": "case-study",
+   "name": "Data Exfiltration from Slack AI via Indirect Prompt Injection"
+  },
+  "AML.CS0036": {
+   "type": "case-study",
+   "name": "AIKatz: Attacking LLM Desktop Applications"
+  },
+  "AML.CS0037": {
+   "type": "case-study",
+   "name": "Data Exfiltration via Agent Tools in Copilot Studio"
+  },
+  "AML.CS0038": {
+   "type": "case-study",
+   "name": "Planting Instructions for Delayed Automatic AI Agent Tool Invocation"
+  },
+  "AML.CS0039": {
+   "type": "case-study",
+   "name": "Living Off AI: Prompt Injection via Jira Service Management"
+  },
+  "AML.CS0040": {
+   "type": "case-study",
+   "name": "Hacking ChatGPT's Memories with Prompt Injection"
+  },
+  "AML.CS0041": {
+   "type": "case-study",
+   "name": "Rules File Backdoor: Supply Chain Attack on AI Coding Assistants"
+  },
+  "AML.CS0042": {
+   "type": "case-study",
+   "name": "SesameOp: Novel backdoor uses OpenAI Assistants API for command and control"
+  },
+  "AML.CS0043": {
+   "type": "case-study",
+   "name": "Malware Prototype with Embedded Prompt Injection"
+  },
+  "AML.CS0044": {
+   "type": "case-study",
+   "name": "LAMEHUG: Malware Leveraging Dynamic AI-Generated Commands"
+  },
+  "AML.CS0045": {
+   "type": "case-study",
+   "name": "Data Exfiltration via an MCP Server used by Cursor"
+  },
+  "AML.CS0046": {
+   "type": "case-study",
+   "name": "Data Destruction via Indirect Prompt Injection Targeting Claude Computer-Use"
+  },
+  "AML.CS0047": {
+   "type": "case-study",
+   "name": "Code to Deploy Destructive AI Agent Discovered in Amazon Q VS Code Extension"
+  },
+  "AML.CS0048": {
+   "type": "case-study",
+   "name": "Exposed ClawdBot Control Interfaces Leads to Credential Access and Execution"
+  },
+  "AML.CS0049": {
+   "type": "case-study",
+   "name": "Supply Chain Compromise via Poisoned ClawdBot Skill"
+  },
+  "AML.CS0050": {
+   "type": "case-study",
+   "name": "OpenClaw 1-Click Remote Code Execution"
+  },
+  "AML.CS0051": {
+   "type": "case-study",
+   "name": "OpenClaw Command & Control via Prompt Injection"
+  },
+  "AML.CS0052": {
+   "type": "case-study",
+   "name": "LLMSmith: RCE Vulnerabilities in LLM-Integrated Applications"
+  },
+  "AML.CS0053": {
+   "type": "case-study",
+   "name": "Poisoned Postmark MCP Server Email Exfiltration"
+  },
+  "AML.CS0054": {
+   "type": "case-study",
+   "name": "Data Exfiltration via Remote Poisoned MCP Tool"
+  },
+  "AML.CS0055": {
+   "type": "case-study",
+   "name": "AI ClickFix: Hijacking Computer-Use Agents Using ClickFix"
+  },
+  "AML.CS0056": {
+   "type": "case-study",
+   "name": "Model Distillation Campaigns Targeting Anthropic Claude"
+  },
+  "AML.CS0057": {
+   "type": "case-study",
+   "name": "Storm-2139 Azure OpenAI Guardrail Bypass"
+  },
+  "AML.CS0058": {
+   "type": "case-study",
+   "name": "Google Photos AI Model Extraction"
+  },
+  "AML.CS0059": {
+   "type": "case-study",
+   "name": "EchoLeak: Zero-Click Prompt Injection Targeting M365 Copilot for Data Exfiltration"
+  },
+  "AML.CS0060": {
+   "type": "case-study",
+   "name": "Cross-Site Scripting via Prompt Manipulation in Lenovo AI Chatbot"
+  },
+  "AML.CS0061": {
+   "type": "case-study",
+   "name": "AI in the Middle: Web-Based AI Services as C2 Relays"
+  },
+  "AML.CS0062": {
+   "type": "case-study",
+   "name": "RCE Vulnerability in Semantic Kernel Search Plugin"
+  },
+  "AML.CS0063": {
+   "type": "case-study",
+   "name": "Prompt-Based Attacks Against Gemini via Calendar Invitations"
+  },
+  "AML.CS0064": {
+   "type": "case-study",
+   "name": "Poisoned GGUF Templates: Inference-Time Supply Chain Attack"
+  },
+  "AML.CS0065": {
+   "type": "case-study",
+   "name": "Model Namespace Reuse Supply Chain Attack"
+  },
+  "AML.CS0066": {
+   "type": "case-study",
+   "name": "ZombieAgent: Data Exfiltration Attack on ChatGPT"
+  },
+  "AML.CS0067": {
+   "type": "case-study",
+   "name": "Claude Code GitHub Action Secret Exposure"
+  },
+  "AML.CS0068": {
+   "type": "case-study",
+   "name": "Autonomous OpenAI Evaluation Agents Compromise Hugging Face Infrastructure"
+  },
+  "AML.CS0069": {
+   "type": "case-study",
+   "name": "GTG-1002 Claude Code Espionage Campaign"
+  },
+  "AML.CS0070": {
+   "type": "case-study",
+   "name": "Threat Actor Uses a DeepSeek-Powered Hermes Agent in Langflow and n8n Exploitation Attempts"
+  },
+  "AML.CS0071": {
+   "type": "case-study",
+   "name": "Multi-Agent Framework Compromises Taiwanese Government Systems"
+  },
+  "AML.CS0072": {
+   "type": "case-study",
+   "name": "AI Recommendation Poisoning via Crafted AI Assistant Links"
+  },
+  "AML.CS0073": {
+   "type": "case-study",
+   "name": "Autonomous Claude Agents Compromise Three Real Organizations During Cyber Evaluations"
+  },
+  "AML.CS0074": {
+   "type": "case-study",
+   "name": "AISI Evaluation Agents Conduct Unsanctioned Real-World Cyber Activity"
+  },
+  "AML.CS0075": {
+   "type": "case-study",
+   "name": "Model Distillation Campaigns Targeting Google AI Services"
+  },
+  "AML.CS0076": {
+   "type": "case-study",
+   "name": "China-Based Artificial Intelligence Companies Conducting Industrial-Scale Distillation Campaigns Against U.S. AI Companies"
+  },
+  "AML.M0000": {
+   "type": "mitigation",
+   "name": "Limit Public Release of Information"
+  },
+  "AML.M0001": {
+   "type": "mitigation",
+   "name": "Limit Model Artifact Release"
+  },
+  "AML.M0002": {
+   "type": "mitigation",
+   "name": "Predictive AI Output Obfuscation"
+  },
+  "AML.M0003": {
+   "type": "mitigation",
+   "name": "Predictive AI Model Hardening"
+  },
+  "AML.M0004": {
+   "type": "mitigation",
+   "name": "Limit AI Service Query Volume and Rate"
+  },
+  "AML.M0005": {
+   "type": "mitigation",
+   "name": "Control Access to AI Models and Data at Rest"
+  },
+  "AML.M0006": {
+   "type": "mitigation",
+   "name": "Predictive AI Ensembles"
+  },
+  "AML.M0007": {
+   "type": "mitigation",
+   "name": "Sanitize Training Data"
+  },
+  "AML.M0008": {
+   "type": "mitigation",
+   "name": "Validate AI Model"
+  },
+  "AML.M0009": {
+   "type": "mitigation",
+   "name": "Predictive AI Multi-Sensor Fusion"
+  },
+  "AML.M0010": {
+   "type": "mitigation",
+   "name": "Predictive AI Input Restoration"
+  },
+  "AML.M0011": {
+   "type": "mitigation",
+   "name": "Restrict Library Loading"
+  },
+  "AML.M0012": {
+   "type": "mitigation",
+   "name": "Encrypt Sensitive Information"
+  },
+  "AML.M0013": {
+   "type": "mitigation",
+   "name": "Code Signing"
+  },
+  "AML.M0014": {
+   "type": "mitigation",
+   "name": "Verify AI Artifacts"
+  },
+  "AML.M0015": {
+   "type": "mitigation",
+   "name": "Predictive AI Adversarial Input Detection"
+  },
+  "AML.M0016": {
+   "type": "mitigation",
+   "name": "Vulnerability Scanning"
+  },
+  "AML.M0017": {
+   "type": "mitigation",
+   "name": "AI Model Distribution Methods"
+  },
+  "AML.M0018": {
+   "type": "mitigation",
+   "name": "User Training"
+  },
+  "AML.M0019": {
+   "type": "mitigation",
+   "name": "Control Access to AI Models and Data in Production"
+  },
+  "AML.M0020": {
+   "type": "mitigation",
+   "name": "Generative AI Guardrails"
+  },
+  "AML.M0021": {
+   "type": "mitigation",
+   "name": "Generative AI Guidelines"
+  },
+  "AML.M0022": {
+   "type": "mitigation",
+   "name": "Generative AI Model Alignment"
+  },
+  "AML.M0023": {
+   "type": "mitigation",
+   "name": "Maintain an AI Bill of Materials"
+  },
+  "AML.M0024": {
+   "type": "mitigation",
+   "name": "AI Telemetry Logging and Monitoring"
+  },
+  "AML.M0025": {
+   "type": "mitigation",
+   "name": "Maintain AI Dataset Provenance"
+  },
+  "AML.M0026": {
+   "type": "mitigation",
+   "name": "Manage AI Agent Service Access"
+  },
+  "AML.M0027": {
+   "type": "mitigation",
+   "name": "Manage User-Delegated AI Agent Access"
+  },
+  "AML.M0028": {
+   "type": "mitigation",
+   "name": "Enforce Access Controls for AI Agent Tools"
+  },
+  "AML.M0029": {
+   "type": "mitigation",
+   "name": "Human In-the-Loop for AI Agent Actions"
+  },
+  "AML.M0030": {
+   "type": "mitigation",
+   "name": "Restrict AI Agent Tool Invocation on Untrusted Data"
+  },
+  "AML.M0031": {
+   "type": "mitigation",
+   "name": "Memory Hardening"
+  },
+  "AML.M0032": {
+   "type": "mitigation",
+   "name": "Segmentation of AI Agent Components"
+  },
+  "AML.M0033": {
+   "type": "mitigation",
+   "name": "Input and Output Validation for AI Agent Components"
+  },
+  "AML.M0034": {
+   "type": "mitigation",
+   "name": "Deepfake Detection"
+  },
+  "AML.M0035": {
+   "type": "mitigation",
+   "name": "AI Red Team"
+  },
+  "AML.M0036": {
+   "type": "mitigation",
+   "name": "Limit AI Workload Resource Consumption"
+  },
+  "AML.M0037": {
+   "type": "mitigation",
+   "name": "AI Agent Authority Expansion Controls"
+  },
+  "AML.M0038": {
+   "type": "mitigation",
+   "name": "AI Agent Scope Drift Detection"
+  },
+  "AML.M0039": {
+   "type": "mitigation",
+   "name": "AI Honeypots"
+  },
+  "AML.M0040": {
+   "type": "mitigation",
+   "name": "Adaptive AI Response Degradation"
+  },
+  "AML.M0041": {
+   "type": "mitigation",
+   "name": "Privacy-Preserving AI Training and Inference"
+  },
+  "AML.M0042": {
+   "type": "mitigation",
+   "name": "Threat Intelligence Program"
+  },
+  "AML.M0043": {
+   "type": "mitigation",
+   "name": "AI Agent External Resource Lifecycle Management"
+  },
+  "AML.T0000": {
+   "type": "technique",
+   "name": "Search Open Technical Databases",
+   "tactics": [
+    "AML.TA0002"
+   ]
+  },
+  "AML.T0000.000": {
+   "type": "technique",
+   "name": "Search Open Technical Databases: Journals and Conference Proceedings",
+   "tactics": [
+    "AML.TA0002"
+   ]
+  },
+  "AML.T0000.001": {
+   "type": "technique",
+   "name": "Search Open Technical Databases: Pre-Print Repositories",
+   "tactics": [
+    "AML.TA0002"
+   ]
+  },
+  "AML.T0000.002": {
+   "type": "technique",
+   "name": "Search Open Technical Databases: Technical Blogs",
+   "tactics": [
+    "AML.TA0002"
+   ]
+  },
+  "AML.T0000.003": {
+   "type": "technique",
+   "name": "Search Open Technical Databases: Scan Databases",
+   "tactics": [
+    "AML.TA0002"
+   ]
+  },
+  "AML.T0001": {
+   "type": "technique",
+   "name": "Search Open AI Vulnerability Analysis",
+   "tactics": [
+    "AML.TA0002"
+   ]
+  },
+  "AML.T0002": {
+   "type": "technique",
+   "name": "Acquire Public AI Artifacts",
+   "tactics": [
+    "AML.TA0003"
+   ]
+  },
+  "AML.T0002.000": {
+   "type": "technique",
+   "name": "Acquire Public AI Artifacts: Datasets",
+   "tactics": [
+    "AML.TA0003"
+   ]
+  },
+  "AML.T0002.001": {
+   "type": "technique",
+   "name": "Acquire Public AI Artifacts: Models",
+   "tactics": [
+    "AML.TA0003"
+   ]
+  },
+  "AML.T0002.002": {
+   "type": "technique",
+   "name": "Acquire Public AI Artifacts: AI Agent Configuration",
+   "tactics": [
+    "AML.TA0003"
+   ]
+  },
+  "AML.T0003": {
+   "type": "technique",
+   "name": "Search Victim-Owned Websites",
+   "tactics": [
+    "AML.TA0002"
+   ]
+  },
+  "AML.T0004": {
+   "type": "technique",
+   "name": "Search Application Repositories",
+   "tactics": [
+    "AML.TA0002"
+   ]
+  },
+  "AML.T0005": {
+   "type": "technique",
+   "name": "Replicate AI Model Behavior",
+   "tactics": [
+    "AML.TA0001",
+    "AML.TA0003"
+   ]
+  },
+  "AML.T0005.000": {
+   "type": "technique",
+   "name": "Replicate AI Model Behavior: Replicate Behavior from Gathered AI Artifacts",
+   "tactics": [
+    "AML.TA0001",
+    "AML.TA0003"
+   ]
+  },
+  "AML.T0005.001": {
+   "type": "technique",
+   "name": "Replicate AI Model Behavior: Replicate Behavior from Model Outputs",
+   "tactics": [
+    "AML.TA0001",
+    "AML.TA0003"
+   ]
+  },
+  "AML.T0005.002": {
+   "type": "technique",
+   "name": "Replicate AI Model Behavior: Adapt Existing Model to Replicate Behavior",
+   "tactics": [
+    "AML.TA0001",
+    "AML.TA0003"
+   ]
+  },
+  "AML.T0006": {
+   "type": "technique",
+   "name": "Active Scanning",
+   "tactics": [
+    "AML.TA0002"
+   ]
+  },
+  "AML.T0006.000": {
+   "type": "technique",
+   "name": "Active Scanning: Enumerate Hosted AI Resources",
+   "tactics": [
+    "AML.TA0002"
+   ]
+  },
+  "AML.T0006.001": {
+   "type": "technique",
+   "name": "Active Scanning: Query Platform Metadata APIs",
+   "tactics": [
+    "AML.TA0002"
+   ]
+  },
+  "AML.T0006.002": {
+   "type": "technique",
+   "name": "Active Scanning: Scan for Exposed AI Infrastructure",
+   "tactics": [
+    "AML.TA0002"
+   ]
+  },
+  "AML.T0006.003": {
+   "type": "technique",
+   "name": "Active Scanning: Probe AI Agent Trigger Channels",
+   "tactics": [
+    "AML.TA0002"
+   ]
+  },
+  "AML.T0007": {
+   "type": "technique",
+   "name": "Discover AI Artifacts",
+   "tactics": [
+    "AML.TA0008"
+   ]
+  },
+  "AML.T0008": {
+   "type": "technique",
+   "name": "Acquire Infrastructure",
+   "tactics": [
+    "AML.TA0003"
+   ]
+  },
+  "AML.T0008.000": {
+   "type": "technique",
+   "name": "Acquire Infrastructure: AI Development Workspaces",
+   "tactics": [
+    "AML.TA0003"
+   ]
+  },
+  "AML.T0008.001": {
+   "type": "technique",
+   "name": "Acquire Infrastructure: Consumer Hardware",
+   "tactics": [
+    "AML.TA0003"
+   ]
+  },
+  "AML.T0008.002": {
+   "type": "technique",
+   "name": "Acquire Infrastructure: Domains",
+   "tactics": [
+    "AML.TA0003"
+   ]
+  },
+  "AML.T0008.003": {
+   "type": "technique",
+   "name": "Acquire Infrastructure: Physical Countermeasures",
+   "tactics": [
+    "AML.TA0003"
+   ]
+  },
+  "AML.T0008.004": {
+   "type": "technique",
+   "name": "Acquire Infrastructure: Serverless",
+   "tactics": [
+    "AML.TA0003"
+   ]
+  },
+  "AML.T0008.005": {
+   "type": "technique",
+   "name": "Acquire Infrastructure: AI Service Proxies",
+   "tactics": [
+    "AML.TA0003"
+   ]
+  },
+  "AML.T0010": {
+   "type": "technique",
+   "name": "Supply Chain Compromise",
+   "tactics": [
+    "AML.TA0004"
+   ]
+  },
+  "AML.T0010.000": {
+   "type": "technique",
+   "name": "Supply Chain Compromise: Hardware",
+   "tactics": [
+    "AML.TA0004"
+   ]
+  },
+  "AML.T0010.001": {
+   "type": "technique",
+   "name": "Supply Chain Compromise: Software",
+   "tactics": [
+    "AML.TA0004"
+   ]
+  },
+  "AML.T0010.002": {
+   "type": "technique",
+   "name": "Supply Chain Compromise: Data Repository",
+   "tactics": [
+    "AML.TA0004"
+   ]
+  },
+  "AML.T0010.003": {
+   "type": "technique",
+   "name": "Supply Chain Compromise: Model Repository",
+   "tactics": [
+    "AML.TA0004"
+   ]
+  },
+  "AML.T0010.004": {
+   "type": "technique",
+   "name": "Supply Chain Compromise: Container Registry",
+   "tactics": [
+    "AML.TA0004"
+   ]
+  },
+  "AML.T0010.005": {
+   "type": "technique",
+   "name": "Supply Chain Compromise: AI Agent Tool",
+   "tactics": [
+    "AML.TA0004"
+   ]
+  },
+  "AML.T0011": {
+   "type": "technique",
+   "name": "User Execution",
+   "tactics": [
+    "AML.TA0005"
+   ]
+  },
+  "AML.T0011.000": {
+   "type": "technique",
+   "name": "User Execution: Unsafe AI Artifacts",
+   "tactics": [
+    "AML.TA0005"
+   ]
+  },
+  "AML.T0011.001": {
+   "type": "technique",
+   "name": "User Execution: Malicious Package",
+   "tactics": [
+    "AML.TA0005"
+   ]
+  },
+  "AML.T0011.002": {
+   "type": "technique",
+   "name": "User Execution: Poisoned AI Agent Tool",
+   "tactics": [
+    "AML.TA0005"
+   ]
+  },
+  "AML.T0011.003": {
+   "type": "technique",
+   "name": "User Execution: Malicious Link",
+   "tactics": [
+    "AML.TA0005"
+   ]
+  },
+  "AML.T0012": {
+   "type": "technique",
+   "name": "Valid Accounts",
+   "tactics": [
+    "AML.TA0004",
+    "AML.TA0012",
+    "AML.TA0015"
+   ]
+  },
+  "AML.T0013": {
+   "type": "technique",
+   "name": "Discover AI Model Ontology",
+   "tactics": [
+    "AML.TA0008"
+   ]
+  },
+  "AML.T0014": {
+   "type": "technique",
+   "name": "Discover AI Model Family",
+   "tactics": [
+    "AML.TA0008"
+   ]
+  },
+  "AML.T0015": {
+   "type": "technique",
+   "name": "Evade AI Model",
+   "tactics": [
+    "AML.TA0004",
+    "AML.TA0007",
+    "AML.TA0011"
+   ]
+  },
+  "AML.T0016": {
+   "type": "technique",
+   "name": "Obtain Capabilities",
+   "tactics": [
+    "AML.TA0003"
+   ]
+  },
+  "AML.T0016.000": {
+   "type": "technique",
+   "name": "Obtain Capabilities: Adversarial AI Attack Implementations",
+   "tactics": [
+    "AML.TA0003"
+   ]
+  },
+  "AML.T0016.001": {
+   "type": "technique",
+   "name": "Obtain Capabilities: Software Tools",
+   "tactics": [
+    "AML.TA0003"
+   ]
+  },
+  "AML.T0016.002": {
+   "type": "technique",
+   "name": "Obtain Capabilities: Generative AI",
+   "tactics": [
+    "AML.TA0003"
+   ]
+  },
+  "AML.T0016.003": {
+   "type": "technique",
+   "name": "Obtain Capabilities: Exploits",
+   "tactics": [
+    "AML.TA0003"
+   ]
+  },
+  "AML.T0016.004": {
+   "type": "technique",
+   "name": "Obtain Capabilities: AI Agent Tools",
+   "tactics": [
+    "AML.TA0003"
+   ]
+  },
+  "AML.T0017": {
+   "type": "technique",
+   "name": "Develop Capabilities",
+   "tactics": [
+    "AML.TA0003"
+   ]
+  },
+  "AML.T0017.000": {
+   "type": "technique",
+   "name": "Develop Capabilities: Adversarial AI Attacks",
+   "tactics": [
+    "AML.TA0003"
+   ]
+  },
+  "AML.T0017.001": {
+   "type": "technique",
+   "name": "Develop Capabilities: Autonomous Exploit Development",
+   "tactics": [
+    "AML.TA0003"
+   ]
+  },
+  "AML.T0017.002": {
+   "type": "technique",
+   "name": "Develop Capabilities: AI Agent Tools",
+   "tactics": [
+    "AML.TA0003"
+   ]
+  },
+  "AML.T0017.003": {
+   "type": "technique",
+   "name": "Develop Capabilities: Malware",
+   "tactics": [
+    "AML.TA0003"
+   ]
+  },
+  "AML.T0018": {
+   "type": "technique",
+   "name": "Manipulate AI Model",
+   "tactics": [
+    "AML.TA0001",
+    "AML.TA0006"
+   ]
+  },
+  "AML.T0018.000": {
+   "type": "technique",
+   "name": "Manipulate AI Model: Poison AI Model",
+   "tactics": [
+    "AML.TA0001",
+    "AML.TA0006"
+   ]
+  },
+  "AML.T0018.001": {
+   "type": "technique",
+   "name": "Manipulate AI Model: Modify AI Model Architecture",
+   "tactics": [
+    "AML.TA0001",
+    "AML.TA0006"
+   ]
+  },
+  "AML.T0018.002": {
+   "type": "technique",
+   "name": "Manipulate AI Model: Embed Malware",
+   "tactics": [
+    "AML.TA0001",
+    "AML.TA0006"
+   ]
+  },
+  "AML.T0018.003": {
+   "type": "technique",
+   "name": "Manipulate AI Model: Modify Prompt Construction Logic",
+   "tactics": [
+    "AML.TA0001",
+    "AML.TA0006"
+   ]
+  },
+  "AML.T0020": {
+   "type": "technique",
+   "name": "Training Data Poisoning",
+   "tactics": [
+    "AML.TA0006"
+   ]
+  },
+  "AML.T0021": {
+   "type": "technique",
+   "name": "Establish Accounts",
+   "tactics": [
+    "AML.TA0003"
+   ]
+  },
+  "AML.T0024": {
+   "type": "technique",
+   "name": "Exfiltration via AI Inference API",
+   "tactics": [
+    "AML.TA0010"
+   ]
+  },
+  "AML.T0025": {
+   "type": "technique",
+   "name": "Exfiltration via Cyber Means",
+   "tactics": [
+    "AML.TA0010"
+   ]
+  },
+  "AML.T0029": {
+   "type": "technique",
+   "name": "Denial of AI Service",
+   "tactics": [
+    "AML.TA0011"
+   ]
+  },
+  "AML.T0031": {
+   "type": "technique",
+   "name": "Erode AI Model Integrity",
+   "tactics": [
+    "AML.TA0011"
+   ]
+  },
+  "AML.T0034": {
+   "type": "technique",
+   "name": "Cost Harvesting",
+   "tactics": [
+    "AML.TA0011"
+   ]
+  },
+  "AML.T0034.000": {
+   "type": "technique",
+   "name": "Cost Harvesting: Excessive Queries",
+   "tactics": [
+    "AML.TA0011"
+   ]
+  },
+  "AML.T0034.001": {
+   "type": "technique",
+   "name": "Cost Harvesting: Resource-Intensive Queries",
+   "tactics": [
+    "AML.TA0011"
+   ]
+  },
+  "AML.T0034.002": {
+   "type": "technique",
+   "name": "Cost Harvesting: Agentic Resource Consumption",
+   "tactics": [
+    "AML.TA0011"
+   ]
+  },
+  "AML.T0035": {
+   "type": "technique",
+   "name": "AI Artifact Collection",
+   "tactics": [
+    "AML.TA0009"
+   ]
+  },
+  "AML.T0036": {
+   "type": "technique",
+   "name": "Data from Information Repositories",
+   "tactics": [
+    "AML.TA0009"
+   ]
+  },
+  "AML.T0037": {
+   "type": "technique",
+   "name": "Data from Local System",
+   "tactics": [
+    "AML.TA0009"
+   ]
+  },
+  "AML.T0040": {
+   "type": "technique",
+   "name": "AI Model Inference API Access",
+   "tactics": [
+    "AML.TA0000"
+   ]
+  },
+  "AML.T0041": {
+   "type": "technique",
+   "name": "Physical Environment Access",
+   "tactics": [
+    "AML.TA0000"
+   ]
+  },
+  "AML.T0042": {
+   "type": "technique",
+   "name": "Verify Attack",
+   "tactics": [
+    "AML.TA0001"
+   ]
+  },
+  "AML.T0043": {
+   "type": "technique",
+   "name": "Craft Adversarial Data",
+   "tactics": [
+    "AML.TA0001"
+   ]
+  },
+  "AML.T0043.000": {
+   "type": "technique",
+   "name": "Craft Adversarial Data: White-Box Optimization",
+   "tactics": [
+    "AML.TA0001"
+   ]
+  },
+  "AML.T0043.001": {
+   "type": "technique",
+   "name": "Craft Adversarial Data: Black-Box Optimization",
+   "tactics": [
+    "AML.TA0001"
+   ]
+  },
+  "AML.T0043.002": {
+   "type": "technique",
+   "name": "Craft Adversarial Data: Black-Box Transfer",
+   "tactics": [
+    "AML.TA0001"
+   ]
+  },
+  "AML.T0043.003": {
+   "type": "technique",
+   "name": "Craft Adversarial Data: Manual Modification",
+   "tactics": [
+    "AML.TA0001"
+   ]
+  },
+  "AML.T0043.004": {
+   "type": "technique",
+   "name": "Craft Adversarial Data: Insert Backdoor Trigger",
+   "tactics": [
+    "AML.TA0001"
+   ]
+  },
+  "AML.T0044": {
+   "type": "technique",
+   "name": "Full AI Model Access",
+   "tactics": [
+    "AML.TA0000"
+   ]
+  },
+  "AML.T0046": {
+   "type": "technique",
+   "name": "Spamming AI System with Chaff Data",
+   "tactics": [
+    "AML.TA0011"
+   ]
+  },
+  "AML.T0047": {
+   "type": "technique",
+   "name": "AI-Enabled Product or Service",
+   "tactics": [
+    "AML.TA0000"
+   ]
+  },
+  "AML.T0048": {
+   "type": "technique",
+   "name": "External Harms",
+   "tactics": [
+    "AML.TA0011"
+   ]
+  },
+  "AML.T0048.000": {
+   "type": "technique",
+   "name": "External Harms: Financial Harm",
+   "tactics": [
+    "AML.TA0011"
+   ]
+  },
+  "AML.T0048.001": {
+   "type": "technique",
+   "name": "External Harms: Reputational Harm",
+   "tactics": [
+    "AML.TA0011"
+   ]
+  },
+  "AML.T0048.002": {
+   "type": "technique",
+   "name": "External Harms: Societal Harm",
+   "tactics": [
+    "AML.TA0011"
+   ]
+  },
+  "AML.T0048.003": {
+   "type": "technique",
+   "name": "External Harms: User Harm",
+   "tactics": [
+    "AML.TA0011"
+   ]
+  },
+  "AML.T0048.004": {
+   "type": "technique",
+   "name": "External Harms: AI Intellectual Property Theft",
+   "tactics": [
+    "AML.TA0011"
+   ]
+  },
+  "AML.T0049": {
+   "type": "technique",
+   "name": "Exploit Public-Facing Application",
+   "tactics": [
+    "AML.TA0004"
+   ]
+  },
+  "AML.T0050": {
+   "type": "technique",
+   "name": "Command and Scripting Interpreter",
+   "tactics": [
+    "AML.TA0005"
+   ]
+  },
+  "AML.T0051": {
+   "type": "technique",
+   "name": "LLM Prompt Injection",
+   "tactics": [
+    "AML.TA0005"
+   ]
+  },
+  "AML.T0051.000": {
+   "type": "technique",
+   "name": "LLM Prompt Injection: Direct",
+   "tactics": [
+    "AML.TA0005"
+   ]
+  },
+  "AML.T0051.001": {
+   "type": "technique",
+   "name": "LLM Prompt Injection: Indirect",
+   "tactics": [
+    "AML.TA0005"
+   ]
+  },
+  "AML.T0051.002": {
+   "type": "technique",
+   "name": "LLM Prompt Injection: Triggered",
+   "tactics": [
+    "AML.TA0005"
+   ]
+  },
+  "AML.T0052": {
+   "type": "technique",
+   "name": "Phishing",
+   "tactics": [
+    "AML.TA0004",
+    "AML.TA0015"
+   ]
+  },
+  "AML.T0052.000": {
+   "type": "technique",
+   "name": "Phishing: Spearphishing via Social Engineering LLM",
+   "tactics": [
+    "AML.TA0004",
+    "AML.TA0015"
+   ]
+  },
+  "AML.T0052.001": {
+   "type": "technique",
+   "name": "Phishing: Deepfake-Assisted Phishing",
+   "tactics": [
+    "AML.TA0004",
+    "AML.TA0015"
+   ]
+  },
+  "AML.T0053": {
+   "type": "technique",
+   "name": "AI Agent Tool Invocation",
+   "tactics": [
+    "AML.TA0005",
+    "AML.TA0012",
+    "AML.TA0015"
+   ]
+  },
+  "AML.T0054": {
+   "type": "technique",
+   "name": "LLM Jailbreak",
+   "tactics": [
+    "AML.TA0007",
+    "AML.TA0012"
+   ]
+  },
+  "AML.T0055": {
+   "type": "technique",
+   "name": "Unsecured Credentials",
+   "tactics": [
+    "AML.TA0013"
+   ]
+  },
+  "AML.T0059": {
+   "type": "technique",
+   "name": "Erode Dataset Integrity",
+   "tactics": [
+    "AML.TA0011"
+   ]
+  },
+  "AML.T0060": {
+   "type": "technique",
+   "name": "Publish Hallucinated Entities",
+   "tactics": [
+    "AML.TA0003"
+   ]
+  },
+  "AML.T0061": {
+   "type": "technique",
+   "name": "LLM Prompt Self-Replication",
+   "tactics": [
+    "AML.TA0006"
+   ]
+  },
+  "AML.T0062": {
+   "type": "technique",
+   "name": "Discover LLM Hallucinations",
+   "tactics": [
+    "AML.TA0008"
+   ]
+  },
+  "AML.T0063": {
+   "type": "technique",
+   "name": "Discover AI Model Outputs",
+   "tactics": [
+    "AML.TA0008"
+   ]
+  },
+  "AML.T0064": {
+   "type": "technique",
+   "name": "Gather RAG-Indexed Targets",
+   "tactics": [
+    "AML.TA0002"
+   ]
+  },
+  "AML.T0065": {
+   "type": "technique",
+   "name": "LLM Prompt Crafting",
+   "tactics": [
+    "AML.TA0001"
+   ]
+  },
+  "AML.T0066": {
+   "type": "technique",
+   "name": "Retrieval Content Crafting",
+   "tactics": [
+    "AML.TA0001"
+   ]
+  },
+  "AML.T0067": {
+   "type": "technique",
+   "name": "LLM Trusted Output Components Manipulation",
+   "tactics": [
+    "AML.TA0007"
+   ]
+  },
+  "AML.T0067.000": {
+   "type": "technique",
+   "name": "LLM Trusted Output Components Manipulation: Citations",
+   "tactics": [
+    "AML.TA0007"
+   ]
+  },
+  "AML.T0068": {
+   "type": "technique",
+   "name": "LLM Prompt Obfuscation",
+   "tactics": [
+    "AML.TA0007"
+   ]
+  },
+  "AML.T0069": {
+   "type": "technique",
+   "name": "Discover LLM System Information",
+   "tactics": [
+    "AML.TA0008"
+   ]
+  },
+  "AML.T0069.000": {
+   "type": "technique",
+   "name": "Discover LLM System Information: Special Character Sets",
+   "tactics": [
+    "AML.TA0008"
+   ]
+  },
+  "AML.T0069.001": {
+   "type": "technique",
+   "name": "Discover LLM System Information: System Instruction Keywords",
+   "tactics": [
+    "AML.TA0008"
+   ]
+  },
+  "AML.T0069.002": {
+   "type": "technique",
+   "name": "Discover LLM System Information: System Prompt",
+   "tactics": [
+    "AML.TA0008"
+   ]
+  },
+  "AML.T0070": {
+   "type": "technique",
+   "name": "RAG Poisoning",
+   "tactics": [
+    "AML.TA0006"
+   ]
+  },
+  "AML.T0071": {
+   "type": "technique",
+   "name": "False RAG Entry Injection",
+   "tactics": [
+    "AML.TA0007"
+   ]
+  },
+  "AML.T0072": {
+   "type": "technique",
+   "name": "Cyber Communication Channel",
+   "tactics": [
+    "AML.TA0014"
+   ]
+  },
+  "AML.T0073": {
+   "type": "technique",
+   "name": "Impersonation",
+   "tactics": [
+    "AML.TA0007"
+   ]
+  },
+  "AML.T0074": {
+   "type": "technique",
+   "name": "Masquerading",
+   "tactics": [
+    "AML.TA0007"
+   ]
+  },
+  "AML.T0075": {
+   "type": "technique",
+   "name": "Enterprise Resource Discovery",
+   "tactics": [
+    "AML.TA0008"
+   ]
+  },
+  "AML.T0076": {
+   "type": "technique",
+   "name": "Corrupt AI Model",
+   "tactics": [
+    "AML.TA0007"
+   ]
+  },
+  "AML.T0077": {
+   "type": "technique",
+   "name": "LLM Response Rendering",
+   "tactics": [
+    "AML.TA0010"
+   ]
+  },
+  "AML.T0078": {
+   "type": "technique",
+   "name": "Drive-by Compromise",
+   "tactics": [
+    "AML.TA0004"
+   ]
+  },
+  "AML.T0079": {
+   "type": "technique",
+   "name": "Stage Capabilities",
+   "tactics": [
+    "AML.TA0003"
+   ]
+  },
+  "AML.T0080": {
+   "type": "technique",
+   "name": "AI Agent Context Poisoning",
+   "tactics": [
+    "AML.TA0006"
+   ]
+  },
+  "AML.T0080.000": {
+   "type": "technique",
+   "name": "AI Agent Context Poisoning: Memory",
+   "tactics": [
+    "AML.TA0006"
+   ]
+  },
+  "AML.T0080.001": {
+   "type": "technique",
+   "name": "AI Agent Context Poisoning: Thread",
+   "tactics": [
+    "AML.TA0006"
+   ]
+  },
+  "AML.T0081": {
+   "type": "technique",
+   "name": "Modify AI Agent Configuration",
+   "tactics": [
+    "AML.TA0006",
+    "AML.TA0007"
+   ]
+  },
+  "AML.T0082": {
+   "type": "technique",
+   "name": "RAG Credential Harvesting",
+   "tactics": [
+    "AML.TA0013"
+   ]
+  },
+  "AML.T0083": {
+   "type": "technique",
+   "name": "Credentials from AI Agent Configuration",
+   "tactics": [
+    "AML.TA0013"
+   ]
+  },
+  "AML.T0084": {
+   "type": "technique",
+   "name": "Discover AI Agent Configuration",
+   "tactics": [
+    "AML.TA0008"
+   ]
+  },
+  "AML.T0084.000": {
+   "type": "technique",
+   "name": "Discover AI Agent Configuration: Embedded Knowledge",
+   "tactics": [
+    "AML.TA0008"
+   ]
+  },
+  "AML.T0084.001": {
+   "type": "technique",
+   "name": "Discover AI Agent Configuration: Tool Definitions",
+   "tactics": [
+    "AML.TA0008"
+   ]
+  },
+  "AML.T0084.002": {
+   "type": "technique",
+   "name": "Discover AI Agent Configuration: Activation Triggers",
+   "tactics": [
+    "AML.TA0008"
+   ]
+  },
+  "AML.T0084.003": {
+   "type": "technique",
+   "name": "Discover AI Agent Configuration: Call Chains",
+   "tactics": [
+    "AML.TA0008"
+   ]
+  },
+  "AML.T0085": {
+   "type": "technique",
+   "name": "Data from AI Services",
+   "tactics": [
+    "AML.TA0009"
+   ]
+  },
+  "AML.T0085.000": {
+   "type": "technique",
+   "name": "Data from AI Services: RAG Databases",
+   "tactics": [
+    "AML.TA0009"
+   ]
+  },
+  "AML.T0085.001": {
+   "type": "technique",
+   "name": "Data from AI Services: AI Agent Tools",
+   "tactics": [
+    "AML.TA0009"
+   ]
+  },
+  "AML.T0085.002": {
+   "type": "technique",
+   "name": "Data from AI Services: Conversation Context and Memory",
+   "tactics": [
+    "AML.TA0009"
+   ]
+  },
+  "AML.T0085.003": {
+   "type": "technique",
+   "name": "Data from AI Services: System Instructions",
+   "tactics": [
+    "AML.TA0009"
+   ]
+  },
+  "AML.T0086": {
+   "type": "technique",
+   "name": "Exfiltration via AI Agent Tool Invocation",
+   "tactics": [
+    "AML.TA0010"
+   ]
+  },
+  "AML.T0087": {
+   "type": "technique",
+   "name": "Gather Victim Identity Information",
+   "tactics": [
+    "AML.TA0002"
+   ]
+  },
+  "AML.T0088": {
+   "type": "technique",
+   "name": "Generate Deepfakes",
+   "tactics": [
+    "AML.TA0001"
+   ]
+  },
+  "AML.T0089": {
+   "type": "technique",
+   "name": "Enterprise Environment Discovery",
+   "tactics": [
+    "AML.TA0008"
+   ]
+  },
+  "AML.T0090": {
+   "type": "technique",
+   "name": "OS Credential Dumping",
+   "tactics": [
+    "AML.TA0013"
+   ]
+  },
+  "AML.T0091": {
+   "type": "technique",
+   "name": "Use Alternate Authentication Material",
+   "tactics": [
+    "AML.TA0015"
+   ]
+  },
+  "AML.T0091.000": {
+   "type": "technique",
+   "name": "Use Alternate Authentication Material: Application Access Token",
+   "tactics": [
+    "AML.TA0015"
+   ]
+  },
+  "AML.T0091.001": {
+   "type": "technique",
+   "name": "Use Alternate Authentication Material: Web Session Cookie",
+   "tactics": [
+    "AML.TA0015"
+   ]
+  },
+  "AML.T0092": {
+   "type": "technique",
+   "name": "Manipulate User LLM Chat History",
+   "tactics": [
+    "AML.TA0007"
+   ]
+  },
+  "AML.T0093": {
+   "type": "technique",
+   "name": "Prompt Infiltration via Public-Facing Application",
+   "tactics": [
+    "AML.TA0004",
+    "AML.TA0006"
+   ]
+  },
+  "AML.T0094": {
+   "type": "technique",
+   "name": "Delay Execution of LLM Instructions",
+   "tactics": [
+    "AML.TA0007"
+   ]
+  },
+  "AML.T0095": {
+   "type": "technique",
+   "name": "Search Open Websites/Domains",
+   "tactics": [
+    "AML.TA0002"
+   ]
+  },
+  "AML.T0095.000": {
+   "type": "technique",
+   "name": "Search Open Websites/Domains: Code Repositories",
+   "tactics": [
+    "AML.TA0002"
+   ]
+  },
+  "AML.T0096": {
+   "type": "technique",
+   "name": "AI Service API",
+   "tactics": [
+    "AML.TA0014"
+   ]
+  },
+  "AML.T0097": {
+   "type": "technique",
+   "name": "Virtualization/Sandbox Evasion",
+   "tactics": [
+    "AML.TA0007"
+   ]
+  },
+  "AML.T0098": {
+   "type": "technique",
+   "name": "AI Agent Tool Credential Harvesting",
+   "tactics": [
+    "AML.TA0013"
+   ]
+  },
+  "AML.T0099": {
+   "type": "technique",
+   "name": "AI Agent Tool Data Poisoning",
+   "tactics": [
+    "AML.TA0006"
+   ]
+  },
+  "AML.T0100": {
+   "type": "technique",
+   "name": "AI Agent Clickbait",
+   "tactics": [
+    "AML.TA0005"
+   ]
+  },
+  "AML.T0101": {
+   "type": "technique",
+   "name": "Data Destruction via AI Agent Tool Invocation",
+   "tactics": [
+    "AML.TA0011"
+   ]
+  },
+  "AML.T0102": {
+   "type": "technique",
+   "name": "Generate Malicious Commands",
+   "tactics": [
+    "AML.TA0001"
+   ]
+  },
+  "AML.T0103": {
+   "type": "technique",
+   "name": "Deploy AI Agent",
+   "tactics": [
+    "AML.TA0005"
+   ]
+  },
+  "AML.T0105": {
+   "type": "technique",
+   "name": "Escape to Host",
+   "tactics": [
+    "AML.TA0012"
+   ]
+  },
+  "AML.T0106": {
+   "type": "technique",
+   "name": "Exploitation for Credential Access",
+   "tactics": [
+    "AML.TA0013"
+   ]
+  },
+  "AML.T0107": {
+   "type": "technique",
+   "name": "Exploitation for Defense Evasion",
+   "tactics": [
+    "AML.TA0007"
+   ]
+  },
+  "AML.T0108": {
+   "type": "technique",
+   "name": "AI Agent",
+   "tactics": [
+    "AML.TA0014"
+   ]
+  },
+  "AML.T0109": {
+   "type": "technique",
+   "name": "AI Supply Chain Rug Pull",
+   "tactics": [
+    "AML.TA0007"
+   ]
+  },
+  "AML.T0110": {
+   "type": "technique",
+   "name": "AI Agent Tool Poisoning",
+   "tactics": [
+    "AML.TA0006"
+   ]
+  },
+  "AML.T0110.000": {
+   "type": "technique",
+   "name": "AI Agent Tool Poisoning: Definition and Instructions",
+   "tactics": [
+    "AML.TA0006"
+   ]
+  },
+  "AML.T0110.001": {
+   "type": "technique",
+   "name": "AI Agent Tool Poisoning: Implementation",
+   "tactics": [
+    "AML.TA0006"
+   ]
+  },
+  "AML.T0110.002": {
+   "type": "technique",
+   "name": "AI Agent Tool Poisoning: Runtime Response",
+   "tactics": [
+    "AML.TA0006"
+   ]
+  },
+  "AML.T0111": {
+   "type": "technique",
+   "name": "AI Supply Chain Reputation Inflation",
+   "tactics": [
+    "AML.TA0007"
+   ]
+  },
+  "AML.T0112": {
+   "type": "technique",
+   "name": "Machine Compromise",
+   "tactics": [
+    "AML.TA0011"
+   ]
+  },
+  "AML.T0112.000": {
+   "type": "technique",
+   "name": "Machine Compromise: Local AI Agent",
+   "tactics": [
+    "AML.TA0011"
+   ]
+  },
+  "AML.T0112.001": {
+   "type": "technique",
+   "name": "Machine Compromise: AI Artifacts",
+   "tactics": [
+    "AML.TA0011"
+   ]
+  },
+  "AML.T0113": {
+   "type": "technique",
+   "name": "Steal Web Session Cookie",
+   "tactics": [
+    "AML.TA0013"
+   ]
+  },
+  "AML.T0114": {
+   "type": "technique",
+   "name": "AI Service Web Interface",
+   "tactics": [
+    "AML.TA0014"
+   ]
+  },
+  "AML.T0115": {
+   "type": "technique",
+   "name": "Publish Poisoned AI Artifacts",
+   "tactics": [
+    "AML.TA0003"
+   ]
+  },
+  "AML.T0115.000": {
+   "type": "technique",
+   "name": "Publish Poisoned AI Artifacts: Datasets",
+   "tactics": [
+    "AML.TA0003"
+   ]
+  },
+  "AML.T0115.001": {
+   "type": "technique",
+   "name": "Publish Poisoned AI Artifacts: Models",
+   "tactics": [
+    "AML.TA0003"
+   ]
+  },
+  "AML.T0115.002": {
+   "type": "technique",
+   "name": "Publish Poisoned AI Artifacts: AI Agent Tools",
+   "tactics": [
+    "AML.TA0003"
+   ]
+  },
+  "AML.T0116": {
+   "type": "technique",
+   "name": "Autonomous Reconnaissance",
+   "tactics": [
+    "AML.TA0002"
+   ]
+  },
+  "AML.T0117": {
+   "type": "technique",
+   "name": "Autonomous Attack-Path Adaptation",
+   "tactics": [
+    "AML.TA0001"
+   ]
+  },
+  "AML.T0118": {
+   "type": "technique",
+   "name": "Autonomous AI Agent Communication",
+   "tactics": [
+    "AML.TA0001"
+   ]
+  },
+  "AML.T0118.000": {
+   "type": "technique",
+   "name": "Autonomous AI Agent Communication: Communication via Shared Artifacts",
+   "tactics": [
+    "AML.TA0001"
+   ]
+  },
+  "AML.T0118.001": {
+   "type": "technique",
+   "name": "Autonomous AI Agent Communication: Direct Agent Communication",
+   "tactics": [
+    "AML.TA0001"
+   ]
+  },
+  "AML.T0119": {
+   "type": "technique",
+   "name": "Exploit Automated Artifact Processing Pipeline",
+   "tactics": [
+    "AML.TA0004"
+   ]
+  },
+  "AML.T0120": {
+   "type": "technique",
+   "name": "AI Artifact Repository",
+   "tactics": [
+    "AML.TA0014"
+   ]
+  },
+  "AML.T0121": {
+   "type": "technique",
+   "name": "AI Agent Environment Reconstruction",
+   "tactics": [
+    "AML.TA0006"
+   ]
+  },
+  "AML.T0122": {
+   "type": "technique",
+   "name": "Exploitation of Remote Services",
+   "tactics": [
+    "AML.TA0015"
+   ]
+  },
+  "AML.T0123": {
+   "type": "technique",
+   "name": "Obfuscated Files or Information",
+   "tactics": [
+    "AML.TA0007"
+   ]
+  },
+  "AML.T0124": {
+   "type": "technique",
+   "name": "Autonomous Attack Orchestration",
+   "tactics": [
+    "AML.TA0001"
+   ]
+  },
+  "AML.T0125": {
+   "type": "technique",
+   "name": "Create Account",
+   "tactics": [
+    "AML.TA0006"
+   ]
+  },
+  "AML.T0126": {
+   "type": "technique",
+   "name": "Automated Collection",
+   "tactics": [
+    "AML.TA0009"
+   ]
+  },
+  "AML.T0127": {
+   "type": "technique",
+   "name": "Data Staged",
+   "tactics": [
+    "AML.TA0009"
+   ]
+  },
+  "AML.T0128": {
+   "type": "technique",
+   "name": "Compromise Infrastructure",
+   "tactics": [
+    "AML.TA0003"
+   ]
+  },
+  "AML.T0129": {
+   "type": "technique",
+   "name": "Triggers in Multimodal Inputs",
+   "tactics": [
+    "AML.TA0007"
+   ]
+  },
+  "AML.T0130": {
+   "type": "technique",
+   "name": "AI Agent Response Biasing",
+   "tactics": [
+    "AML.TA0011"
+   ]
+  },
+  "AML.T0131": {
+   "type": "technique",
+   "name": "Crafted AI Assistant Links",
+   "tactics": [
+    "AML.TA0004"
+   ]
+  },
+  "AML.T0132": {
+   "type": "technique",
+   "name": "Misconfigured or Publicly Exposed AI Services",
+   "tactics": [
+    "AML.TA0004"
+   ]
+  },
+  "AML.T0133": {
+   "type": "technique",
+   "name": "Discover AI Agent Runtime Capabilities",
+   "tactics": [
+    "AML.TA0008"
+   ]
+  },
+  "AML.T0134": {
+   "type": "technique",
+   "name": "AI Targeted Cloaking",
+   "tactics": [
+    "AML.TA0007"
+   ]
+  },
+  "AML.T0135": {
+   "type": "technique",
+   "name": "Outputs from AI Models",
+   "tactics": [
+    "AML.TA0009"
+   ]
+  },
+  "AML.T0136": {
+   "type": "technique",
+   "name": "Exfiltration via AI User Interface",
+   "tactics": [
+    "AML.TA0010"
+   ]
+  },
+  "AML.T0137": {
+   "type": "technique",
+   "name": "Training Data Information from AI Models",
+   "tactics": [
+    "AML.TA0009"
+   ]
+  },
+  "AML.T0137.000": {
+   "type": "technique",
+   "name": "Training Data Information from AI Models: Infer Membership",
+   "tactics": [
+    "AML.TA0009"
+   ]
+  },
+  "AML.T0137.001": {
+   "type": "technique",
+   "name": "Training Data Information from AI Models: Infer Properties",
+   "tactics": [
+    "AML.TA0009"
+   ]
+  },
+  "AML.T0137.002": {
+   "type": "technique",
+   "name": "Training Data Information from AI Models: Invert AI Model",
+   "tactics": [
+    "AML.TA0009"
+   ]
+  },
+  "AML.T0137.003": {
+   "type": "technique",
+   "name": "Training Data Information from AI Models: Extract Memorized Data",
+   "tactics": [
+    "AML.TA0009"
+   ]
+  },
+  "AML.T0138": {
+   "type": "technique",
+   "name": "Indicator Removal",
+   "tactics": [
+    "AML.TA0007"
+   ]
+  },
+  "AML.T0139": {
+   "type": "technique",
+   "name": "Compromise Accounts",
+   "tactics": [
+    "AML.TA0003"
+   ]
+  },
+  "AML.T0140": {
+   "type": "technique",
+   "name": "Centralized AI Service Request Routing",
+   "tactics": [
+    "AML.TA0007"
+   ]
+  },
+  "AML.T0141": {
+   "type": "technique",
+   "name": "AI Service Request Metadata Sanitization",
+   "tactics": [
+    "AML.TA0007"
+   ]
+  },
+  "AML.T0142": {
+   "type": "technique",
+   "name": "Event Triggered Execution",
+   "tactics": [
+    "AML.TA0006"
+   ]
+  },
+  "AML.T0143": {
+   "type": "technique",
+   "name": "LLM Prompt Propagation",
+   "tactics": [
+    "AML.TA0015"
+   ]
+  },
+  "AML.T0144": {
+   "type": "technique",
+   "name": "Recover AI Model Internals",
+   "tactics": [
+    "AML.TA0008",
+    "AML.TA0009"
+   ]
+  },
+  "AML.T0145": {
+   "type": "technique",
+   "name": "Poison AI Agent Learning Environment",
+   "tactics": [
+    "AML.TA0006"
+   ]
+  },
+  "AML.TA0000": {
+   "type": "tactic",
+   "name": "AI Model Access"
+  },
+  "AML.TA0001": {
+   "type": "tactic",
+   "name": "AI Attack Adaptation"
+  },
+  "AML.TA0002": {
+   "type": "tactic",
+   "name": "Reconnaissance"
+  },
+  "AML.TA0003": {
+   "type": "tactic",
+   "name": "Resource Development"
+  },
+  "AML.TA0004": {
+   "type": "tactic",
+   "name": "Initial Access"
+  },
+  "AML.TA0005": {
+   "type": "tactic",
+   "name": "Execution"
+  },
+  "AML.TA0006": {
+   "type": "tactic",
+   "name": "Persistence"
+  },
+  "AML.TA0007": {
+   "type": "tactic",
+   "name": "Defense Evasion"
+  },
+  "AML.TA0008": {
+   "type": "tactic",
+   "name": "Discovery"
+  },
+  "AML.TA0009": {
+   "type": "tactic",
+   "name": "Collection"
+  },
+  "AML.TA0010": {
+   "type": "tactic",
+   "name": "Exfiltration"
+  },
+  "AML.TA0011": {
+   "type": "tactic",
+   "name": "Impact"
+  },
+  "AML.TA0012": {
+   "type": "tactic",
+   "name": "Privilege Escalation"
+  },
+  "AML.TA0013": {
+   "type": "tactic",
+   "name": "Credential Access"
+  },
+  "AML.TA0014": {
+   "type": "tactic",
+   "name": "Command and Control"
+  },
+  "AML.TA0015": {
+   "type": "tactic",
+   "name": "Lateral Movement"
+  }
+ }
+}

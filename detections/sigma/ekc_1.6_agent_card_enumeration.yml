@@ -1,0 +1,53 @@
+title: EKC Example - Agent Card Requested From Unexpected Source
+id: 8b7480af-d0aa-41da-96a2-8f5469909770
+name: ekc_agent_card_request
+status: experimental
+description: |
+  EXAMPLE RULE. Not production-tuned.
+  Base rule for EKC-1.6. Matches requests for the A2A public Agent Card at its well-known path.
+  On its own it is noisy; the correlation rule in this file raises it when one source pulls cards
+  from many hosts in a short window.
+references:
+  - https://github.com/a2aproject/A2A/blob/v1.0.0/docs/specification.md
+author: Gourav Nagar
+date: 2026-11-08
+tags:
+  - ekc.1.6
+logsource:
+  category: webserver
+detection:
+  selection:
+    cs-method: 'GET'
+    cs-uri-stem|endswith: '/.well-known/agent-card.json'
+  condition: selection
+falsepositives:
+  - Registries and orchestrators that discover agents by design.
+level: informational
+---
+title: EKC Example - Agent Card Enumeration Across Many Hosts
+id: 32e5d9b0-e6cd-4a96-b406-23cead9c05a5
+status: experimental
+description: |
+  EXAMPLE RULE. Not production-tuned.
+  One client fetching Agent Cards from many distinct hosts within ten minutes looks like peer-agent
+  discovery for targeting (EKC-1.6). This only works where you collect web logs from many of your own
+  agents in one place (an API gateway, a reverse proxy in front of an agent fleet, or a central log
+  store). A single agent's logs only ever show one host. Tune the threshold to the number of agents
+  you run.
+author: Gourav Nagar
+date: 2026-11-08
+tags:
+  - ekc.1.6
+correlation:
+  type: value_count
+  rules:
+    - ekc_agent_card_request
+  group-by:
+    - c-ip
+  timespan: 10m
+  condition:
+    gte: 10
+    field: cs-host
+falsepositives:
+  - Agent registries and service discovery jobs. Allowlist their source addresses.
+level: medium
