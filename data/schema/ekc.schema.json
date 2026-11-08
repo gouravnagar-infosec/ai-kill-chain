@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/gouravnagar-infosec/ai-kill-chain/data/schema/ekc.schema.json",
+  "title": "Extended Cyber Kill Chain for AI-Era Threats: JSON export (data/ekc.json)",
+  "description": "Stable consumer format. Fields are only added in minor releases; renames or removals need a major release.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["framework", "reference_versions", "generated_from", "stages"],
+  "properties": {
+    "framework": {
+      "type": "object",
+      "required": ["name", "short_name", "version", "release_date", "license", "repository"],
+      "properties": {
+        "name": {"type": "string"},
+        "short_name": {"const": "EKC"},
+        "version": {"type": "string"},
+        "release_date": {"type": "string"},
+        "author": {"type": "string"},
+        "orcid": {"type": ["string", "null"]},
+        "license": {"type": "string"},
+        "doi_concept": {"type": ["string", "null"]},
+        "repository": {"type": "string"}
+      }
+    },
+    "reference_versions": {
+      "type": "object",
+      "required": ["mitre_atlas", "owasp_llm_top10", "owasp_agentic_top10"],
+      "additionalProperties": {"type": "string"}
+    },
+    "generated_from": {"type": "string"},
+    "stages": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/stage"}}
+  },
+  "$defs": {
+    "strings": {"type": "array", "items": {"type": "string"}},
+    "named": {
+      "type": "object",
+      "required": ["id", "name"],
+      "properties": {"id": {"type": "string"}, "name": {"type": "string"}}
+    },
+    "atlasRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "url"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^AML\\.(T[0-9]{4}(\\.[0-9]{3})?|CS[0-9]{4})$"},
+        "name": {"type": "string"},
+        "url": {"type": "string"},
+        "tactics": {"type": "array", "items": {"$ref": "#/$defs/named"}}
+      }
+    },
+    "stage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "status", "summary", "detection_signals", "mitigations", "sub_techniques"],
+      "properties": {
+        "id": {"type": "string"},
+        "parent": {"type": "string"},
+        "name": {"type": "string"},
+        "status": {"enum": ["new", "ai-augmented", "classical"]},
+        "summary": {"type": "string"},
+        "detection_signals": {"$ref": "#/$defs/strings"},
+        "mitigations": {"$ref": "#/$defs/strings"},
+        "sub_techniques": {"type": "array", "items": {"$ref": "#/$defs/subTechnique"}}
+      }
+    },
+    "subTechnique": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "stage", "added_in", "description", "atlas_techniques", "atlas_case_studies",
+                   "owasp_llm_top10_2025", "owasp_agentic_top10_2026"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^EKC-([0-6]\\.[0-9]+|7a|7[bc]\\.[0-9]+)$"},
+        "name": {"type": "string"},
+        "stage": {"type": "string"},
+        "added_in": {"type": "string"},
+        "description": {"type": "string"},
+        "atlas_techniques": {"type": "array", "items": {"$ref": "#/$defs/atlasRef"}},
+        "atlas_case_studies": {"type": "array", "items": {"$ref": "#/$defs/atlasRef"}},
+        "owasp_llm_top10_2025": {"type": "array", "items": {"$ref": "#/$defs/named"}},
+        "owasp_agentic_top10_2026": {"type": "array", "items": {"$ref": "#/$defs/named"}},
+        "detection_signals": {"$ref": "#/$defs/strings"},
+        "mitigations": {"$ref": "#/$defs/strings"},
+        "references": {"$ref": "#/$defs/strings"}
+      }
+    }
+  }
+}

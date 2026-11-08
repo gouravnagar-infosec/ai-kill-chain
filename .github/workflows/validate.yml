@@ -1,0 +1,30 @@
+name: Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: tools/requirements.txt
+
+      - name: Install tools
+        run: pip install -r tools/requirements.txt
+
+      - name: Validate source data and check generated files are up to date
+        run: python tools/build.py --check
+
+      - name: Validate example Sigma rules
+        run: python tools/validate_sigma.py

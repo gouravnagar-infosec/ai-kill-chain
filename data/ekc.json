@@ -1,0 +1,3230 @@
+{
+  "framework": {
+    "name": "Extended Cyber Kill Chain for AI-Era Threats",
+    "short_name": "EKC",
+    "version": "1.1",
+    "release_date": "2026-11-08",
+    "author": "Gourav Nagar",
+    "orcid": "0009-0008-7320-5927",
+    "license": "CC-BY-4.0",
+    "doi_concept": "10.5281/zenodo.20349357",
+    "repository": "https://github.com/gouravnagar-infosec/ai-kill-chain"
+  },
+  "reference_versions": {
+    "mitre_atlas": "2026.10",
+    "mitre_atlas_data_format": "6.1.0",
+    "owasp_llm_top10": "2025",
+    "owasp_agentic_top10": "2026"
+  },
+  "generated_from": "data/ekc.yaml",
+  "stages": [
+    {
+      "id": "0",
+      "name": "Model Supply Chain Compromise",
+      "status": "new",
+      "summary": "Compromising a model, dataset, fine-tuning adapter, or distribution channel that the target organization will pull into its own AI systems later. The adversary never touches the target's network.",
+      "detection_signals": [
+        "Provenance gaps in deployed model artifacts (no signed manifest, no known training-data lineage).",
+        "Cryptographic hash drift between a model pulled from a registry today and the same identifier pulled at a prior date.",
+        "Tool descriptions from third-party MCP servers that contain unusually long, instruction-like text or non-printable characters.",
+        "Anomalous neuron-activation distributions in a deployed model when probed with a curated trigger suite."
+      ],
+      "mitigations": [
+        "Keep a model bill of materials (M-BOM) for every deployed model, including base model identity, fine-tuning data hashes, and adapter provenance.",
+        "Sign and verify model artifacts. Pin specific commit hashes for registry-hosted models.",
+        "Quarantine and sandbox newly added MCP servers. Review tool descriptions as untrusted input.",
+        "Routine backdoor-trigger scanning against deployed models using published benchmarks."
+      ],
+      "sub_techniques": [
+        {
+          "id": "EKC-0.1",
+          "name": "Training data poisoning",
+          "stage": "0",
+          "added_in": "1.0",
+          "description": "Inject manipulated examples into a public dataset, web-scraped corpus, or labeling pipeline that future training runs will ingest.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0020",
+              "name": "Training Data Poisoning",
+              "url": "https://atlas.mitre.org/techniques/AML.T0020",
+              "tactics": [
+                {
+                  "id": "AML.TA0006",
+                  "name": "Persistence"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0010.002",
+              "name": "Supply Chain Compromise: Data Repository",
+              "url": "https://atlas.mitre.org/techniques/AML.T0010.002",
+              "tactics": [
+                {
+                  "id": "AML.TA0004",
+                  "name": "Initial Access"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0115.000",
+              "name": "Publish Poisoned AI Artifacts: Datasets",
+              "url": "https://atlas.mitre.org/techniques/AML.T0115.000",
+              "tactics": [
+                {
+                  "id": "AML.TA0003",
+                  "name": "Resource Development"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM04",
+              "name": "Data and Model Poisoning"
+            }
+          ],
+          "owasp_agentic_top10_2026": []
+        },
+        {
+          "id": "EKC-0.2",
+          "name": "Fine-tuning backdoor",
+          "stage": "0",
+          "added_in": "1.0",
+          "description": "Distribute a fine-tuning adapter, LoRA, or full-model checkpoint with a hidden trigger-and-behavior pair.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0018.000",
+              "name": "Manipulate AI Model: Poison AI Model",
+              "url": "https://atlas.mitre.org/techniques/AML.T0018.000",
+              "tactics": [
+                {
+                  "id": "AML.TA0001",
+                  "name": "AI Attack Adaptation"
+                },
+                {
+                  "id": "AML.TA0006",
+                  "name": "Persistence"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0043.004",
+              "name": "Craft Adversarial Data: Insert Backdoor Trigger",
+              "url": "https://atlas.mitre.org/techniques/AML.T0043.004",
+              "tactics": [
+                {
+                  "id": "AML.TA0001",
+                  "name": "AI Attack Adaptation"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0115.001",
+              "name": "Publish Poisoned AI Artifacts: Models",
+              "url": "https://atlas.mitre.org/techniques/AML.T0115.001",
+              "tactics": [
+                {
+                  "id": "AML.TA0003",
+                  "name": "Resource Development"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM03",
+              "name": "Supply Chain"
+            },
+            {
+              "id": "LLM04",
+              "name": "Data and Model Poisoning"
+            }
+          ],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI04",
+              "name": "Agentic Supply Chain Vulnerabilities"
+            }
+          ]
+        },
+        {
+          "id": "EKC-0.3",
+          "name": "Pre-trained model trojan",
+          "stage": "0",
+          "added_in": "1.0",
+          "description": "Publish a malicious model to a public registry (Hugging Face, Ollama Library, GitHub) under a plausible name or by typosquatting a real one.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0010.003",
+              "name": "Supply Chain Compromise: Model Repository",
+              "url": "https://atlas.mitre.org/techniques/AML.T0010.003",
+              "tactics": [
+                {
+                  "id": "AML.TA0004",
+                  "name": "Initial Access"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0115.001",
+              "name": "Publish Poisoned AI Artifacts: Models",
+              "url": "https://atlas.mitre.org/techniques/AML.T0115.001",
+              "tactics": [
+                {
+                  "id": "AML.TA0003",
+                  "name": "Resource Development"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0111",
+              "name": "AI Supply Chain Reputation Inflation",
+              "url": "https://atlas.mitre.org/techniques/AML.T0111",
+              "tactics": [
+                {
+                  "id": "AML.TA0007",
+                  "name": "Defense Evasion"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [
+            {
+              "id": "AML.CS0019",
+              "name": "PoisonGPT",
+              "url": "https://atlas.mitre.org/studies/AML.CS0019"
+            },
+            {
+              "id": "AML.CS0065",
+              "name": "Model Namespace Reuse Supply Chain Attack",
+              "url": "https://atlas.mitre.org/studies/AML.CS0065"
+            }
+          ],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM03",
+              "name": "Supply Chain"
+            }
+          ],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI04",
+              "name": "Agentic Supply Chain Vulnerabilities"
+            }
+          ]
+        },
+        {
+          "id": "EKC-0.4",
+          "name": "Tokenizer or preprocessing manipulation",
+          "stage": "0",
+          "added_in": "1.0",
+          "description": "Alter tokenization, normalization, or feature-extraction code in an upstream dependency to add a covert input channel.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0010.001",
+              "name": "Supply Chain Compromise: Software",
+              "url": "https://atlas.mitre.org/techniques/AML.T0010.001",
+              "tactics": [
+                {
+                  "id": "AML.TA0004",
+                  "name": "Initial Access"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0018.003",
+              "name": "Manipulate AI Model: Modify Prompt Construction Logic",
+              "url": "https://atlas.mitre.org/techniques/AML.T0018.003",
+              "tactics": [
+                {
+                  "id": "AML.TA0001",
+                  "name": "AI Attack Adaptation"
+                },
+                {
+                  "id": "AML.TA0006",
+                  "name": "Persistence"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [
+            {
+              "id": "AML.CS0064",
+              "name": "Poisoned GGUF Templates: Inference-Time Supply Chain Attack",
+              "url": "https://atlas.mitre.org/studies/AML.CS0064"
+            }
+          ],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM03",
+              "name": "Supply Chain"
+            }
+          ],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI04",
+              "name": "Agentic Supply Chain Vulnerabilities"
+            }
+          ]
+        },
+        {
+          "id": "EKC-0.5",
+          "name": "Malicious MCP server or tool catalog entry",
+          "stage": "0",
+          "added_in": "1.0",
+          "description": "Publish a tool description, MCP server manifest, or function definition designed to be invoked by downstream agents and exploit them through prompt injection in the tool description itself.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0115.002",
+              "name": "Publish Poisoned AI Artifacts: AI Agent Tools",
+              "url": "https://atlas.mitre.org/techniques/AML.T0115.002",
+              "tactics": [
+                {
+                  "id": "AML.TA0003",
+                  "name": "Resource Development"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0110.000",
+              "name": "AI Agent Tool Poisoning: Definition and Instructions",
+              "url": "https://atlas.mitre.org/techniques/AML.T0110.000",
+              "tactics": [
+                {
+                  "id": "AML.TA0006",
+                  "name": "Persistence"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0010.005",
+              "name": "Supply Chain Compromise: AI Agent Tool",
+              "url": "https://atlas.mitre.org/techniques/AML.T0010.005",
+              "tactics": [
+                {
+                  "id": "AML.TA0004",
+                  "name": "Initial Access"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0109",
+              "name": "AI Supply Chain Rug Pull",
+              "url": "https://atlas.mitre.org/techniques/AML.T0109",
+              "tactics": [
+                {
+                  "id": "AML.TA0007",
+                  "name": "Defense Evasion"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [
+            {
+              "id": "AML.CS0049",
+              "name": "Supply Chain Compromise via Poisoned ClawdBot Skill",
+              "url": "https://atlas.mitre.org/studies/AML.CS0049"
+            },
+            {
+              "id": "AML.CS0053",
+              "name": "Poisoned Postmark MCP Server Email Exfiltration",
+              "url": "https://atlas.mitre.org/studies/AML.CS0053"
+            }
+          ],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM03",
+              "name": "Supply Chain"
+            }
+          ],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI04",
+              "name": "Agentic Supply Chain Vulnerabilities"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1",
+      "name": "Reconnaissance",
+      "status": "ai-augmented",
+      "summary": "Finding the target's AI systems, what they can do, what their guardrails are, and what they connect to.",
+      "detection_signals": [
+        "High-entropy prompt sessions from a single source.",
+        "Systematic exploration of refusal boundaries.",
+        "Queries that closely match published jailbreak corpora.",
+        "Repeated requests for the system to \"repeat the instructions above.\""
+      ],
+      "mitigations": [
+        "Rate-limit and behavior-cluster prompt traffic per user identity.",
+        "Redact identifying response artifacts.",
+        "Add canary tokens to the system prompt that fire on exfiltration.",
+        "Restrict tool enumeration to authenticated, audited callers."
+      ],
+      "sub_techniques": [
+        {
+          "id": "EKC-1.1",
+          "name": "Model fingerprinting",
+          "stage": "1",
+          "added_in": "1.0",
+          "description": "Identify the base model, fine-tune family, and version of a deployed LLM through response-style probing, latency analysis, or known-answer tests.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0014",
+              "name": "Discover AI Model Family",
+              "url": "https://atlas.mitre.org/techniques/AML.T0014",
+              "tactics": [
+                {
+                  "id": "AML.TA0008",
+                  "name": "Discovery"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0006",
+              "name": "Active Scanning",
+              "url": "https://atlas.mitre.org/techniques/AML.T0006",
+              "tactics": [
+                {
+                  "id": "AML.TA0002",
+                  "name": "Reconnaissance"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0063",
+              "name": "Discover AI Model Outputs",
+              "url": "https://atlas.mitre.org/techniques/AML.T0063",
+              "tactics": [
+                {
+                  "id": "AML.TA0008",
+                  "name": "Discovery"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [],
+          "owasp_agentic_top10_2026": []
+        },
+        {
+          "id": "EKC-1.2",
+          "name": "System prompt enumeration",
+          "stage": "1",
+          "added_in": "1.0",
+          "description": "Use leakage queries, role-play probes, or boundary-case prompts to recover the system prompt or its main constraints.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0069.002",
+              "name": "Discover LLM System Information: System Prompt",
+              "url": "https://atlas.mitre.org/techniques/AML.T0069.002",
+              "tactics": [
+                {
+                  "id": "AML.TA0008",
+                  "name": "Discovery"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0084.000",
+              "name": "Discover AI Agent Configuration: Embedded Knowledge",
+              "url": "https://atlas.mitre.org/techniques/AML.T0084.000",
+              "tactics": [
+                {
+                  "id": "AML.TA0008",
+                  "name": "Discovery"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM07",
+              "name": "System Prompt Leakage"
+            }
+          ],
+          "owasp_agentic_top10_2026": []
+        },
+        {
+          "id": "EKC-1.3",
+          "name": "Capability and tool enumeration",
+          "stage": "1",
+          "added_in": "1.0",
+          "description": "Discover which tools, plugins, MCP servers, or function-call interfaces the agent has access to.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0084.001",
+              "name": "Discover AI Agent Configuration: Tool Definitions",
+              "url": "https://atlas.mitre.org/techniques/AML.T0084.001",
+              "tactics": [
+                {
+                  "id": "AML.TA0008",
+                  "name": "Discovery"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0133",
+              "name": "Discover AI Agent Runtime Capabilities",
+              "url": "https://atlas.mitre.org/techniques/AML.T0133",
+              "tactics": [
+                {
+                  "id": "AML.TA0008",
+                  "name": "Discovery"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0075",
+              "name": "Enterprise Resource Discovery",
+              "url": "https://atlas.mitre.org/techniques/AML.T0075",
+              "tactics": [
+                {
+                  "id": "AML.TA0008",
+                  "name": "Discovery"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM06",
+              "name": "Excessive Agency"
+            }
+          ],
+          "owasp_agentic_top10_2026": []
+        },
+        {
+          "id": "EKC-1.4",
+          "name": "Guardrail mapping",
+          "stage": "1",
+          "added_in": "1.0",
+          "description": "Map the policy boundary by probing refusal patterns and finding topics, formats, or input shapes that bypass classifiers.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0069",
+              "name": "Discover LLM System Information",
+              "url": "https://atlas.mitre.org/techniques/AML.T0069",
+              "tactics": [
+                {
+                  "id": "AML.TA0008",
+                  "name": "Discovery"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0006.003",
+              "name": "Active Scanning: Probe AI Agent Trigger Channels",
+              "url": "https://atlas.mitre.org/techniques/AML.T0006.003",
+              "tactics": [
+                {
+                  "id": "AML.TA0002",
+                  "name": "Reconnaissance"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0095",
+              "name": "Search Open Websites/Domains",
+              "url": "https://atlas.mitre.org/techniques/AML.T0095",
+              "tactics": [
+                {
+                  "id": "AML.TA0002",
+                  "name": "Reconnaissance"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [],
+          "owasp_agentic_top10_2026": []
+        },
+        {
+          "id": "EKC-1.5",
+          "name": "Embedding and retrieval surface discovery",
+          "stage": "1",
+          "added_in": "1.0",
+          "description": "Identify which retrieval sources the system reads from (vector store contents, document corpora, web fetch domains).",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0064",
+              "name": "Gather RAG-Indexed Targets",
+              "url": "https://atlas.mitre.org/techniques/AML.T0064",
+              "tactics": [
+                {
+                  "id": "AML.TA0002",
+                  "name": "Reconnaissance"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0084",
+              "name": "Discover AI Agent Configuration",
+              "url": "https://atlas.mitre.org/techniques/AML.T0084",
+              "tactics": [
+                {
+                  "id": "AML.TA0008",
+                  "name": "Discovery"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0085.000",
+              "name": "Data from AI Services: RAG Databases",
+              "url": "https://atlas.mitre.org/techniques/AML.T0085.000",
+              "tactics": [
+                {
+                  "id": "AML.TA0009",
+                  "name": "Collection"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM08",
+              "name": "Vector and Embedding Weaknesses"
+            }
+          ],
+          "owasp_agentic_top10_2026": []
+        },
+        {
+          "id": "EKC-1.6",
+          "name": "Peer agent and Agent Card enumeration",
+          "stage": "1",
+          "added_in": "1.1",
+          "description": "Enumerate the remote agents a target agent can delegate to, and the skills, endpoints, auth schemes and extended capabilities those agents advertise. In A2A deployments the public Agent Card sits at a well-known path and an authenticated extended card can expose more. The output is a map of which peer the attacker should impersonate, poison, or route through.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0133",
+              "name": "Discover AI Agent Runtime Capabilities",
+              "url": "https://atlas.mitre.org/techniques/AML.T0133",
+              "tactics": [
+                {
+                  "id": "AML.TA0008",
+                  "name": "Discovery"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0084.003",
+              "name": "Discover AI Agent Configuration: Call Chains",
+              "url": "https://atlas.mitre.org/techniques/AML.T0084.003",
+              "tactics": [
+                {
+                  "id": "AML.TA0008",
+                  "name": "Discovery"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0002.002",
+              "name": "Acquire Public AI Artifacts: AI Agent Configuration",
+              "url": "https://atlas.mitre.org/techniques/AML.T0002.002",
+              "tactics": [
+                {
+                  "id": "AML.TA0003",
+                  "name": "Resource Development"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI07",
+              "name": "Insecure Inter-Agent Communication"
+            }
+          ],
+          "detection_signals": [
+            "Bulk or sequential requests for /.well-known/agent-card.json across many hosts from one source.",
+            "Extended Agent Card requests from identities that never send tasks afterwards.",
+            "Agent Card fetches for internal agents from outside the network ranges that normally call them."
+          ],
+          "mitigations": [
+            "Keep the public Agent Card to what an unauthenticated caller needs. Put additional skills in the extended card, which A2A v1.0 says must require authentication, and keep internal service URLs and credentials out of both cards, as the specification advises.",
+            "Return extended-card content per caller. The specification requires agents to check a client's permissions before returning privileged information.",
+            "Rate-limit and log card retrieval like any other discovery endpoint."
+          ],
+          "references": [
+            "https://github.com/a2aproject/A2A/blob/v1.0.0/docs/specification.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Weaponization",
+      "status": "ai-augmented",
+      "summary": "Building a payload that will be delivered to the target.",
+      "detection_signals": [
+        "Pattern matches against known indirect-injection markers in inbound content.",
+        "Image, PDF, and audio analysis for steganographic instructions.",
+        "Static analysis of newly registered MCP packages."
+      ],
+      "mitigations": [
+        "Indirect-injection detection on every untrusted inbound content stream: web, email, RAG corpus, MCP tool descriptions, multi-modal inputs."
+      ],
+      "sub_techniques": [
+        {
+          "id": "EKC-2.1",
+          "name": "Adversarial prompt crafting",
+          "stage": "2",
+          "added_in": "1.0",
+          "description": "Build a prompt-injection payload tailored to the fingerprinted target model, guardrails, and toolset from Stage 1.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0065",
+              "name": "LLM Prompt Crafting",
+              "url": "https://atlas.mitre.org/techniques/AML.T0065",
+              "tactics": [
+                {
+                  "id": "AML.TA0001",
+                  "name": "AI Attack Adaptation"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0068",
+              "name": "LLM Prompt Obfuscation",
+              "url": "https://atlas.mitre.org/techniques/AML.T0068",
+              "tactics": [
+                {
+                  "id": "AML.TA0007",
+                  "name": "Defense Evasion"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM01",
+              "name": "Prompt Injection"
+            }
+          ],
+          "owasp_agentic_top10_2026": []
+        },
+        {
+          "id": "EKC-2.2",
+          "name": "Multi-modal payload construction",
+          "stage": "2",
+          "added_in": "1.0",
+          "description": "Embed instructions in images, audio, PDFs, or structured documents that a multi-modal model will parse.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0065",
+              "name": "LLM Prompt Crafting",
+              "url": "https://atlas.mitre.org/techniques/AML.T0065",
+              "tactics": [
+                {
+                  "id": "AML.TA0001",
+                  "name": "AI Attack Adaptation"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0129",
+              "name": "Triggers in Multimodal Inputs",
+              "url": "https://atlas.mitre.org/techniques/AML.T0129",
+              "tactics": [
+                {
+                  "id": "AML.TA0007",
+                  "name": "Defense Evasion"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM01",
+              "name": "Prompt Injection"
+            }
+          ],
+          "owasp_agentic_top10_2026": []
+        },
+        {
+          "id": "EKC-2.3",
+          "name": "Malicious tool or MCP package",
+          "stage": "2",
+          "added_in": "1.0",
+          "description": "Build a tool that looks benign in name and description but executes attacker-controlled actions when invoked.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0017.002",
+              "name": "Develop Capabilities: AI Agent Tools",
+              "url": "https://atlas.mitre.org/techniques/AML.T0017.002",
+              "tactics": [
+                {
+                  "id": "AML.TA0003",
+                  "name": "Resource Development"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0115.002",
+              "name": "Publish Poisoned AI Artifacts: AI Agent Tools",
+              "url": "https://atlas.mitre.org/techniques/AML.T0115.002",
+              "tactics": [
+                {
+                  "id": "AML.TA0003",
+                  "name": "Resource Development"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM03",
+              "name": "Supply Chain"
+            }
+          ],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI04",
+              "name": "Agentic Supply Chain Vulnerabilities"
+            }
+          ]
+        },
+        {
+          "id": "EKC-2.4",
+          "name": "Jailbreak chain assembly",
+          "stage": "2",
+          "added_in": "1.0",
+          "description": "Combine known bypass techniques (persona priming, encoding tricks, low-resource language pivots, structured role-play) into a single payload that defeats layered guardrails.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0054",
+              "name": "LLM Jailbreak",
+              "url": "https://atlas.mitre.org/techniques/AML.T0054",
+              "tactics": [
+                {
+                  "id": "AML.TA0007",
+                  "name": "Defense Evasion"
+                },
+                {
+                  "id": "AML.TA0012",
+                  "name": "Privilege Escalation"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0065",
+              "name": "LLM Prompt Crafting",
+              "url": "https://atlas.mitre.org/techniques/AML.T0065",
+              "tactics": [
+                {
+                  "id": "AML.TA0001",
+                  "name": "AI Attack Adaptation"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0068",
+              "name": "LLM Prompt Obfuscation",
+              "url": "https://atlas.mitre.org/techniques/AML.T0068",
+              "tactics": [
+                {
+                  "id": "AML.TA0007",
+                  "name": "Defense Evasion"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM01",
+              "name": "Prompt Injection"
+            }
+          ],
+          "owasp_agentic_top10_2026": []
+        },
+        {
+          "id": "EKC-2.5",
+          "name": "AI-generated polymorphic malware",
+          "stage": "2",
+          "added_in": "1.0",
+          "description": "Use a model to produce semantically equivalent but lexically diverse malware variants that evade signature-based detection.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0016.002",
+              "name": "Obtain Capabilities: Generative AI",
+              "url": "https://atlas.mitre.org/techniques/AML.T0016.002",
+              "tactics": [
+                {
+                  "id": "AML.TA0003",
+                  "name": "Resource Development"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0017.003",
+              "name": "Develop Capabilities: Malware",
+              "url": "https://atlas.mitre.org/techniques/AML.T0017.003",
+              "tactics": [
+                {
+                  "id": "AML.TA0003",
+                  "name": "Resource Development"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0102",
+              "name": "Generate Malicious Commands",
+              "url": "https://atlas.mitre.org/techniques/AML.T0102",
+              "tactics": [
+                {
+                  "id": "AML.TA0001",
+                  "name": "AI Attack Adaptation"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [
+            {
+              "id": "AML.CS0044",
+              "name": "LAMEHUG: Malware Leveraging Dynamic AI-Generated Commands",
+              "url": "https://atlas.mitre.org/studies/AML.CS0044"
+            }
+          ],
+          "owasp_llm_top10_2025": [],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI05",
+              "name": "Unexpected Code Execution (RCE)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Delivery",
+      "status": "ai-augmented",
+      "summary": "Getting the payload to the AI system or its operator.",
+      "detection_signals": [
+        "Anomalous instruction-like text in untrusted content streams.",
+        "High entropy in image alpha channels and metadata for multi-modal pipelines.",
+        "Unexpected language shifts inside retrieved documents."
+      ],
+      "mitigations": [
+        "Indirect-injection detection on every untrusted inbound content stream: web, email, RAG corpus, MCP tool descriptions, multi-modal inputs."
+      ],
+      "sub_techniques": [
+        {
+          "id": "EKC-3.1",
+          "name": "Indirect prompt injection via web content",
+          "stage": "3",
+          "added_in": "1.0",
+          "description": "A browsing or web-fetching agent retrieves an attacker-controlled page with instructions in it.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0051.001",
+              "name": "LLM Prompt Injection: Indirect",
+              "url": "https://atlas.mitre.org/techniques/AML.T0051.001",
+              "tactics": [
+                {
+                  "id": "AML.TA0005",
+                  "name": "Execution"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0078",
+              "name": "Drive-by Compromise",
+              "url": "https://atlas.mitre.org/techniques/AML.T0078",
+              "tactics": [
+                {
+                  "id": "AML.TA0004",
+                  "name": "Initial Access"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0134",
+              "name": "AI Targeted Cloaking",
+              "url": "https://atlas.mitre.org/techniques/AML.T0134",
+              "tactics": [
+                {
+                  "id": "AML.TA0007",
+                  "name": "Defense Evasion"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM01",
+              "name": "Prompt Injection"
+            }
+          ],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI01",
+              "name": "Agent Goal Hijack"
+            }
+          ]
+        },
+        {
+          "id": "EKC-3.2",
+          "name": "RAG corpus poisoning",
+          "stage": "3",
+          "added_in": "1.0",
+          "description": "An attacker submits content (via support tickets, public docs, code contributions, or vector-store ingestion) that will later be retrieved as context for an LLM.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0070",
+              "name": "RAG Poisoning",
+              "url": "https://atlas.mitre.org/techniques/AML.T0070",
+              "tactics": [
+                {
+                  "id": "AML.TA0006",
+                  "name": "Persistence"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0066",
+              "name": "Retrieval Content Crafting",
+              "url": "https://atlas.mitre.org/techniques/AML.T0066",
+              "tactics": [
+                {
+                  "id": "AML.TA0001",
+                  "name": "AI Attack Adaptation"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0099",
+              "name": "AI Agent Tool Data Poisoning",
+              "url": "https://atlas.mitre.org/techniques/AML.T0099",
+              "tactics": [
+                {
+                  "id": "AML.TA0006",
+                  "name": "Persistence"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM01",
+              "name": "Prompt Injection"
+            },
+            {
+              "id": "LLM04",
+              "name": "Data and Model Poisoning"
+            },
+            {
+              "id": "LLM08",
+              "name": "Vector and Embedding Weaknesses"
+            }
+          ],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI06",
+              "name": "Memory & Context Poisoning"
+            }
+          ]
+        },
+        {
+          "id": "EKC-3.3",
+          "name": "Email or message-borne injection",
+          "stage": "3",
+          "added_in": "1.0",
+          "description": "Instructions placed in an email that an AI assistant is configured to read or summarize.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0051.001",
+              "name": "LLM Prompt Injection: Indirect",
+              "url": "https://atlas.mitre.org/techniques/AML.T0051.001",
+              "tactics": [
+                {
+                  "id": "AML.TA0005",
+                  "name": "Execution"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0093",
+              "name": "Prompt Infiltration via Public-Facing Application",
+              "url": "https://atlas.mitre.org/techniques/AML.T0093",
+              "tactics": [
+                {
+                  "id": "AML.TA0004",
+                  "name": "Initial Access"
+                },
+                {
+                  "id": "AML.TA0006",
+                  "name": "Persistence"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [
+            {
+              "id": "AML.CS0059",
+              "name": "EchoLeak: Zero-Click Prompt Injection Targeting M365 Copilot for Data Exfiltration",
+              "url": "https://atlas.mitre.org/studies/AML.CS0059"
+            },
+            {
+              "id": "AML.CS0063",
+              "name": "Prompt-Based Attacks Against Gemini via Calendar Invitations",
+              "url": "https://atlas.mitre.org/studies/AML.CS0063"
+            }
+          ],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM01",
+              "name": "Prompt Injection"
+            }
+          ],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI01",
+              "name": "Agent Goal Hijack"
+            }
+          ]
+        },
+        {
+          "id": "EKC-3.4",
+          "name": "Document-borne injection",
+          "stage": "3",
+          "added_in": "1.0",
+          "description": "Instructions placed in PDFs, spreadsheets, or office documents processed by an AI workflow.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0051.001",
+              "name": "LLM Prompt Injection: Indirect",
+              "url": "https://atlas.mitre.org/techniques/AML.T0051.001",
+              "tactics": [
+                {
+                  "id": "AML.TA0005",
+                  "name": "Execution"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0093",
+              "name": "Prompt Infiltration via Public-Facing Application",
+              "url": "https://atlas.mitre.org/techniques/AML.T0093",
+              "tactics": [
+                {
+                  "id": "AML.TA0004",
+                  "name": "Initial Access"
+                },
+                {
+                  "id": "AML.TA0006",
+                  "name": "Persistence"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM01",
+              "name": "Prompt Injection"
+            }
+          ],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI01",
+              "name": "Agent Goal Hijack"
+            }
+          ]
+        },
+        {
+          "id": "EKC-3.5",
+          "name": "Tool-description poisoning",
+          "stage": "3",
+          "added_in": "1.0",
+          "description": "Instructions placed in the descriptions or schemas of MCP tools or function definitions exposed to the agent.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0110.000",
+              "name": "AI Agent Tool Poisoning: Definition and Instructions",
+              "url": "https://atlas.mitre.org/techniques/AML.T0110.000",
+              "tactics": [
+                {
+                  "id": "AML.TA0006",
+                  "name": "Persistence"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0011.002",
+              "name": "User Execution: Poisoned AI Agent Tool",
+              "url": "https://atlas.mitre.org/techniques/AML.T0011.002",
+              "tactics": [
+                {
+                  "id": "AML.TA0005",
+                  "name": "Execution"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM01",
+              "name": "Prompt Injection"
+            },
+            {
+              "id": "LLM03",
+              "name": "Supply Chain"
+            }
+          ],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI01",
+              "name": "Agent Goal Hijack"
+            },
+            {
+              "id": "ASI04",
+              "name": "Agentic Supply Chain Vulnerabilities"
+            }
+          ]
+        },
+        {
+          "id": "EKC-3.6",
+          "name": "Image, audio, or QR-code injection",
+          "stage": "3",
+          "added_in": "1.0",
+          "description": "Instructions encoded in non-text modalities that a multi-modal agent will process.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0051.001",
+              "name": "LLM Prompt Injection: Indirect",
+              "url": "https://atlas.mitre.org/techniques/AML.T0051.001",
+              "tactics": [
+                {
+                  "id": "AML.TA0005",
+                  "name": "Execution"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0129",
+              "name": "Triggers in Multimodal Inputs",
+              "url": "https://atlas.mitre.org/techniques/AML.T0129",
+              "tactics": [
+                {
+                  "id": "AML.TA0007",
+                  "name": "Defense Evasion"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM01",
+              "name": "Prompt Injection"
+            }
+          ],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI01",
+              "name": "Agent Goal Hijack"
+            }
+          ]
+        },
+        {
+          "id": "EKC-3.7",
+          "name": "Crafted assistant link delivery",
+          "stage": "3",
+          "added_in": "1.1",
+          "description": "Deliver a payload as a link that opens an AI assistant with an attacker-written prompt already filled in (for example through a ?q= or ?prompt= URL parameter), often behind a \"Summarize with AI\" button or in an email. One click replaces the user's own prompt with the attacker's. When the prompt tells the assistant to remember a source as trusted, the delivery doubles as a memory write.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0131",
+              "name": "Crafted AI Assistant Links",
+              "url": "https://atlas.mitre.org/techniques/AML.T0131",
+              "tactics": [
+                {
+                  "id": "AML.TA0004",
+                  "name": "Initial Access"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0068",
+              "name": "LLM Prompt Obfuscation",
+              "url": "https://atlas.mitre.org/techniques/AML.T0068",
+              "tactics": [
+                {
+                  "id": "AML.TA0007",
+                  "name": "Defense Evasion"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [
+            {
+              "id": "AML.CS0072",
+              "name": "AI Recommendation Poisoning via Crafted AI Assistant Links",
+              "url": "https://atlas.mitre.org/studies/AML.CS0072"
+            }
+          ],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM01",
+              "name": "Prompt Injection"
+            }
+          ],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI01",
+              "name": "Agent Goal Hijack"
+            },
+            {
+              "id": "ASI06",
+              "name": "Memory & Context Poisoning"
+            },
+            {
+              "id": "ASI09",
+              "name": "Human-Agent Trust Exploitation"
+            }
+          ],
+          "detection_signals": [
+            "URLs pointing at assistant domains whose prompt parameter contains memory or trust language (\"remember\", \"trusted source\", \"in future conversations\", \"authoritative\").",
+            "The same prefilled-prompt template showing up across inbound email from unrelated senders.",
+            "A memory write in the assistant within seconds of the user opening such a link."
+          ],
+          "mitigations": [
+            "Hunt for prefilled-prompt links in mail, chat and proxy logs. Microsoft published starter queries for this in February 2026.",
+            "Require explicit user confirmation before a prompt that arrived through a URL can write to memory.",
+            "Show users what was saved to memory and give them a one-step way to remove it."
+          ],
+          "references": [
+            "https://www.microsoft.com/en-us/security/blog/2026/02/10/ai-recommendation-poisoning/"
+          ]
+        },
+        {
+          "id": "EKC-3.8",
+          "name": "Malicious or impersonated peer agent",
+          "stage": "3",
+          "added_in": "1.1",
+          "description": "Get the payload in front of the target agent through an agent it delegates work to. The attacker runs a remote agent, or advertises one with a spoofed or tampered Agent Card, so that the target routes tasks to it. Every response that comes back is model-readable content the client agent will reason over. The protocol carries the payload faithfully; the weakness is the trust the client places in the peer.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0073",
+              "name": "Impersonation",
+              "url": "https://atlas.mitre.org/techniques/AML.T0073",
+              "tactics": [
+                {
+                  "id": "AML.TA0007",
+                  "name": "Defense Evasion"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0051.001",
+              "name": "LLM Prompt Injection: Indirect",
+              "url": "https://atlas.mitre.org/techniques/AML.T0051.001",
+              "tactics": [
+                {
+                  "id": "AML.TA0005",
+                  "name": "Execution"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM01",
+              "name": "Prompt Injection"
+            }
+          ],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI07",
+              "name": "Insecure Inter-Agent Communication"
+            },
+            {
+              "id": "ASI04",
+              "name": "Agentic Supply Chain Vulnerabilities"
+            }
+          ],
+          "detection_signals": [
+            "Delegation to an agent whose Agent Card is unsigned, whose signature fails, or whose signing key changed without notice.",
+            "A newly registered peer agent with a name or description close to an existing internal agent.",
+            "Peer agent responses that contain imperative instructions aimed at the client agent rather than task results."
+          ],
+          "mitigations": [
+            "Verify Agent Card signatures (A2A v1.0 defines JWS signatures over a JCS-canonicalized card) and pin keys for known peers.",
+            "Keep an allowlist of peer agents per workflow. Treat discovery of a new peer as a change that needs review.",
+            "Handle every peer response as untrusted input, the same way the framework treats retrieved web content."
+          ],
+          "references": [
+            "https://github.com/a2aproject/A2A/blob/v1.0.0/docs/specification.md",
+            "https://unit42.paloaltonetworks.com/agent-session-smuggling-in-agent2agent-systems/"
+          ]
+        },
+        {
+          "id": "EKC-3.9",
+          "name": "Interface-layer injection against computer-use agents",
+          "stage": "3",
+          "added_in": "1.1",
+          "description": "Place instructions where a computer-use or browser agent will see them on screen: fake error dialogs, \"verify you are human\" prompts, ClickFix-style copy-and-run steps, calendar invites, or pages served only to AI user agents. The payload targets what the agent perceives (rendered pixels, accessibility tree, DOM text) rather than a text field a filter would scan.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0100",
+              "name": "AI Agent Clickbait",
+              "url": "https://atlas.mitre.org/techniques/AML.T0100",
+              "tactics": [
+                {
+                  "id": "AML.TA0005",
+                  "name": "Execution"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0134",
+              "name": "AI Targeted Cloaking",
+              "url": "https://atlas.mitre.org/techniques/AML.T0134",
+              "tactics": [
+                {
+                  "id": "AML.TA0007",
+                  "name": "Defense Evasion"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0129",
+              "name": "Triggers in Multimodal Inputs",
+              "url": "https://atlas.mitre.org/techniques/AML.T0129",
+              "tactics": [
+                {
+                  "id": "AML.TA0007",
+                  "name": "Defense Evasion"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [
+            {
+              "id": "AML.CS0055",
+              "name": "AI ClickFix: Hijacking Computer-Use Agents Using ClickFix",
+              "url": "https://atlas.mitre.org/studies/AML.CS0055"
+            }
+          ],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM01",
+              "name": "Prompt Injection"
+            }
+          ],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI01",
+              "name": "Agent Goal Hijack"
+            }
+          ],
+          "detection_signals": [
+            "Pages that return different content when the user agent identifies as an AI browser or agent.",
+            "On-screen text in agent sessions that asks for clipboard, terminal or Run-dialog actions.",
+            "Calendar invites or documents with hidden or zero-size text processed by a browsing agent."
+          ],
+          "mitigations": [
+            "Run computer-use agents in an isolated VM or container with no access to the user's real profile, files or password manager.",
+            "Strip or flag instruction-like text in rendered content before the agent plans its next action.",
+            "Block clipboard-to-terminal and Run-dialog sequences initiated by the agent."
+          ],
+          "references": [
+            "https://embracethered.com/blog/posts/2025/ai-clickfix-ttp-claude/",
+            "https://zenity.io/company-overview/newsroom/company-news/zenity-labs-discloses-pleasefix-perplexedagent-vulnerability"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Exploitation",
+      "status": "ai-augmented",
+      "summary": "Triggering the payload. In AI terms: getting the model to follow the attacker's instructions or violate its policy.",
+      "detection_signals": [
+        "Tool invocations whose arguments derive from untrusted input strings.",
+        "Outputs that include canary tokens from the system prompt.",
+        "Large-step deviations in conversation state caused by a single retrieved document."
+      ],
+      "mitigations": [
+        "Tool-call argument lineage tracking. Any tool invocation whose arguments derive from untrusted text is treated as high-risk by default."
+      ],
+      "sub_techniques": [
+        {
+          "id": "EKC-4.1",
+          "name": "Direct prompt injection success",
+          "stage": "4",
+          "added_in": "1.0",
+          "description": "The user-facing prompt achieves the attacker's policy violation.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0051.000",
+              "name": "LLM Prompt Injection: Direct",
+              "url": "https://atlas.mitre.org/techniques/AML.T0051.000",
+              "tactics": [
+                {
+                  "id": "AML.TA0005",
+                  "name": "Execution"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM01",
+              "name": "Prompt Injection"
+            }
+          ],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI01",
+              "name": "Agent Goal Hijack"
+            }
+          ]
+        },
+        {
+          "id": "EKC-4.2",
+          "name": "Indirect prompt injection success",
+          "stage": "4",
+          "added_in": "1.0",
+          "description": "Instructions delivered via Stage 3 are followed by the model when the content is processed.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0051.001",
+              "name": "LLM Prompt Injection: Indirect",
+              "url": "https://atlas.mitre.org/techniques/AML.T0051.001",
+              "tactics": [
+                {
+                  "id": "AML.TA0005",
+                  "name": "Execution"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0051.002",
+              "name": "LLM Prompt Injection: Triggered",
+              "url": "https://atlas.mitre.org/techniques/AML.T0051.002",
+              "tactics": [
+                {
+                  "id": "AML.TA0005",
+                  "name": "Execution"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM01",
+              "name": "Prompt Injection"
+            }
+          ],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI01",
+              "name": "Agent Goal Hijack"
+            }
+          ]
+        },
+        {
+          "id": "EKC-4.3",
+          "name": "Confused-deputy tool invocation",
+          "stage": "4",
+          "added_in": "1.0",
+          "description": "The model invokes a privileged tool on behalf of the attacker, using the agent's own permissions.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0053",
+              "name": "AI Agent Tool Invocation",
+              "url": "https://atlas.mitre.org/techniques/AML.T0053",
+              "tactics": [
+                {
+                  "id": "AML.TA0005",
+                  "name": "Execution"
+                },
+                {
+                  "id": "AML.TA0012",
+                  "name": "Privilege Escalation"
+                },
+                {
+                  "id": "AML.TA0015",
+                  "name": "Lateral Movement"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0100",
+              "name": "AI Agent Clickbait",
+              "url": "https://atlas.mitre.org/techniques/AML.T0100",
+              "tactics": [
+                {
+                  "id": "AML.TA0005",
+                  "name": "Execution"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM05",
+              "name": "Improper Output Handling"
+            },
+            {
+              "id": "LLM06",
+              "name": "Excessive Agency"
+            }
+          ],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI02",
+              "name": "Tool Misuse and Exploitation"
+            },
+            {
+              "id": "ASI03",
+              "name": "Identity and Privilege Abuse"
+            }
+          ]
+        },
+        {
+          "id": "EKC-4.4",
+          "name": "Guardrail or classifier bypass",
+          "stage": "4",
+          "added_in": "1.0",
+          "description": "A safety classifier or rule-based filter is evaded such that disallowed content is produced or disallowed actions are taken.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0054",
+              "name": "LLM Jailbreak",
+              "url": "https://atlas.mitre.org/techniques/AML.T0054",
+              "tactics": [
+                {
+                  "id": "AML.TA0007",
+                  "name": "Defense Evasion"
+                },
+                {
+                  "id": "AML.TA0012",
+                  "name": "Privilege Escalation"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0015",
+              "name": "Evade AI Model",
+              "url": "https://atlas.mitre.org/techniques/AML.T0015",
+              "tactics": [
+                {
+                  "id": "AML.TA0004",
+                  "name": "Initial Access"
+                },
+                {
+                  "id": "AML.TA0007",
+                  "name": "Defense Evasion"
+                },
+                {
+                  "id": "AML.TA0011",
+                  "name": "Impact"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0068",
+              "name": "LLM Prompt Obfuscation",
+              "url": "https://atlas.mitre.org/techniques/AML.T0068",
+              "tactics": [
+                {
+                  "id": "AML.TA0007",
+                  "name": "Defense Evasion"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM01",
+              "name": "Prompt Injection"
+            }
+          ],
+          "owasp_agentic_top10_2026": []
+        },
+        {
+          "id": "EKC-4.5",
+          "name": "Memory or context pollution",
+          "stage": "4",
+          "added_in": "1.0",
+          "description": "A persistent memory store is updated with attacker-controlled content that will influence future sessions.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0080.001",
+              "name": "AI Agent Context Poisoning: Thread",
+              "url": "https://atlas.mitre.org/techniques/AML.T0080.001",
+              "tactics": [
+                {
+                  "id": "AML.TA0006",
+                  "name": "Persistence"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0080.000",
+              "name": "AI Agent Context Poisoning: Memory",
+              "url": "https://atlas.mitre.org/techniques/AML.T0080.000",
+              "tactics": [
+                {
+                  "id": "AML.TA0006",
+                  "name": "Persistence"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0092",
+              "name": "Manipulate User LLM Chat History",
+              "url": "https://atlas.mitre.org/techniques/AML.T0092",
+              "tactics": [
+                {
+                  "id": "AML.TA0007",
+                  "name": "Defense Evasion"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM01",
+              "name": "Prompt Injection"
+            }
+          ],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI06",
+              "name": "Memory & Context Poisoning"
+            }
+          ]
+        },
+        {
+          "id": "EKC-4.6",
+          "name": "Computer-use action hijack",
+          "stage": "4",
+          "added_in": "1.1",
+          "description": "The computer-use or browser agent carries out the attacker's steps as GUI and OS actions: clicking, typing, opening file:// paths, running shell commands, or driving a password manager integration it was granted for user tasks. No tool API is misused. The agent operates the machine the way the user would, so the actions look like ordinary user activity to the endpoint.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0112.000",
+              "name": "Machine Compromise: Local AI Agent",
+              "url": "https://atlas.mitre.org/techniques/AML.T0112.000",
+              "tactics": [
+                {
+                  "id": "AML.TA0011",
+                  "name": "Impact"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0053",
+              "name": "AI Agent Tool Invocation",
+              "url": "https://atlas.mitre.org/techniques/AML.T0053",
+              "tactics": [
+                {
+                  "id": "AML.TA0005",
+                  "name": "Execution"
+                },
+                {
+                  "id": "AML.TA0012",
+                  "name": "Privilege Escalation"
+                },
+                {
+                  "id": "AML.TA0015",
+                  "name": "Lateral Movement"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0101",
+              "name": "Data Destruction via AI Agent Tool Invocation",
+              "url": "https://atlas.mitre.org/techniques/AML.T0101",
+              "tactics": [
+                {
+                  "id": "AML.TA0011",
+                  "name": "Impact"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [
+            {
+              "id": "AML.CS0046",
+              "name": "Data Destruction via Indirect Prompt Injection Targeting Claude Computer-Use",
+              "url": "https://atlas.mitre.org/studies/AML.CS0046"
+            },
+            {
+              "id": "AML.CS0055",
+              "name": "AI ClickFix: Hijacking Computer-Use Agents Using ClickFix",
+              "url": "https://atlas.mitre.org/studies/AML.CS0055"
+            }
+          ],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM05",
+              "name": "Improper Output Handling"
+            },
+            {
+              "id": "LLM06",
+              "name": "Excessive Agency"
+            }
+          ],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI02",
+              "name": "Tool Misuse and Exploitation"
+            },
+            {
+              "id": "ASI05",
+              "name": "Unexpected Code Execution (RCE)"
+            }
+          ],
+          "detection_signals": [
+            "Browser agents navigating to file:// URIs or local network addresses that the user's task did not reference.",
+            "Shell or terminal processes spawned with the agent as the parent process.",
+            "Password manager item reads during an agent session that were not part of the stated task."
+          ],
+          "mitigations": [
+            "Deny file:// and local-network navigation to agents by default.",
+            "Require out-of-band human confirmation for credential retrieval, downloads and command execution.",
+            "Record agent sessions (screens plus action log) so an investigator can replay what the agent saw."
+          ],
+          "references": [
+            "https://hiddenlayer.com/innovation-hub/indirect-prompt-injection-of-claude-computer-use/",
+            "https://zenity.io/company-overview/newsroom/company-news/zenity-labs-discloses-pleasefix-perplexedagent-vulnerability"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "name": "Installation",
+      "status": "ai-augmented",
+      "summary": "Setting up persistence so the compromise survives a single session.",
+      "detection_signals": [
+        "New entries in memory stores not attributable to a legitimate user action.",
+        "Unauthorized changes to system prompts, custom GPTs, or saved skills.",
+        "Newly registered MCP endpoints.",
+        "Vector-store ingestion events outside expected pipelines."
+      ],
+      "mitigations": [
+        "Memory write audit trails.",
+        "Change control on system prompts and stored skills.",
+        "Attestation on MCP endpoints."
+      ],
+      "sub_techniques": [
+        {
+          "id": "EKC-5.1",
+          "name": "Persistent memory implant",
+          "stage": "5",
+          "added_in": "1.0",
+          "description": "Inject content into long-term memory, user preference stores, or per-account context that will be reloaded in future sessions.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0080.000",
+              "name": "AI Agent Context Poisoning: Memory",
+              "url": "https://atlas.mitre.org/techniques/AML.T0080.000",
+              "tactics": [
+                {
+                  "id": "AML.TA0006",
+                  "name": "Persistence"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [
+            {
+              "id": "AML.CS0040",
+              "name": "Hacking ChatGPT's Memories with Prompt Injection",
+              "url": "https://atlas.mitre.org/studies/AML.CS0040"
+            },
+            {
+              "id": "AML.CS0066",
+              "name": "ZombieAgent: Data Exfiltration Attack on ChatGPT",
+              "url": "https://atlas.mitre.org/studies/AML.CS0066"
+            }
+          ],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM01",
+              "name": "Prompt Injection"
+            }
+          ],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI06",
+              "name": "Memory & Context Poisoning"
+            }
+          ]
+        },
+        {
+          "id": "EKC-5.2",
+          "name": "System prompt override",
+          "stage": "5",
+          "added_in": "1.0",
+          "description": "Modify a custom GPT, assistant configuration, or agent definition to embed attacker instructions in its system prompt.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0081",
+              "name": "Modify AI Agent Configuration",
+              "url": "https://atlas.mitre.org/techniques/AML.T0081",
+              "tactics": [
+                {
+                  "id": "AML.TA0006",
+                  "name": "Persistence"
+                },
+                {
+                  "id": "AML.TA0007",
+                  "name": "Defense Evasion"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0018.003",
+              "name": "Manipulate AI Model: Modify Prompt Construction Logic",
+              "url": "https://atlas.mitre.org/techniques/AML.T0018.003",
+              "tactics": [
+                {
+                  "id": "AML.TA0001",
+                  "name": "AI Attack Adaptation"
+                },
+                {
+                  "id": "AML.TA0006",
+                  "name": "Persistence"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI10",
+              "name": "Rogue Agents"
+            }
+          ]
+        },
+        {
+          "id": "EKC-5.3",
+          "name": "Malicious connector installation",
+          "stage": "5",
+          "added_in": "1.0",
+          "description": "Cause a user or admin to install an attacker-controlled MCP server, plugin, or browser extension that gives the attacker a persistent foothold.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0081",
+              "name": "Modify AI Agent Configuration",
+              "url": "https://atlas.mitre.org/techniques/AML.T0081",
+              "tactics": [
+                {
+                  "id": "AML.TA0006",
+                  "name": "Persistence"
+                },
+                {
+                  "id": "AML.TA0007",
+                  "name": "Defense Evasion"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0011.002",
+              "name": "User Execution: Poisoned AI Agent Tool",
+              "url": "https://atlas.mitre.org/techniques/AML.T0011.002",
+              "tactics": [
+                {
+                  "id": "AML.TA0005",
+                  "name": "Execution"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0103",
+              "name": "Deploy AI Agent",
+              "url": "https://atlas.mitre.org/techniques/AML.T0103",
+              "tactics": [
+                {
+                  "id": "AML.TA0005",
+                  "name": "Execution"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM03",
+              "name": "Supply Chain"
+            }
+          ],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI04",
+              "name": "Agentic Supply Chain Vulnerabilities"
+            }
+          ]
+        },
+        {
+          "id": "EKC-5.4",
+          "name": "RAG corpus persistence",
+          "stage": "5",
+          "added_in": "1.0",
+          "description": "Ensure poisoned documents stay in the vector store across re-indexing operations.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0070",
+              "name": "RAG Poisoning",
+              "url": "https://atlas.mitre.org/techniques/AML.T0070",
+              "tactics": [
+                {
+                  "id": "AML.TA0006",
+                  "name": "Persistence"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0094",
+              "name": "Delay Execution of LLM Instructions",
+              "url": "https://atlas.mitre.org/techniques/AML.T0094",
+              "tactics": [
+                {
+                  "id": "AML.TA0007",
+                  "name": "Defense Evasion"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM04",
+              "name": "Data and Model Poisoning"
+            },
+            {
+              "id": "LLM08",
+              "name": "Vector and Embedding Weaknesses"
+            }
+          ],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI06",
+              "name": "Memory & Context Poisoning"
+            }
+          ]
+        },
+        {
+          "id": "EKC-5.5",
+          "name": "Stored skill or workflow contamination",
+          "stage": "5",
+          "added_in": "1.0",
+          "description": "Modify a stored skill, automation, or saved workflow that the agent will load and execute on a schedule or on demand.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0081",
+              "name": "Modify AI Agent Configuration",
+              "url": "https://atlas.mitre.org/techniques/AML.T0081",
+              "tactics": [
+                {
+                  "id": "AML.TA0006",
+                  "name": "Persistence"
+                },
+                {
+                  "id": "AML.TA0007",
+                  "name": "Defense Evasion"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0142",
+              "name": "Event Triggered Execution",
+              "url": "https://atlas.mitre.org/techniques/AML.T0142",
+              "tactics": [
+                {
+                  "id": "AML.TA0006",
+                  "name": "Persistence"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [
+            {
+              "id": "AML.CS0049",
+              "name": "Supply Chain Compromise via Poisoned ClawdBot Skill",
+              "url": "https://atlas.mitre.org/studies/AML.CS0049"
+            }
+          ],
+          "owasp_llm_top10_2025": [],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI04",
+              "name": "Agentic Supply Chain Vulnerabilities"
+            },
+            {
+              "id": "ASI10",
+              "name": "Rogue Agents"
+            }
+          ]
+        },
+        {
+          "id": "EKC-5.6",
+          "name": "Shared agent memory poisoning",
+          "stage": "5",
+          "added_in": "1.1",
+          "description": "Poison a memory store that more than one principal reads: team or organization memory, a knowledge base agents write back into, a shared scratchpad in a multi-agent system, or consolidated summaries that replace raw history. EKC-5.1 compromises one user's future sessions. This variant compromises every agent and user that reads the shared store, and the poisoned entry is often rewritten by summarization so it no longer looks like the original payload.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0080.000",
+              "name": "AI Agent Context Poisoning: Memory",
+              "url": "https://atlas.mitre.org/techniques/AML.T0080.000",
+              "tactics": [
+                {
+                  "id": "AML.TA0006",
+                  "name": "Persistence"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0143",
+              "name": "LLM Prompt Propagation",
+              "url": "https://atlas.mitre.org/techniques/AML.T0143",
+              "tactics": [
+                {
+                  "id": "AML.TA0015",
+                  "name": "Lateral Movement"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0061",
+              "name": "LLM Prompt Self-Replication",
+              "url": "https://atlas.mitre.org/techniques/AML.T0061",
+              "tactics": [
+                {
+                  "id": "AML.TA0006",
+                  "name": "Persistence"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM04",
+              "name": "Data and Model Poisoning"
+            },
+            {
+              "id": "LLM08",
+              "name": "Vector and Embedding Weaknesses"
+            }
+          ],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI06",
+              "name": "Memory & Context Poisoning"
+            },
+            {
+              "id": "ASI08",
+              "name": "Cascading Failures"
+            }
+          ],
+          "detection_signals": [
+            "Writes to shared memory whose content traces back to untrusted retrieved content or a peer agent.",
+            "A single memory entry that suddenly appears in the context of many unrelated users or agents.",
+            "Summarization or consolidation jobs that introduce imperative instructions not present in any source turn."
+          ],
+          "mitigations": [
+            "Attach provenance (writer identity, source content hash, time) to every memory entry and keep it through summarization.",
+            "Separate per-user memory from shared memory. Require review or a higher trust level to write to the shared store.",
+            "Support point-in-time rollback of memory, the same way a corpus or database is restored after tampering."
+          ],
+          "references": [
+            "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/",
+            "https://www.radware.com/blog/threat-intelligence/zombieagent/"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "name": "Command and Control",
+      "status": "ai-augmented",
+      "summary": "Holding an interactive or scheduled channel that lets the adversary direct further activity.",
+      "detection_signals": [
+        "Conversation-graph analysis showing instructions repeatedly arriving from the same retrieved source.",
+        "Outputs from external tools containing imperative language inconsistent with the tool's documented purpose.",
+        "Entropy analysis on agent-to-agent fields."
+      ],
+      "mitigations": [
+        "Conversation-graph analysis to surface recurring instruction sources.",
+        "Entropy analysis on agent-to-agent fields."
+      ],
+      "sub_techniques": [
+        {
+          "id": "EKC-6.1",
+          "name": "LLM channel as C2",
+          "stage": "6",
+          "added_in": "1.0",
+          "description": "Encode commands in seemingly benign user prompts, retrieved documents, or tool outputs that the agent reads on a schedule.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0096",
+              "name": "AI Service API",
+              "url": "https://atlas.mitre.org/techniques/AML.T0096",
+              "tactics": [
+                {
+                  "id": "AML.TA0014",
+                  "name": "Command and Control"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0114",
+              "name": "AI Service Web Interface",
+              "url": "https://atlas.mitre.org/techniques/AML.T0114",
+              "tactics": [
+                {
+                  "id": "AML.TA0014",
+                  "name": "Command and Control"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0108",
+              "name": "AI Agent",
+              "url": "https://atlas.mitre.org/techniques/AML.T0108",
+              "tactics": [
+                {
+                  "id": "AML.TA0014",
+                  "name": "Command and Control"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [
+            {
+              "id": "AML.CS0042",
+              "name": "SesameOp: Novel backdoor uses OpenAI Assistants API for command and control",
+              "url": "https://atlas.mitre.org/studies/AML.CS0042"
+            },
+            {
+              "id": "AML.CS0051",
+              "name": "OpenClaw Command & Control via Prompt Injection",
+              "url": "https://atlas.mitre.org/studies/AML.CS0051"
+            },
+            {
+              "id": "AML.CS0061",
+              "name": "AI in the Middle: Web-Based AI Services as C2 Relays",
+              "url": "https://atlas.mitre.org/studies/AML.CS0061"
+            }
+          ],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM01",
+              "name": "Prompt Injection"
+            }
+          ],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI10",
+              "name": "Rogue Agents"
+            }
+          ]
+        },
+        {
+          "id": "EKC-6.2",
+          "name": "Memory-mediated C2",
+          "stage": "6",
+          "added_in": "1.0",
+          "description": "Use the agent's long-term memory store as a dead-drop. The attacker writes instructions to memory through one entry point, the agent acts on them through another.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0080.000",
+              "name": "AI Agent Context Poisoning: Memory",
+              "url": "https://atlas.mitre.org/techniques/AML.T0080.000",
+              "tactics": [
+                {
+                  "id": "AML.TA0006",
+                  "name": "Persistence"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM01",
+              "name": "Prompt Injection"
+            }
+          ],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI06",
+              "name": "Memory & Context Poisoning"
+            }
+          ]
+        },
+        {
+          "id": "EKC-6.3",
+          "name": "RAG-mediated C2",
+          "stage": "6",
+          "added_in": "1.0",
+          "description": "Update a poisoned document in the vector store to deliver new instructions. The agent retrieves them on the next relevant query.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0070",
+              "name": "RAG Poisoning",
+              "url": "https://atlas.mitre.org/techniques/AML.T0070",
+              "tactics": [
+                {
+                  "id": "AML.TA0006",
+                  "name": "Persistence"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0099",
+              "name": "AI Agent Tool Data Poisoning",
+              "url": "https://atlas.mitre.org/techniques/AML.T0099",
+              "tactics": [
+                {
+                  "id": "AML.TA0006",
+                  "name": "Persistence"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM01",
+              "name": "Prompt Injection"
+            },
+            {
+              "id": "LLM08",
+              "name": "Vector and Embedding Weaknesses"
+            }
+          ],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI06",
+              "name": "Memory & Context Poisoning"
+            }
+          ]
+        },
+        {
+          "id": "EKC-6.4",
+          "name": "Tool-output C2",
+          "stage": "6",
+          "added_in": "1.0",
+          "description": "A compromised MCP server returns instruction-laden responses on each invocation, steering the agent's subsequent behavior.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0110.002",
+              "name": "AI Agent Tool Poisoning: Runtime Response",
+              "url": "https://atlas.mitre.org/techniques/AML.T0110.002",
+              "tactics": [
+                {
+                  "id": "AML.TA0006",
+                  "name": "Persistence"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0108",
+              "name": "AI Agent",
+              "url": "https://atlas.mitre.org/techniques/AML.T0108",
+              "tactics": [
+                {
+                  "id": "AML.TA0014",
+                  "name": "Command and Control"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM01",
+              "name": "Prompt Injection"
+            }
+          ],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI01",
+              "name": "Agent Goal Hijack"
+            }
+          ]
+        },
+        {
+          "id": "EKC-6.5",
+          "name": "Cross-session steganographic C2",
+          "stage": "6",
+          "added_in": "1.0",
+          "description": "Encode command payloads in fields the agent passes between sessions (user notes, project descriptions, ticket comments) where they evade content classification because each fragment looks innocuous on its own.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0068",
+              "name": "LLM Prompt Obfuscation",
+              "url": "https://atlas.mitre.org/techniques/AML.T0068",
+              "tactics": [
+                {
+                  "id": "AML.TA0007",
+                  "name": "Defense Evasion"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0094",
+              "name": "Delay Execution of LLM Instructions",
+              "url": "https://atlas.mitre.org/techniques/AML.T0094",
+              "tactics": [
+                {
+                  "id": "AML.TA0007",
+                  "name": "Defense Evasion"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [
+            {
+              "id": "AML.CS0038",
+              "name": "Planting Instructions for Delayed Automatic AI Agent Tool Invocation",
+              "url": "https://atlas.mitre.org/studies/AML.CS0038"
+            }
+          ],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM01",
+              "name": "Prompt Injection"
+            }
+          ],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI06",
+              "name": "Memory & Context Poisoning"
+            }
+          ]
+        },
+        {
+          "id": "EKC-6.6",
+          "name": "Inter-agent session smuggling",
+          "stage": "6",
+          "added_in": "1.1",
+          "description": "A malicious remote agent uses an open, stateful agent-to-agent session to slip extra instructions into the exchange between the client's request and its own final answer. Because the session persists across turns, the remote agent can adapt its instructions to what the client reveals. The user sees only the client's final summary. Unit 42 demonstrated system-prompt leakage and an unauthorized trade this way over A2A.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0051.001",
+              "name": "LLM Prompt Injection: Indirect",
+              "url": "https://atlas.mitre.org/techniques/AML.T0051.001",
+              "tactics": [
+                {
+                  "id": "AML.TA0005",
+                  "name": "Execution"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0080.001",
+              "name": "AI Agent Context Poisoning: Thread",
+              "url": "https://atlas.mitre.org/techniques/AML.T0080.001",
+              "tactics": [
+                {
+                  "id": "AML.TA0006",
+                  "name": "Persistence"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM01",
+              "name": "Prompt Injection"
+            }
+          ],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI07",
+              "name": "Insecure Inter-Agent Communication"
+            },
+            {
+              "id": "ASI01",
+              "name": "Agent Goal Hijack"
+            }
+          ],
+          "detection_signals": [
+            "Remote-agent turns that ask the client for its instructions, tool schemas or conversation history.",
+            "Tool invocations by the client agent that occur mid-delegation and are absent from the user's request.",
+            "Long multi-turn delegations where the turn count is out of line with the task type."
+          ],
+          "mitigations": [
+            "Ground the session in the user's original intent and end delegations that drift off-task.",
+            "Require out-of-band human approval for sensitive tools invoked while a delegation is open.",
+            "Surface remote-agent turns and resulting tool calls to the user instead of only the final consolidated answer."
+          ],
+          "references": [
+            "https://unit42.paloaltonetworks.com/agent-session-smuggling-in-agent2agent-systems/"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7a",
+      "name": "Data Exfiltration",
+      "status": "classical",
+      "summary": "The traditional kill chain's actions on objectives. Sensitive data is exfiltrated. Systems are destroyed, encrypted, or impaired. Fraud is committed. AI amplifies the scale rather than changing the sub-stage.",
+      "detection_signals": [
+        "Classical DLP and egress monitoring."
+      ],
+      "mitigations": [
+        "Classical DLP, monitoring, segmentation."
+      ],
+      "sub_techniques": [
+        {
+          "id": "EKC-7a",
+          "name": "Classical data exfiltration",
+          "stage": "7a",
+          "added_in": "1.0",
+          "description": "Sensitive data is exfiltrated, systems are impaired, or fraud is committed through the compromised AI system or by AI-scaled classical means.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0024",
+              "name": "Exfiltration via AI Inference API",
+              "url": "https://atlas.mitre.org/techniques/AML.T0024",
+              "tactics": [
+                {
+                  "id": "AML.TA0010",
+                  "name": "Exfiltration"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0086",
+              "name": "Exfiltration via AI Agent Tool Invocation",
+              "url": "https://atlas.mitre.org/techniques/AML.T0086",
+              "tactics": [
+                {
+                  "id": "AML.TA0010",
+                  "name": "Exfiltration"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0136",
+              "name": "Exfiltration via AI User Interface",
+              "url": "https://atlas.mitre.org/techniques/AML.T0136",
+              "tactics": [
+                {
+                  "id": "AML.TA0010",
+                  "name": "Exfiltration"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0085",
+              "name": "Data from AI Services",
+              "url": "https://atlas.mitre.org/techniques/AML.T0085",
+              "tactics": [
+                {
+                  "id": "AML.TA0009",
+                  "name": "Collection"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0025",
+              "name": "Exfiltration via Cyber Means",
+              "url": "https://atlas.mitre.org/techniques/AML.T0025",
+              "tactics": [
+                {
+                  "id": "AML.TA0010",
+                  "name": "Exfiltration"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM02",
+              "name": "Sensitive Information Disclosure"
+            },
+            {
+              "id": "LLM09",
+              "name": "Misinformation"
+            },
+            {
+              "id": "LLM10",
+              "name": "Unbounded Consumption"
+            }
+          ],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI02",
+              "name": "Tool Misuse and Exploitation"
+            }
+          ]
+        }
+      ],
+      "parent": "7"
+    },
+    {
+      "id": "7b",
+      "name": "Model Extraction",
+      "status": "new",
+      "summary": "The target is the model itself, the data inside it, or the knowledge encoded in it.",
+      "detection_signals": [
+        "High-volume programmatic query patterns from a single identity, especially with low entropy in query templates and high entropy in inputs.",
+        "Queries that contain classical memorization probes (\"repeat the text above\").",
+        "Query distributions that resemble published extraction attacks."
+      ],
+      "mitigations": [
+        "Query-pattern analytics.",
+        "Memorization probes in red-team suites.",
+        "Watermarking of model outputs."
+      ],
+      "sub_techniques": [
+        {
+          "id": "EKC-7b.1",
+          "name": "API-based model extraction",
+          "stage": "7b",
+          "added_in": "1.0",
+          "description": "Reconstruct an approximation of a deployed model's weights or decision boundary by querying it at scale and training a surrogate.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0005",
+              "name": "Replicate AI Model Behavior",
+              "url": "https://atlas.mitre.org/techniques/AML.T0005",
+              "tactics": [
+                {
+                  "id": "AML.TA0001",
+                  "name": "AI Attack Adaptation"
+                },
+                {
+                  "id": "AML.TA0003",
+                  "name": "Resource Development"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0005.001",
+              "name": "Replicate AI Model Behavior: Replicate Behavior from Model Outputs",
+              "url": "https://atlas.mitre.org/techniques/AML.T0005.001",
+              "tactics": [
+                {
+                  "id": "AML.TA0001",
+                  "name": "AI Attack Adaptation"
+                },
+                {
+                  "id": "AML.TA0003",
+                  "name": "Resource Development"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0135",
+              "name": "Outputs from AI Models",
+              "url": "https://atlas.mitre.org/techniques/AML.T0135",
+              "tactics": [
+                {
+                  "id": "AML.TA0009",
+                  "name": "Collection"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0144",
+              "name": "Recover AI Model Internals",
+              "url": "https://atlas.mitre.org/techniques/AML.T0144",
+              "tactics": [
+                {
+                  "id": "AML.TA0008",
+                  "name": "Discovery"
+                },
+                {
+                  "id": "AML.TA0009",
+                  "name": "Collection"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [
+            {
+              "id": "AML.CS0056",
+              "name": "Model Distillation Campaigns Targeting Anthropic Claude",
+              "url": "https://atlas.mitre.org/studies/AML.CS0056"
+            },
+            {
+              "id": "AML.CS0058",
+              "name": "Google Photos AI Model Extraction",
+              "url": "https://atlas.mitre.org/studies/AML.CS0058"
+            },
+            {
+              "id": "AML.CS0075",
+              "name": "Model Distillation Campaigns Targeting Google AI Services",
+              "url": "https://atlas.mitre.org/studies/AML.CS0075"
+            },
+            {
+              "id": "AML.CS0076",
+              "name": "China-Based Artificial Intelligence Companies Conducting Industrial-Scale Distillation Campaigns Against U.S. AI Companies",
+              "url": "https://atlas.mitre.org/studies/AML.CS0076"
+            }
+          ],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM10",
+              "name": "Unbounded Consumption"
+            }
+          ],
+          "owasp_agentic_top10_2026": []
+        },
+        {
+          "id": "EKC-7b.2",
+          "name": "Training-data extraction",
+          "stage": "7b",
+          "added_in": "1.0",
+          "description": "Recover verbatim or near-verbatim training examples, including sensitive PII or proprietary content, through memorization-targeting prompts.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0137.003",
+              "name": "Training Data Information from AI Models: Extract Memorized Data",
+              "url": "https://atlas.mitre.org/techniques/AML.T0137.003",
+              "tactics": [
+                {
+                  "id": "AML.TA0009",
+                  "name": "Collection"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM02",
+              "name": "Sensitive Information Disclosure"
+            }
+          ],
+          "owasp_agentic_top10_2026": []
+        },
+        {
+          "id": "EKC-7b.3",
+          "name": "Membership inference",
+          "stage": "7b",
+          "added_in": "1.0",
+          "description": "Determine whether a specific record was in the training set. Has downstream implications for privacy regulation and confidentiality.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0137.000",
+              "name": "Training Data Information from AI Models: Infer Membership",
+              "url": "https://atlas.mitre.org/techniques/AML.T0137.000",
+              "tactics": [
+                {
+                  "id": "AML.TA0009",
+                  "name": "Collection"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM02",
+              "name": "Sensitive Information Disclosure"
+            }
+          ],
+          "owasp_agentic_top10_2026": []
+        },
+        {
+          "id": "EKC-7b.4",
+          "name": "System prompt and instruction extraction",
+          "stage": "7b",
+          "added_in": "1.0",
+          "description": "Recover proprietary system prompts that encode business logic, pricing rules, or competitive positioning.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0085.003",
+              "name": "Data from AI Services: System Instructions",
+              "url": "https://atlas.mitre.org/techniques/AML.T0085.003",
+              "tactics": [
+                {
+                  "id": "AML.TA0009",
+                  "name": "Collection"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0069.002",
+              "name": "Discover LLM System Information: System Prompt",
+              "url": "https://atlas.mitre.org/techniques/AML.T0069.002",
+              "tactics": [
+                {
+                  "id": "AML.TA0008",
+                  "name": "Discovery"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM07",
+              "name": "System Prompt Leakage"
+            }
+          ],
+          "owasp_agentic_top10_2026": []
+        },
+        {
+          "id": "EKC-7b.5",
+          "name": "Capability mining",
+          "stage": "7b",
+          "added_in": "1.0",
+          "description": "Use the deployed model to perform tasks the attacker's own infrastructure cannot. The access becomes a capability transfer.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0047",
+              "name": "AI-Enabled Product or Service",
+              "url": "https://atlas.mitre.org/techniques/AML.T0047",
+              "tactics": [
+                {
+                  "id": "AML.TA0000",
+                  "name": "AI Model Access"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0034",
+              "name": "Cost Harvesting",
+              "url": "https://atlas.mitre.org/techniques/AML.T0034",
+              "tactics": [
+                {
+                  "id": "AML.TA0011",
+                  "name": "Impact"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [
+            {
+              "id": "AML.CS0030",
+              "name": "LLMjacking: Stolen Cloud Credentials Used to Access Cloud LLM Services",
+              "url": "https://atlas.mitre.org/studies/AML.CS0030"
+            }
+          ],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM10",
+              "name": "Unbounded Consumption"
+            }
+          ],
+          "owasp_agentic_top10_2026": []
+        }
+      ],
+      "parent": "7"
+    },
+    {
+      "id": "7c",
+      "name": "Agentic Pivot",
+      "status": "new",
+      "summary": "The compromised AI agent is used to take actions in connected systems, using its own legitimate permissions, or the credentials it holds are lifted and used elsewhere.",
+      "detection_signals": [
+        "Tool calls whose arguments contain content traceable to untrusted upstream sources.",
+        "Tool-call graphs that cross trust boundaries that no human action did.",
+        "Spikes in cross-application calls per session.",
+        "Outbound communications initiated by agents to recipients not in any prior conversation history."
+      ],
+      "mitigations": [
+        "Per-tool blast-radius limits.",
+        "Human-in-the-loop on high-impact tools.",
+        "Identity propagation review: does the downstream system know it is acting on behalf of an agent, not a user?"
+      ],
+      "sub_techniques": [
+        {
+          "id": "EKC-7c.1",
+          "name": "Tool-mediated lateral action",
+          "stage": "7c",
+          "added_in": "1.0",
+          "description": "The agent invokes legitimate tools (email send, file write, ticket creation, payment authorization) on behalf of the attacker.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0053",
+              "name": "AI Agent Tool Invocation",
+              "url": "https://atlas.mitre.org/techniques/AML.T0053",
+              "tactics": [
+                {
+                  "id": "AML.TA0005",
+                  "name": "Execution"
+                },
+                {
+                  "id": "AML.TA0012",
+                  "name": "Privilege Escalation"
+                },
+                {
+                  "id": "AML.TA0015",
+                  "name": "Lateral Movement"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0086",
+              "name": "Exfiltration via AI Agent Tool Invocation",
+              "url": "https://atlas.mitre.org/techniques/AML.T0086",
+              "tactics": [
+                {
+                  "id": "AML.TA0010",
+                  "name": "Exfiltration"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM06",
+              "name": "Excessive Agency"
+            }
+          ],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI02",
+              "name": "Tool Misuse and Exploitation"
+            }
+          ]
+        },
+        {
+          "id": "EKC-7c.2",
+          "name": "Cross-app pivot",
+          "stage": "7c",
+          "added_in": "1.0",
+          "description": "The agent moves from one connected application to another (calendar to CRM to payment processor) by chaining tool calls.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0091",
+              "name": "Use Alternate Authentication Material",
+              "url": "https://atlas.mitre.org/techniques/AML.T0091",
+              "tactics": [
+                {
+                  "id": "AML.TA0015",
+                  "name": "Lateral Movement"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0098",
+              "name": "AI Agent Tool Credential Harvesting",
+              "url": "https://atlas.mitre.org/techniques/AML.T0098",
+              "tactics": [
+                {
+                  "id": "AML.TA0013",
+                  "name": "Credential Access"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0143",
+              "name": "LLM Prompt Propagation",
+              "url": "https://atlas.mitre.org/techniques/AML.T0143",
+              "tactics": [
+                {
+                  "id": "AML.TA0015",
+                  "name": "Lateral Movement"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM06",
+              "name": "Excessive Agency"
+            }
+          ],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI02",
+              "name": "Tool Misuse and Exploitation"
+            },
+            {
+              "id": "ASI03",
+              "name": "Identity and Privilege Abuse"
+            }
+          ]
+        },
+        {
+          "id": "EKC-7c.3",
+          "name": "Identity confusion attack",
+          "stage": "7c",
+          "added_in": "1.0",
+          "description": "The agent acts in a context where downstream systems treat its actions as the actions of a privileged user, granting privileges the attacker does not directly hold.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0091.000",
+              "name": "Use Alternate Authentication Material: Application Access Token",
+              "url": "https://atlas.mitre.org/techniques/AML.T0091.000",
+              "tactics": [
+                {
+                  "id": "AML.TA0015",
+                  "name": "Lateral Movement"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM06",
+              "name": "Excessive Agency"
+            }
+          ],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI03",
+              "name": "Identity and Privilege Abuse"
+            }
+          ]
+        },
+        {
+          "id": "EKC-7c.4",
+          "name": "Recursive agent abuse",
+          "stage": "7c",
+          "added_in": "1.0",
+          "description": "A compromised agent invokes other agents, propagating the compromise across an agent fabric without classical lateral movement.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0143",
+              "name": "LLM Prompt Propagation",
+              "url": "https://atlas.mitre.org/techniques/AML.T0143",
+              "tactics": [
+                {
+                  "id": "AML.TA0015",
+                  "name": "Lateral Movement"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0103",
+              "name": "Deploy AI Agent",
+              "url": "https://atlas.mitre.org/techniques/AML.T0103",
+              "tactics": [
+                {
+                  "id": "AML.TA0005",
+                  "name": "Execution"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM06",
+              "name": "Excessive Agency"
+            }
+          ],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI07",
+              "name": "Insecure Inter-Agent Communication"
+            },
+            {
+              "id": "ASI08",
+              "name": "Cascading Failures"
+            }
+          ]
+        },
+        {
+          "id": "EKC-7c.5",
+          "name": "Workflow weaponization",
+          "stage": "7c",
+          "added_in": "1.0",
+          "description": "A stored automation or scheduled workflow runs the attacker's intended action on a recurring basis.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0081",
+              "name": "Modify AI Agent Configuration",
+              "url": "https://atlas.mitre.org/techniques/AML.T0081",
+              "tactics": [
+                {
+                  "id": "AML.TA0006",
+                  "name": "Persistence"
+                },
+                {
+                  "id": "AML.TA0007",
+                  "name": "Defense Evasion"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0101",
+              "name": "Data Destruction via AI Agent Tool Invocation",
+              "url": "https://atlas.mitre.org/techniques/AML.T0101",
+              "tactics": [
+                {
+                  "id": "AML.TA0011",
+                  "name": "Impact"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0142",
+              "name": "Event Triggered Execution",
+              "url": "https://atlas.mitre.org/techniques/AML.T0142",
+              "tactics": [
+                {
+                  "id": "AML.TA0006",
+                  "name": "Persistence"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM06",
+              "name": "Excessive Agency"
+            }
+          ],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI02",
+              "name": "Tool Misuse and Exploitation"
+            },
+            {
+              "id": "ASI10",
+              "name": "Rogue Agents"
+            }
+          ]
+        },
+        {
+          "id": "EKC-7c.6",
+          "name": "Agent credential and token theft",
+          "stage": "7c",
+          "added_in": "1.1",
+          "description": "Lift the credentials an agent holds or brokers (OAuth access and refresh tokens, MCP server tokens, API keys, session cookies, CI secrets) so the attacker can use them outside the agent. Paths include steering the agent to read its own environment or config files, abusing token passthrough or over-broad scopes in an MCP proxy, and malicious MCP servers that collect forwarded tokens. Once the token leaves, the attacker no longer needs the agent.",
+          "atlas_techniques": [
+            {
+              "id": "AML.T0098",
+              "name": "AI Agent Tool Credential Harvesting",
+              "url": "https://atlas.mitre.org/techniques/AML.T0098",
+              "tactics": [
+                {
+                  "id": "AML.TA0013",
+                  "name": "Credential Access"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0083",
+              "name": "Credentials from AI Agent Configuration",
+              "url": "https://atlas.mitre.org/techniques/AML.T0083",
+              "tactics": [
+                {
+                  "id": "AML.TA0013",
+                  "name": "Credential Access"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0055",
+              "name": "Unsecured Credentials",
+              "url": "https://atlas.mitre.org/techniques/AML.T0055",
+              "tactics": [
+                {
+                  "id": "AML.TA0013",
+                  "name": "Credential Access"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0091.000",
+              "name": "Use Alternate Authentication Material: Application Access Token",
+              "url": "https://atlas.mitre.org/techniques/AML.T0091.000",
+              "tactics": [
+                {
+                  "id": "AML.TA0015",
+                  "name": "Lateral Movement"
+                }
+              ]
+            },
+            {
+              "id": "AML.T0113",
+              "name": "Steal Web Session Cookie",
+              "url": "https://atlas.mitre.org/techniques/AML.T0113",
+              "tactics": [
+                {
+                  "id": "AML.TA0013",
+                  "name": "Credential Access"
+                }
+              ]
+            }
+          ],
+          "atlas_case_studies": [
+            {
+              "id": "AML.CS0048",
+              "name": "Exposed ClawdBot Control Interfaces Leads to Credential Access and Execution",
+              "url": "https://atlas.mitre.org/studies/AML.CS0048"
+            },
+            {
+              "id": "AML.CS0067",
+              "name": "Claude Code GitHub Action Secret Exposure",
+              "url": "https://atlas.mitre.org/studies/AML.CS0067"
+            }
+          ],
+          "owasp_llm_top10_2025": [
+            {
+              "id": "LLM02",
+              "name": "Sensitive Information Disclosure"
+            },
+            {
+              "id": "LLM06",
+              "name": "Excessive Agency"
+            }
+          ],
+          "owasp_agentic_top10_2026": [
+            {
+              "id": "ASI03",
+              "name": "Identity and Privilege Abuse"
+            }
+          ],
+          "detection_signals": [
+            "Agent file reads of /proc/*/environ, credential stores, or agent config files such as mcp.json.",
+            "Use of an agent-issued token from an IP, ASN or user agent the agent never runs from.",
+            "MCP servers receiving tokens whose audience is not the server itself (token passthrough)."
+          ],
+          "mitigations": [
+            "Follow the MCP authorization rules: servers must not accept tokens not issued to them, and proxies need per-client consent.",
+            "Issue short-lived, narrowly scoped tokens per agent and per task. Bind them to the workload where the IdP supports it.",
+            "Apply Meta's \"Agents Rule of Two\": no single agent should process untrusted input, hold secrets or private data, and change state or communicate externally at the same time."
+          ],
+          "references": [
+            "https://modelcontextprotocol.io/specification/2025-11-25/basic/security_best_practices",
+            "https://www.microsoft.com/en-us/security/blog/2026/06/05/securing-ci-cd-in-agentic-world-claude-code-github-action-case/",
+            "https://github.com/LibreChat-AI/LibreChat/security/advisories/GHSA-pmw7-gqwj-f954",
+            "https://ai.meta.com/blog/practical-ai-agent-security/"
+          ]
+        }
+      ],
+      "parent": "7"
+    }
+  ]
+}

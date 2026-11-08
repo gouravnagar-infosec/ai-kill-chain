@@ -1,0 +1,1070 @@
+# Extended Cyber Kill Chain for AI-Era Threats: single source of truth.
+# Edit this file, then run `python tools/build.py` to regenerate data/*.json and the
+# generated tables in mappings/mitre-atlas-mapping.md. CI fails if outputs are stale.
+framework:
+  name: Extended Cyber Kill Chain for AI-Era Threats
+  short_name: EKC
+  version: '1.1'
+  release_date: '2026-11-08'
+  author: Gourav Nagar
+  orcid: 0009-0008-7320-5927
+  license: CC-BY-4.0
+  doi_concept: 10.5281/zenodo.20349357
+  repository: https://github.com/gouravnagar-infosec/ai-kill-chain
+reference_versions:
+  mitre_atlas: '2026.10'
+  mitre_atlas_data_format: 6.1.0
+  owasp_llm_top10: '2025'
+  owasp_agentic_top10: '2026'
+stages:
+- id: '0'
+  name: Model Supply Chain Compromise
+  status: new
+  summary: >-
+    Compromising a model, dataset, fine-tuning adapter, or distribution channel that the target organization will
+    pull into its own AI systems later. The adversary never touches the target's network.
+  detection_signals:
+  - Provenance gaps in deployed model artifacts (no signed manifest, no known training-data lineage).
+  - >-
+    Cryptographic hash drift between a model pulled from a registry today and the same identifier pulled at a prior
+    date.
+  - >-
+    Tool descriptions from third-party MCP servers that contain unusually long, instruction-like text or non-printable
+    characters.
+  - >-
+    Anomalous neuron-activation distributions in a deployed model when probed with a curated trigger suite.
+  mitigations:
+  - >-
+    Keep a model bill of materials (M-BOM) for every deployed model, including base model identity, fine-tuning
+    data hashes, and adapter provenance.
+  - Sign and verify model artifacts. Pin specific commit hashes for registry-hosted models.
+  - Quarantine and sandbox newly added MCP servers. Review tool descriptions as untrusted input.
+  - Routine backdoor-trigger scanning against deployed models using published benchmarks.
+  sub_techniques:
+  - id: EKC-0.1
+    name: Training data poisoning
+    added_in: '1.0'
+    description: >-
+      Inject manipulated examples into a public dataset, web-scraped corpus, or labeling pipeline that future training
+      runs will ingest.
+    atlas:
+    - AML.T0020
+    - AML.T0010.002
+    - AML.T0115.000
+    owasp_llm:
+    - LLM04
+    owasp_agentic: []
+  - id: EKC-0.2
+    name: Fine-tuning backdoor
+    added_in: '1.0'
+    description: >-
+      Distribute a fine-tuning adapter, LoRA, or full-model checkpoint with a hidden trigger-and-behavior pair.
+    atlas:
+    - AML.T0018.000
+    - AML.T0043.004
+    - AML.T0115.001
+    owasp_llm:
+    - LLM03
+    - LLM04
+    owasp_agentic:
+    - ASI04
+  - id: EKC-0.3
+    name: Pre-trained model trojan
+    added_in: '1.0'
+    description: >-
+      Publish a malicious model to a public registry (Hugging Face, Ollama Library, GitHub) under a plausible name
+      or by typosquatting a real one.
+    atlas:
+    - AML.T0010.003
+    - AML.T0115.001
+    - AML.T0111
+    atlas_case_studies:
+    - AML.CS0019
+    - AML.CS0065
+    owasp_llm:
+    - LLM03
+    owasp_agentic:
+    - ASI04
+  - id: EKC-0.4
+    name: Tokenizer or preprocessing manipulation
+    added_in: '1.0'
+    description: >-
+      Alter tokenization, normalization, or feature-extraction code in an upstream dependency to add a covert input
+      channel.
+    atlas:
+    - AML.T0010.001
+    - AML.T0018.003
+    atlas_case_studies:
+    - AML.CS0064
+    owasp_llm:
+    - LLM03
+    owasp_agentic:
+    - ASI04
+  - id: EKC-0.5
+    name: Malicious MCP server or tool catalog entry
+    added_in: '1.0'
+    description: >-
+      Publish a tool description, MCP server manifest, or function definition designed to be invoked by downstream
+      agents and exploit them through prompt injection in the tool description itself.
+    atlas:
+    - AML.T0115.002
+    - AML.T0110.000
+    - AML.T0010.005
+    - AML.T0109
+    atlas_case_studies:
+    - AML.CS0049
+    - AML.CS0053
+    owasp_llm:
+    - LLM03
+    owasp_agentic:
+    - ASI04
+- id: '1'
+  name: Reconnaissance
+  status: ai-augmented
+  summary: >-
+    Finding the target's AI systems, what they can do, what their guardrails are, and what they connect to.
+  detection_signals:
+  - High-entropy prompt sessions from a single source.
+  - Systematic exploration of refusal boundaries.
+  - Queries that closely match published jailbreak corpora.
+  - Repeated requests for the system to "repeat the instructions above."
+  mitigations:
+  - Rate-limit and behavior-cluster prompt traffic per user identity.
+  - Redact identifying response artifacts.
+  - Add canary tokens to the system prompt that fire on exfiltration.
+  - Restrict tool enumeration to authenticated, audited callers.
+  sub_techniques:
+  - id: EKC-1.1
+    name: Model fingerprinting
+    added_in: '1.0'
+    description: >-
+      Identify the base model, fine-tune family, and version of a deployed LLM through response-style probing, latency
+      analysis, or known-answer tests.
+    atlas:
+    - AML.T0014
+    - AML.T0006
+    - AML.T0063
+    owasp_llm: []
+    owasp_agentic: []
+  - id: EKC-1.2
+    name: System prompt enumeration
+    added_in: '1.0'
+    description: >-
+      Use leakage queries, role-play probes, or boundary-case prompts to recover the system prompt or its main constraints.
+    atlas:
+    - AML.T0069.002
+    - AML.T0084.000
+    owasp_llm:
+    - LLM07
+    owasp_agentic: []
+  - id: EKC-1.3
+    name: Capability and tool enumeration
+    added_in: '1.0'
+    description: Discover which tools, plugins, MCP servers, or function-call interfaces the agent has access to.
+    atlas:
+    - AML.T0084.001
+    - AML.T0133
+    - AML.T0075
+    owasp_llm:
+    - LLM06
+    owasp_agentic: []
+  - id: EKC-1.4
+    name: Guardrail mapping
+    added_in: '1.0'
+    description: >-
+      Map the policy boundary by probing refusal patterns and finding topics, formats, or input shapes that bypass
+      classifiers.
+    atlas:
+    - AML.T0069
+    - AML.T0006.003
+    - AML.T0095
+    owasp_llm: []
+    owasp_agentic: []
+  - id: EKC-1.5
+    name: Embedding and retrieval surface discovery
+    added_in: '1.0'
+    description: >-
+      Identify which retrieval sources the system reads from (vector store contents, document corpora, web fetch
+      domains).
+    atlas:
+    - AML.T0064
+    - AML.T0084
+    - AML.T0085.000
+    owasp_llm:
+    - LLM08
+    owasp_agentic: []
+  - id: EKC-1.6
+    name: Peer agent and Agent Card enumeration
+    added_in: '1.1'
+    description: >-
+      Enumerate the remote agents a target agent can delegate to, and the skills, endpoints, auth schemes and extended
+      capabilities those agents advertise. In A2A deployments the public Agent Card sits at a well-known path and
+      an authenticated extended card can expose more. The output is a map of which peer the attacker should impersonate,
+      poison, or route through.
+    atlas:
+    - AML.T0133
+    - AML.T0084.003
+    - AML.T0002.002
+    owasp_llm: []
+    owasp_agentic:
+    - ASI07
+    detection_signals:
+    - Bulk or sequential requests for /.well-known/agent-card.json across many hosts from one source.
+    - Extended Agent Card requests from identities that never send tasks afterwards.
+    - Agent Card fetches for internal agents from outside the network ranges that normally call them.
+    mitigations:
+    - >-
+      Keep the public Agent Card to what an unauthenticated caller needs. Put additional skills in the extended card,
+      which A2A v1.0 says must require authentication, and keep internal service URLs and credentials out of both
+      cards, as the specification advises.
+    - >-
+      Return extended-card content per caller. The specification requires agents to check a client's permissions
+      before returning privileged information.
+    - Rate-limit and log card retrieval like any other discovery endpoint.
+    references:
+    - https://github.com/a2aproject/A2A/blob/v1.0.0/docs/specification.md
+- id: '2'
+  name: Weaponization
+  status: ai-augmented
+  summary: Building a payload that will be delivered to the target.
+  detection_signals:
+  - Pattern matches against known indirect-injection markers in inbound content.
+  - Image, PDF, and audio analysis for steganographic instructions.
+  - Static analysis of newly registered MCP packages.
+  mitigations:
+  - >-
+    Indirect-injection detection on every untrusted inbound content stream: web, email, RAG corpus, MCP tool descriptions,
+    multi-modal inputs.
+  sub_techniques:
+  - id: EKC-2.1
+    name: Adversarial prompt crafting
+    added_in: '1.0'
+    description: >-
+      Build a prompt-injection payload tailored to the fingerprinted target model, guardrails, and toolset from
+      Stage 1.
+    atlas:
+    - AML.T0065
+    - AML.T0068
+    owasp_llm:
+    - LLM01
+    owasp_agentic: []
+  - id: EKC-2.2
+    name: Multi-modal payload construction
+    added_in: '1.0'
+    description: >-
+      Embed instructions in images, audio, PDFs, or structured documents that a multi-modal model will parse.
+    atlas:
+    - AML.T0065
+    - AML.T0129
+    owasp_llm:
+    - LLM01
+    owasp_agentic: []
+  - id: EKC-2.3
+    name: Malicious tool or MCP package
+    added_in: '1.0'
+    description: >-
+      Build a tool that looks benign in name and description but executes attacker-controlled actions when invoked.
+    atlas:
+    - AML.T0017.002
+    - AML.T0115.002
+    owasp_llm:
+    - LLM03
+    owasp_agentic:
+    - ASI04
+  - id: EKC-2.4
+    name: Jailbreak chain assembly
+    added_in: '1.0'
+    description: >-
+      Combine known bypass techniques (persona priming, encoding tricks, low-resource language pivots, structured
+      role-play) into a single payload that defeats layered guardrails.
+    atlas:
+    - AML.T0054
+    - AML.T0065
+    - AML.T0068
+    owasp_llm:
+    - LLM01
+    owasp_agentic: []
+  - id: EKC-2.5
+    name: AI-generated polymorphic malware
+    added_in: '1.0'
+    description: >-
+      Use a model to produce semantically equivalent but lexically diverse malware variants that evade signature-based
+      detection.
+    atlas:
+    - AML.T0016.002
+    - AML.T0017.003
+    - AML.T0102
+    atlas_case_studies:
+    - AML.CS0044
+    owasp_llm: []
+    owasp_agentic:
+    - ASI05
+- id: '3'
+  name: Delivery
+  status: ai-augmented
+  summary: Getting the payload to the AI system or its operator.
+  detection_signals:
+  - Anomalous instruction-like text in untrusted content streams.
+  - High entropy in image alpha channels and metadata for multi-modal pipelines.
+  - Unexpected language shifts inside retrieved documents.
+  mitigations:
+  - >-
+    Indirect-injection detection on every untrusted inbound content stream: web, email, RAG corpus, MCP tool descriptions,
+    multi-modal inputs.
+  sub_techniques:
+  - id: EKC-3.1
+    name: Indirect prompt injection via web content
+    added_in: '1.0'
+    description: A browsing or web-fetching agent retrieves an attacker-controlled page with instructions in it.
+    atlas:
+    - AML.T0051.001
+    - AML.T0078
+    - AML.T0134
+    owasp_llm:
+    - LLM01
+    owasp_agentic:
+    - ASI01
+  - id: EKC-3.2
+    name: RAG corpus poisoning
+    added_in: '1.0'
+    description: >-
+      An attacker submits content (via support tickets, public docs, code contributions, or vector-store ingestion)
+      that will later be retrieved as context for an LLM.
+    atlas:
+    - AML.T0070
+    - AML.T0066
+    - AML.T0099
+    owasp_llm:
+    - LLM01
+    - LLM04
+    - LLM08
+    owasp_agentic:
+    - ASI06
+  - id: EKC-3.3
+    name: Email or message-borne injection
+    added_in: '1.0'
+    description: Instructions placed in an email that an AI assistant is configured to read or summarize.
+    atlas:
+    - AML.T0051.001
+    - AML.T0093
+    atlas_case_studies:
+    - AML.CS0059
+    - AML.CS0063
+    owasp_llm:
+    - LLM01
+    owasp_agentic:
+    - ASI01
+  - id: EKC-3.4
+    name: Document-borne injection
+    added_in: '1.0'
+    description: Instructions placed in PDFs, spreadsheets, or office documents processed by an AI workflow.
+    atlas:
+    - AML.T0051.001
+    - AML.T0093
+    owasp_llm:
+    - LLM01
+    owasp_agentic:
+    - ASI01
+  - id: EKC-3.5
+    name: Tool-description poisoning
+    added_in: '1.0'
+    description: >-
+      Instructions placed in the descriptions or schemas of MCP tools or function definitions exposed to the agent.
+    atlas:
+    - AML.T0110.000
+    - AML.T0011.002
+    owasp_llm:
+    - LLM01
+    - LLM03
+    owasp_agentic:
+    - ASI01
+    - ASI04
+  - id: EKC-3.6
+    name: Image, audio, or QR-code injection
+    added_in: '1.0'
+    description: Instructions encoded in non-text modalities that a multi-modal agent will process.
+    atlas:
+    - AML.T0051.001
+    - AML.T0129
+    owasp_llm:
+    - LLM01
+    owasp_agentic:
+    - ASI01
+  - id: EKC-3.7
+    name: Crafted assistant link delivery
+    added_in: '1.1'
+    description: >-
+      Deliver a payload as a link that opens an AI assistant with an attacker-written prompt already filled in (for
+      example through a ?q= or ?prompt= URL parameter), often behind a "Summarize with AI" button or in an email.
+      One click replaces the user's own prompt with the attacker's. When the prompt tells the assistant to remember
+      a source as trusted, the delivery doubles as a memory write.
+    atlas:
+    - AML.T0131
+    - AML.T0068
+    atlas_case_studies:
+    - AML.CS0072
+    owasp_llm:
+    - LLM01
+    owasp_agentic:
+    - ASI01
+    - ASI06
+    - ASI09
+    detection_signals:
+    - >-
+      URLs pointing at assistant domains whose prompt parameter contains memory or trust language ("remember", "trusted
+      source", "in future conversations", "authoritative").
+    - The same prefilled-prompt template showing up across inbound email from unrelated senders.
+    - A memory write in the assistant within seconds of the user opening such a link.
+    mitigations:
+    - >-
+      Hunt for prefilled-prompt links in mail, chat and proxy logs. Microsoft published starter queries for this
+      in February 2026.
+    - Require explicit user confirmation before a prompt that arrived through a URL can write to memory.
+    - Show users what was saved to memory and give them a one-step way to remove it.
+    references:
+    - https://www.microsoft.com/en-us/security/blog/2026/02/10/ai-recommendation-poisoning/
+  - id: EKC-3.8
+    name: Malicious or impersonated peer agent
+    added_in: '1.1'
+    description: >-
+      Get the payload in front of the target agent through an agent it delegates work to. The attacker runs a remote
+      agent, or advertises one with a spoofed or tampered Agent Card, so that the target routes tasks to it. Every
+      response that comes back is model-readable content the client agent will reason over. The protocol carries
+      the payload faithfully; the weakness is the trust the client places in the peer.
+    atlas:
+    - AML.T0073
+    - AML.T0051.001
+    owasp_llm:
+    - LLM01
+    owasp_agentic:
+    - ASI07
+    - ASI04
+    detection_signals:
+    - >-
+      Delegation to an agent whose Agent Card is unsigned, whose signature fails, or whose signing key changed without
+      notice.
+    - A newly registered peer agent with a name or description close to an existing internal agent.
+    - >-
+      Peer agent responses that contain imperative instructions aimed at the client agent rather than task results.
+    mitigations:
+    - >-
+      Verify Agent Card signatures (A2A v1.0 defines JWS signatures over a JCS-canonicalized card) and pin keys
+      for known peers.
+    - >-
+      Keep an allowlist of peer agents per workflow. Treat discovery of a new peer as a change that needs review.
+    - >-
+      Handle every peer response as untrusted input, the same way the framework treats retrieved web content.
+    references:
+    - https://github.com/a2aproject/A2A/blob/v1.0.0/docs/specification.md
+    - https://unit42.paloaltonetworks.com/agent-session-smuggling-in-agent2agent-systems/
+  - id: EKC-3.9
+    name: Interface-layer injection against computer-use agents
+    added_in: '1.1'
+    description: >-
+      Place instructions where a computer-use or browser agent will see them on screen: fake error dialogs, "verify
+      you are human" prompts, ClickFix-style copy-and-run steps, calendar invites, or pages served only to AI user
+      agents. The payload targets what the agent perceives (rendered pixels, accessibility tree, DOM text) rather
+      than a text field a filter would scan.
+    atlas:
+    - AML.T0100
+    - AML.T0134
+    - AML.T0129
+    atlas_case_studies:
+    - AML.CS0055
+    owasp_llm:
+    - LLM01
+    owasp_agentic:
+    - ASI01
+    detection_signals:
+    - Pages that return different content when the user agent identifies as an AI browser or agent.
+    - On-screen text in agent sessions that asks for clipboard, terminal or Run-dialog actions.
+    - Calendar invites or documents with hidden or zero-size text processed by a browsing agent.
+    mitigations:
+    - >-
+      Run computer-use agents in an isolated VM or container with no access to the user's real profile, files or
+      password manager.
+    - Strip or flag instruction-like text in rendered content before the agent plans its next action.
+    - Block clipboard-to-terminal and Run-dialog sequences initiated by the agent.
+    references:
+    - https://embracethered.com/blog/posts/2025/ai-clickfix-ttp-claude/
+    - >-
+      https://zenity.io/company-overview/newsroom/company-news/zenity-labs-discloses-pleasefix-perplexedagent-vulnerability
+- id: '4'
+  name: Exploitation
+  status: ai-augmented
+  summary: >-
+    Triggering the payload. In AI terms: getting the model to follow the attacker's instructions or violate its
+    policy.
+  detection_signals:
+  - Tool invocations whose arguments derive from untrusted input strings.
+  - Outputs that include canary tokens from the system prompt.
+  - Large-step deviations in conversation state caused by a single retrieved document.
+  mitigations:
+  - >-
+    Tool-call argument lineage tracking. Any tool invocation whose arguments derive from untrusted text is treated
+    as high-risk by default.
+  sub_techniques:
+  - id: EKC-4.1
+    name: Direct prompt injection success
+    added_in: '1.0'
+    description: The user-facing prompt achieves the attacker's policy violation.
+    atlas:
+    - AML.T0051.000
+    owasp_llm:
+    - LLM01
+    owasp_agentic:
+    - ASI01
+  - id: EKC-4.2
+    name: Indirect prompt injection success
+    added_in: '1.0'
+    description: Instructions delivered via Stage 3 are followed by the model when the content is processed.
+    atlas:
+    - AML.T0051.001
+    - AML.T0051.002
+    owasp_llm:
+    - LLM01
+    owasp_agentic:
+    - ASI01
+  - id: EKC-4.3
+    name: Confused-deputy tool invocation
+    added_in: '1.0'
+    description: The model invokes a privileged tool on behalf of the attacker, using the agent's own permissions.
+    atlas:
+    - AML.T0053
+    - AML.T0100
+    owasp_llm:
+    - LLM05
+    - LLM06
+    owasp_agentic:
+    - ASI02
+    - ASI03
+  - id: EKC-4.4
+    name: Guardrail or classifier bypass
+    added_in: '1.0'
+    description: >-
+      A safety classifier or rule-based filter is evaded such that disallowed content is produced or disallowed
+      actions are taken.
+    atlas:
+    - AML.T0054
+    - AML.T0015
+    - AML.T0068
+    owasp_llm:
+    - LLM01
+    owasp_agentic: []
+  - id: EKC-4.5
+    name: Memory or context pollution
+    added_in: '1.0'
+    description: >-
+      A persistent memory store is updated with attacker-controlled content that will influence future sessions.
+    atlas:
+    - AML.T0080.001
+    - AML.T0080.000
+    - AML.T0092
+    owasp_llm:
+    - LLM01
+    owasp_agentic:
+    - ASI06
+  - id: EKC-4.6
+    name: Computer-use action hijack
+    added_in: '1.1'
+    description: >-
+      The computer-use or browser agent carries out the attacker's steps as GUI and OS actions: clicking, typing,
+      opening file:// paths, running shell commands, or driving a password manager integration it was granted for
+      user tasks. No tool API is misused. The agent operates the machine the way the user would, so the actions
+      look like ordinary user activity to the endpoint.
+    atlas:
+    - AML.T0112.000
+    - AML.T0053
+    - AML.T0101
+    atlas_case_studies:
+    - AML.CS0046
+    - AML.CS0055
+    owasp_llm:
+    - LLM05
+    - LLM06
+    owasp_agentic:
+    - ASI02
+    - ASI05
+    detection_signals:
+    - >-
+      Browser agents navigating to file:// URIs or local network addresses that the user's task did not reference.
+    - Shell or terminal processes spawned with the agent as the parent process.
+    - Password manager item reads during an agent session that were not part of the stated task.
+    mitigations:
+    - Deny file:// and local-network navigation to agents by default.
+    - Require out-of-band human confirmation for credential retrieval, downloads and command execution.
+    - Record agent sessions (screens plus action log) so an investigator can replay what the agent saw.
+    references:
+    - https://hiddenlayer.com/innovation-hub/indirect-prompt-injection-of-claude-computer-use/
+    - >-
+      https://zenity.io/company-overview/newsroom/company-news/zenity-labs-discloses-pleasefix-perplexedagent-vulnerability
+- id: '5'
+  name: Installation
+  status: ai-augmented
+  summary: Setting up persistence so the compromise survives a single session.
+  detection_signals:
+  - New entries in memory stores not attributable to a legitimate user action.
+  - Unauthorized changes to system prompts, custom GPTs, or saved skills.
+  - Newly registered MCP endpoints.
+  - Vector-store ingestion events outside expected pipelines.
+  mitigations:
+  - Memory write audit trails.
+  - Change control on system prompts and stored skills.
+  - Attestation on MCP endpoints.
+  sub_techniques:
+  - id: EKC-5.1
+    name: Persistent memory implant
+    added_in: '1.0'
+    description: >-
+      Inject content into long-term memory, user preference stores, or per-account context that will be reloaded
+      in future sessions.
+    atlas:
+    - AML.T0080.000
+    atlas_case_studies:
+    - AML.CS0040
+    - AML.CS0066
+    owasp_llm:
+    - LLM01
+    owasp_agentic:
+    - ASI06
+  - id: EKC-5.2
+    name: System prompt override
+    added_in: '1.0'
+    description: >-
+      Modify a custom GPT, assistant configuration, or agent definition to embed attacker instructions in its system
+      prompt.
+    atlas:
+    - AML.T0081
+    - AML.T0018.003
+    owasp_llm: []
+    owasp_agentic:
+    - ASI10
+  - id: EKC-5.3
+    name: Malicious connector installation
+    added_in: '1.0'
+    description: >-
+      Cause a user or admin to install an attacker-controlled MCP server, plugin, or browser extension that gives
+      the attacker a persistent foothold.
+    atlas:
+    - AML.T0081
+    - AML.T0011.002
+    - AML.T0103
+    owasp_llm:
+    - LLM03
+    owasp_agentic:
+    - ASI04
+  - id: EKC-5.4
+    name: RAG corpus persistence
+    added_in: '1.0'
+    description: Ensure poisoned documents stay in the vector store across re-indexing operations.
+    atlas:
+    - AML.T0070
+    - AML.T0094
+    owasp_llm:
+    - LLM04
+    - LLM08
+    owasp_agentic:
+    - ASI06
+  - id: EKC-5.5
+    name: Stored skill or workflow contamination
+    added_in: '1.0'
+    description: >-
+      Modify a stored skill, automation, or saved workflow that the agent will load and execute on a schedule or
+      on demand.
+    atlas:
+    - AML.T0081
+    - AML.T0142
+    atlas_case_studies:
+    - AML.CS0049
+    owasp_llm: []
+    owasp_agentic:
+    - ASI04
+    - ASI10
+  - id: EKC-5.6
+    name: Shared agent memory poisoning
+    added_in: '1.1'
+    description: >-
+      Poison a memory store that more than one principal reads: team or organization memory, a knowledge base agents
+      write back into, a shared scratchpad in a multi-agent system, or consolidated summaries that replace raw history.
+      EKC-5.1 compromises one user's future sessions. This variant compromises every agent and user that reads the
+      shared store, and the poisoned entry is often rewritten by summarization so it no longer looks like the original
+      payload.
+    atlas:
+    - AML.T0080.000
+    - AML.T0143
+    - AML.T0061
+    owasp_llm:
+    - LLM04
+    - LLM08
+    owasp_agentic:
+    - ASI06
+    - ASI08
+    detection_signals:
+    - Writes to shared memory whose content traces back to untrusted retrieved content or a peer agent.
+    - A single memory entry that suddenly appears in the context of many unrelated users or agents.
+    - >-
+      Summarization or consolidation jobs that introduce imperative instructions not present in any source turn.
+    mitigations:
+    - >-
+      Attach provenance (writer identity, source content hash, time) to every memory entry and keep it through summarization.
+    - >-
+      Separate per-user memory from shared memory. Require review or a higher trust level to write to the shared
+      store.
+    - >-
+      Support point-in-time rollback of memory, the same way a corpus or database is restored after tampering.
+    references:
+    - https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/
+    - https://www.radware.com/blog/threat-intelligence/zombieagent/
+- id: '6'
+  name: Command and Control
+  status: ai-augmented
+  summary: Holding an interactive or scheduled channel that lets the adversary direct further activity.
+  detection_signals:
+  - Conversation-graph analysis showing instructions repeatedly arriving from the same retrieved source.
+  - >-
+    Outputs from external tools containing imperative language inconsistent with the tool's documented purpose.
+  - Entropy analysis on agent-to-agent fields.
+  mitigations:
+  - Conversation-graph analysis to surface recurring instruction sources.
+  - Entropy analysis on agent-to-agent fields.
+  sub_techniques:
+  - id: EKC-6.1
+    name: LLM channel as C2
+    added_in: '1.0'
+    description: >-
+      Encode commands in seemingly benign user prompts, retrieved documents, or tool outputs that the agent reads
+      on a schedule.
+    atlas:
+    - AML.T0096
+    - AML.T0114
+    - AML.T0108
+    atlas_case_studies:
+    - AML.CS0042
+    - AML.CS0051
+    - AML.CS0061
+    owasp_llm:
+    - LLM01
+    owasp_agentic:
+    - ASI10
+  - id: EKC-6.2
+    name: Memory-mediated C2
+    added_in: '1.0'
+    description: >-
+      Use the agent's long-term memory store as a dead-drop. The attacker writes instructions to memory through
+      one entry point, the agent acts on them through another.
+    atlas:
+    - AML.T0080.000
+    owasp_llm:
+    - LLM01
+    owasp_agentic:
+    - ASI06
+  - id: EKC-6.3
+    name: RAG-mediated C2
+    added_in: '1.0'
+    description: >-
+      Update a poisoned document in the vector store to deliver new instructions. The agent retrieves them on the
+      next relevant query.
+    atlas:
+    - AML.T0070
+    - AML.T0099
+    owasp_llm:
+    - LLM01
+    - LLM08
+    owasp_agentic:
+    - ASI06
+  - id: EKC-6.4
+    name: Tool-output C2
+    added_in: '1.0'
+    description: >-
+      A compromised MCP server returns instruction-laden responses on each invocation, steering the agent's subsequent
+      behavior.
+    atlas:
+    - AML.T0110.002
+    - AML.T0108
+    owasp_llm:
+    - LLM01
+    owasp_agentic:
+    - ASI01
+  - id: EKC-6.5
+    name: Cross-session steganographic C2
+    added_in: '1.0'
+    description: >-
+      Encode command payloads in fields the agent passes between sessions (user notes, project descriptions, ticket
+      comments) where they evade content classification because each fragment looks innocuous on its own.
+    atlas:
+    - AML.T0068
+    - AML.T0094
+    atlas_case_studies:
+    - AML.CS0038
+    owasp_llm:
+    - LLM01
+    owasp_agentic:
+    - ASI06
+  - id: EKC-6.6
+    name: Inter-agent session smuggling
+    added_in: '1.1'
+    description: >-
+      A malicious remote agent uses an open, stateful agent-to-agent session to slip extra instructions into the
+      exchange between the client's request and its own final answer. Because the session persists across turns,
+      the remote agent can adapt its instructions to what the client reveals. The user sees only the client's final
+      summary. Unit 42 demonstrated system-prompt leakage and an unauthorized trade this way over A2A.
+    atlas:
+    - AML.T0051.001
+    - AML.T0080.001
+    owasp_llm:
+    - LLM01
+    owasp_agentic:
+    - ASI07
+    - ASI01
+    detection_signals:
+    - Remote-agent turns that ask the client for its instructions, tool schemas or conversation history.
+    - >-
+      Tool invocations by the client agent that occur mid-delegation and are absent from the user's request.
+    - Long multi-turn delegations where the turn count is out of line with the task type.
+    mitigations:
+    - Ground the session in the user's original intent and end delegations that drift off-task.
+    - Require out-of-band human approval for sensitive tools invoked while a delegation is open.
+    - >-
+      Surface remote-agent turns and resulting tool calls to the user instead of only the final consolidated answer.
+    references:
+    - https://unit42.paloaltonetworks.com/agent-session-smuggling-in-agent2agent-systems/
+- id: 7a
+  parent: '7'
+  name: Data Exfiltration
+  status: classical
+  summary: >-
+    The traditional kill chain's actions on objectives. Sensitive data is exfiltrated. Systems are destroyed, encrypted,
+    or impaired. Fraud is committed. AI amplifies the scale rather than changing the sub-stage.
+  detection_signals:
+  - Classical DLP and egress monitoring.
+  mitigations:
+  - Classical DLP, monitoring, segmentation.
+  sub_techniques:
+  - id: EKC-7a
+    name: Classical data exfiltration
+    added_in: '1.0'
+    description: >-
+      Sensitive data is exfiltrated, systems are impaired, or fraud is committed through the compromised AI system
+      or by AI-scaled classical means.
+    atlas:
+    - AML.T0024
+    - AML.T0086
+    - AML.T0136
+    - AML.T0085
+    - AML.T0025
+    owasp_llm:
+    - LLM02
+    - LLM09
+    - LLM10
+    owasp_agentic:
+    - ASI02
+- id: 7b
+  parent: '7'
+  name: Model Extraction
+  status: new
+  summary: The target is the model itself, the data inside it, or the knowledge encoded in it.
+  detection_signals:
+  - >-
+    High-volume programmatic query patterns from a single identity, especially with low entropy in query templates
+    and high entropy in inputs.
+  - Queries that contain classical memorization probes ("repeat the text above").
+  - Query distributions that resemble published extraction attacks.
+  mitigations:
+  - Query-pattern analytics.
+  - Memorization probes in red-team suites.
+  - Watermarking of model outputs.
+  sub_techniques:
+  - id: EKC-7b.1
+    name: API-based model extraction
+    added_in: '1.0'
+    description: >-
+      Reconstruct an approximation of a deployed model's weights or decision boundary by querying it at scale and
+      training a surrogate.
+    atlas:
+    - AML.T0005
+    - AML.T0005.001
+    - AML.T0135
+    - AML.T0144
+    atlas_case_studies:
+    - AML.CS0056
+    - AML.CS0058
+    - AML.CS0075
+    - AML.CS0076
+    owasp_llm:
+    - LLM10
+    owasp_agentic: []
+  - id: EKC-7b.2
+    name: Training-data extraction
+    added_in: '1.0'
+    description: >-
+      Recover verbatim or near-verbatim training examples, including sensitive PII or proprietary content, through
+      memorization-targeting prompts.
+    atlas:
+    - AML.T0137.003
+    owasp_llm:
+    - LLM02
+    owasp_agentic: []
+  - id: EKC-7b.3
+    name: Membership inference
+    added_in: '1.0'
+    description: >-
+      Determine whether a specific record was in the training set. Has downstream implications for privacy regulation
+      and confidentiality.
+    atlas:
+    - AML.T0137.000
+    owasp_llm:
+    - LLM02
+    owasp_agentic: []
+  - id: EKC-7b.4
+    name: System prompt and instruction extraction
+    added_in: '1.0'
+    description: >-
+      Recover proprietary system prompts that encode business logic, pricing rules, or competitive positioning.
+    atlas:
+    - AML.T0085.003
+    - AML.T0069.002
+    owasp_llm:
+    - LLM07
+    owasp_agentic: []
+  - id: EKC-7b.5
+    name: Capability mining
+    added_in: '1.0'
+    description: >-
+      Use the deployed model to perform tasks the attacker's own infrastructure cannot. The access becomes a capability
+      transfer.
+    atlas:
+    - AML.T0047
+    - AML.T0034
+    atlas_case_studies:
+    - AML.CS0030
+    owasp_llm:
+    - LLM10
+    owasp_agentic: []
+- id: 7c
+  parent: '7'
+  name: Agentic Pivot
+  status: new
+  summary: >-
+    The compromised AI agent is used to take actions in connected systems, using its own legitimate permissions,
+    or the credentials it holds are lifted and used elsewhere.
+  detection_signals:
+  - Tool calls whose arguments contain content traceable to untrusted upstream sources.
+  - Tool-call graphs that cross trust boundaries that no human action did.
+  - Spikes in cross-application calls per session.
+  - Outbound communications initiated by agents to recipients not in any prior conversation history.
+  mitigations:
+  - Per-tool blast-radius limits.
+  - Human-in-the-loop on high-impact tools.
+  - >-
+    Identity propagation review: does the downstream system know it is acting on behalf of an agent, not a user?
+  sub_techniques:
+  - id: EKC-7c.1
+    name: Tool-mediated lateral action
+    added_in: '1.0'
+    description: >-
+      The agent invokes legitimate tools (email send, file write, ticket creation, payment authorization) on behalf
+      of the attacker.
+    atlas:
+    - AML.T0053
+    - AML.T0086
+    owasp_llm:
+    - LLM06
+    owasp_agentic:
+    - ASI02
+  - id: EKC-7c.2
+    name: Cross-app pivot
+    added_in: '1.0'
+    description: >-
+      The agent moves from one connected application to another (calendar to CRM to payment processor) by chaining
+      tool calls.
+    atlas:
+    - AML.T0091
+    - AML.T0098
+    - AML.T0143
+    owasp_llm:
+    - LLM06
+    owasp_agentic:
+    - ASI02
+    - ASI03
+  - id: EKC-7c.3
+    name: Identity confusion attack
+    added_in: '1.0'
+    description: >-
+      The agent acts in a context where downstream systems treat its actions as the actions of a privileged user,
+      granting privileges the attacker does not directly hold.
+    atlas:
+    - AML.T0091.000
+    owasp_llm:
+    - LLM06
+    owasp_agentic:
+    - ASI03
+  - id: EKC-7c.4
+    name: Recursive agent abuse
+    added_in: '1.0'
+    description: >-
+      A compromised agent invokes other agents, propagating the compromise across an agent fabric without classical
+      lateral movement.
+    atlas:
+    - AML.T0143
+    - AML.T0103
+    owasp_llm:
+    - LLM06
+    owasp_agentic:
+    - ASI07
+    - ASI08
+  - id: EKC-7c.5
+    name: Workflow weaponization
+    added_in: '1.0'
+    description: A stored automation or scheduled workflow runs the attacker's intended action on a recurring basis.
+    atlas:
+    - AML.T0081
+    - AML.T0101
+    - AML.T0142
+    owasp_llm:
+    - LLM06
+    owasp_agentic:
+    - ASI02
+    - ASI10
+  - id: EKC-7c.6
+    name: Agent credential and token theft
+    added_in: '1.1'
+    description: >-
+      Lift the credentials an agent holds or brokers (OAuth access and refresh tokens, MCP server tokens, API keys,
+      session cookies, CI secrets) so the attacker can use them outside the agent. Paths include steering the agent
+      to read its own environment or config files, abusing token passthrough or over-broad scopes in an MCP proxy,
+      and malicious MCP servers that collect forwarded tokens. Once the token leaves, the attacker no longer needs
+      the agent.
+    atlas:
+    - AML.T0098
+    - AML.T0083
+    - AML.T0055
+    - AML.T0091.000
+    - AML.T0113
+    atlas_case_studies:
+    - AML.CS0048
+    - AML.CS0067
+    owasp_llm:
+    - LLM02
+    - LLM06
+    owasp_agentic:
+    - ASI03
+    detection_signals:
+    - Agent file reads of /proc/*/environ, credential stores, or agent config files such as mcp.json.
+    - Use of an agent-issued token from an IP, ASN or user agent the agent never runs from.
+    - MCP servers receiving tokens whose audience is not the server itself (token passthrough).
+    mitigations:
+    - >-
+      Follow the MCP authorization rules: servers must not accept tokens not issued to them, and proxies need per-client
+      consent.
+    - >-
+      Issue short-lived, narrowly scoped tokens per agent and per task. Bind them to the workload where the IdP
+      supports it.
+    - >-
+      Apply Meta's "Agents Rule of Two": no single agent should process untrusted input, hold secrets or private
+      data, and change state or communicate externally at the same time.
+    references:
+    - https://modelcontextprotocol.io/specification/2025-11-25/basic/security_best_practices
+    - >-
+      https://www.microsoft.com/en-us/security/blog/2026/06/05/securing-ci-cd-in-agentic-world-claude-code-github-action-case/
+    - https://github.com/LibreChat-AI/LibreChat/security/advisories/GHSA-pmw7-gqwj-f954
+    - https://ai.meta.com/blog/practical-ai-agent-security/

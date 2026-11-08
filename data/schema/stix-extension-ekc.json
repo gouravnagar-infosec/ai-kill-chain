@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/gouravnagar-infosec/ai-kill-chain/data/schema/stix-extension-ekc.json",
+  "title": "EKC attack-pattern properties (STIX 2.1 toplevel-property-extension)",
+  "description": "Properties added to STIX attack-pattern objects in data/ekc-stix-2.1.json. The kill-chain phase is also carried in the standard kill_chain_phases property (kill_chain_name: extended-cyber-kill-chain-ai), so consumers that ignore extensions still get the stage.",
+  "type": "object",
+  "properties": {
+    "x_ekc_id": {
+      "type": "string",
+      "pattern": "^EKC-([0-6]\\.[0-9]+|7a|7[bc]\\.[0-9]+)$",
+      "description": "EKC sub-technique ID, for example EKC-3.7. Also present as an external reference with source_name 'ekc'."
+    },
+    "x_ekc_stage": {
+      "type": "string",
+      "pattern": "^([0-6]|7[abc])$",
+      "description": "Kill chain stage or Stage 7 sub-stage the sub-technique belongs to."
+    },
+    "x_ekc_added_in": {
+      "type": "string",
+      "description": "EKC version that introduced the sub-technique."
+    },
+    "x_ekc_detection_signals": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Behavioral signals a defender can act on. Present on sub-techniques that define their own signals; stage-level signals are in data/ekc.json."
+    }
+  },
+  "required": ["x_ekc_id", "x_ekc_stage", "x_ekc_added_in"]
+}
