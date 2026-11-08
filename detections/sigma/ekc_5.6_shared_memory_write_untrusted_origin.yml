@@ -1,0 +1,42 @@
+title: EKC Example - Shared Agent Memory Written From Untrusted Content
+id: dda18d41-4656-4296-9148-853cde2b349d
+status: experimental
+description: |
+  EXAMPLE RULE. Not production-tuned.
+  Flags writes to a memory store shared by several users or agents when the content of the write came
+  from retrieved content, a tool result, or a peer agent rather than from a user turn. One poisoned
+  entry in a shared store reaches every session that loads it (EKC-5.6).
+  Uses the OpenTelemetry GenAI memory operations (create_memory, update_memory, upsert_memory) plus
+  two EKC enrichment fields your agent runtime has to emit: ekc.memory_scope and ekc.content_origin.
+  See detections/README.md.
+references:
+  - https://github.com/open-telemetry/semantic-conventions-genai
+  - https://atlas.mitre.org/techniques/AML.T0080.000
+  - https://atlas.mitre.org/techniques/AML.T0143
+author: Gourav Nagar
+date: 2026-11-08
+tags:
+  - ekc.5.6
+  - ekc.6.2
+logsource:
+  product: ai_agent
+  category: memory_operation
+detection:
+  selection_write:
+    gen_ai.operation.name:
+      - 'create_memory'
+      - 'update_memory'
+      - 'upsert_memory'
+  selection_shared:
+    ekc.memory_scope:
+      - 'shared'
+      - 'organization'
+  selection_origin:
+    ekc.content_origin:
+      - 'retrieved_content'
+      - 'tool_result'
+      - 'peer_agent'
+  condition: all of selection_*
+falsepositives:
+  - Knowledge-capture agents built to write retrieved facts into team memory. Scope this rule to stores that are not meant to be written by agents.
+level: high

@@ -1,0 +1,47 @@
+title: EKC Example - AI Assistant Link With Prefilled Memory-Manipulation Prompt
+id: 18e981ec-6461-4bf2-91a7-a48c280629bc
+status: experimental
+description: |
+  EXAMPLE RULE. Not production-tuned.
+  Detects web requests to AI assistant domains where the prompt is passed in the URL and asks the
+  assistant to remember a source as trusted or authoritative. This is the "AI Recommendation
+  Poisoning" pattern Microsoft reported in February 2026: 50 distinct prompts from 31 companies over
+  60 days. Delivery is EKC-3.7; a successful memory write is EKC-5.1.
+  The keyword list follows the indicators Microsoft published. Extend the host list to the assistants
+  your users actually reach.
+references:
+  - https://www.microsoft.com/en-us/security/blog/2026/02/10/ai-recommendation-poisoning/
+  - https://atlas.mitre.org/techniques/AML.T0131
+  - https://atlas.mitre.org/studies/AML.CS0072
+author: Gourav Nagar
+date: 2026-11-08
+tags:
+  - ekc.3.7
+  - ekc.5.1
+logsource:
+  category: proxy
+detection:
+  selection_host:
+    cs-host|endswith:
+      - 'copilot.microsoft.com'
+      - 'chatgpt.com'
+      - 'claude.ai'
+      - 'perplexity.ai'
+      - 'grok.com'
+  selection_param:
+    c-uri-query|contains:
+      - 'q='
+      - 'prompt='
+  selection_memory_words:
+    c-uri-query|contains:
+      - 'remember'
+      - 'trusted%20source'
+      - 'trusted+source'
+      - 'authoritative'
+      - 'future%20conversations'
+      - 'future+conversations'
+      - 'citation'
+  condition: all of selection_*
+falsepositives:
+  - Users sharing their own saved prompts that mention remembering something.
+level: medium

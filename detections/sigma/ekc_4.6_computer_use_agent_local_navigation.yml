@@ -1,0 +1,43 @@
+title: EKC Example - Browser or Computer-Use Agent Navigates to Local Files or Internal Addresses
+id: 71929e65-2dfc-4185-9e68-758926096858
+status: experimental
+description: |
+  EXAMPLE RULE. Not production-tuned.
+  Flags navigation or fetch tool calls made by a browser or computer-use agent to file:// URIs,
+  loopback, link-local (cloud metadata) or RFC 1918 addresses. In the PleaseFix disclosure
+  (Zenity Labs, March 2026) a calendar invite steered an agentic browser into reading local files
+  and sending them out while it finished the user's task. That is EKC-3.9 delivery and EKC-4.6
+  action hijack.
+references:
+  - https://zenity.io/company-overview/newsroom/company-news/zenity-labs-discloses-pleasefix-perplexedagent-vulnerability
+  - https://atlas.mitre.org/techniques/AML.T0112.000
+  - https://atlas.mitre.org/studies/AML.CS0055
+author: Gourav Nagar
+date: 2026-11-08
+tags:
+  - ekc.4.6
+  - ekc.3.9
+logsource:
+  product: ai_agent
+  category: tool_execution
+detection:
+  selection_op:
+    gen_ai.operation.name: 'execute_tool'
+    gen_ai.tool.name|contains:
+      - 'navigate'
+      - 'browser'
+      - 'open_url'
+      - 'fetch'
+      - 'computer'
+  selection_target:
+    gen_ai.tool.call.arguments|contains:
+      - 'file://'
+      - '://localhost'
+      - '://127.'
+      - '://169.254.169.254'
+      - '://10.'
+      - '://192.168.'
+  condition: all of selection_*
+falsepositives:
+  - Agents deliberately pointed at local development servers. Exclude by agent name or workspace.
+level: high

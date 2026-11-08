@@ -1,0 +1,31 @@
+title: EKC Example - Task Delegated to Peer Agent With Unverified Agent Card
+id: 3cc6a909-bcbb-4477-8cfb-62af6d5bd07d
+status: experimental
+description: |
+  EXAMPLE RULE. Not production-tuned.
+  Flags delegation (A2A send message) to a remote agent whose Agent Card signature is missing, fails
+  verification, or was signed by a key not previously seen for that agent. A2A v1.0 defines JWS
+  signatures over a JCS-canonicalized Agent Card. Unsigned or re-keyed peers are where impersonation
+  happens (EKC-3.8).
+references:
+  - https://github.com/a2aproject/A2A/blob/v1.0.0/docs/specification.md
+  - https://unit42.paloaltonetworks.com/agent-session-smuggling-in-agent2agent-systems/
+author: Gourav Nagar
+date: 2026-11-08
+tags:
+  - ekc.3.8
+logsource:
+  product: ai_agent
+  category: agent_delegation
+detection:
+  selection_op:
+    gen_ai.operation.name: 'invoke_agent'
+  selection_card:
+    - ekc.agent_card.signature_status:
+        - 'missing'
+        - 'invalid'
+    - ekc.agent_card.key_first_seen: true
+  condition: all of selection_*
+falsepositives:
+  - Internal agents that have not adopted signed cards yet. Track them as a backlog rather than suppressing the rule.
+level: medium

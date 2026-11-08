@@ -1,0 +1,41 @@
+title: EKC Example - MCP Tool Description Contains Instructions Aimed at the Model
+id: de5f5e3a-4956-41eb-86ee-8620acf9afd2
+status: experimental
+description: |
+  EXAMPLE RULE. Not production-tuned.
+  Flags MCP tool definitions whose description reads like instructions to the model rather than
+  documentation for it. Poisoned tool descriptions are the delivery vehicle for EKC-0.5 and EKC-3.5:
+  the agent reads them at handshake time and never shows them to the user.
+  Requires a gateway or client that logs tools/list responses with the tool description.
+references:
+  - https://github.com/gouravnagar-infosec/ai-kill-chain/blob/main/README.md#stage-0-model-supply-chain-compromise-new
+  - https://atlas.mitre.org/techniques/AML.T0110.000
+  - https://modelcontextprotocol.io/specification/2025-11-25/basic/security_best_practices
+author: Gourav Nagar
+date: 2026-11-08
+tags:
+  - ekc.0.5
+  - ekc.3.5
+logsource:
+  product: mcp
+  category: tool_definition
+detection:
+  selection_method:
+    mcp.method.name: 'tools/list'
+  selection_instructions:
+    gen_ai.tool.description|contains:
+      - '<IMPORTANT>'
+      - 'ignore previous'
+      - 'ignore all previous'
+      - 'do not tell the user'
+      - 'do not mention'
+      - 'before using this tool'
+      - 'before calling any other tool'
+      - 'you must first'
+      - 'read the file'
+      - '~/.ssh'
+      - 'mcp.json'
+  condition: selection_method and selection_instructions
+falsepositives:
+  - Tools whose descriptions legitimately sequence calls ("call list_projects before create_issue"). Review the wording, then allowlist by server and tool name.
+level: medium
