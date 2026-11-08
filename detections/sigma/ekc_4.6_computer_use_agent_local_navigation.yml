@@ -4,16 +4,20 @@ status: experimental
 description: |
   EXAMPLE RULE. Not production-tuned.
   Flags navigation or fetch tool calls made by a browser or computer-use agent to file:// URIs,
-  loopback, link-local (cloud metadata) or RFC 1918 addresses. In the PleaseFix disclosure
-  (Zenity Labs, March 2026) a calendar invite steered an agentic browser into reading local files
-  and sending them out while it finished the user's task. That is EKC-3.9 delivery and EKC-4.6
-  action hijack.
+  loopback, link-local (including cloud metadata), or RFC 1918 private addresses. In the PleaseFix
+  disclosure (Zenity Labs, March 2026) a calendar invite steered an agentic browser into reading the
+  local file system and sending the contents out while it finished the user's task. That is EKC-3.9
+  delivery and EKC-4.6 action hijack.
+  The pattern matches dotted-decimal IPv4 and the common IPv6 loopback form only. Decimal, octal and
+  hex IP encodings, IPv4-mapped IPv6, and DNS names that resolve to private ranges need resolution
+  in the pipeline or in the agent's network policy.
 references:
   - https://zenity.io/company-overview/newsroom/company-news/zenity-labs-discloses-pleasefix-perplexedagent-vulnerability
   - https://atlas.mitre.org/techniques/AML.T0112.000
   - https://atlas.mitre.org/studies/AML.CS0055
 author: Gourav Nagar
 date: 2026-11-08
+modified: 2026-11-08
 tags:
   - ekc.4.6
   - ekc.3.9
@@ -29,15 +33,11 @@ detection:
       - 'open_url'
       - 'fetch'
       - 'computer'
-  selection_target:
-    gen_ai.tool.call.arguments|contains:
-      - 'file://'
-      - '://localhost'
-      - '://127.'
-      - '://169.254.169.254'
-      - '://10.'
-      - '://192.168.'
-  condition: all of selection_*
+  selection_file:
+    gen_ai.tool.call.arguments|contains: 'file://'
+  selection_internal:
+    gen_ai.tool.call.arguments|re: '(?i)[a-z][a-z0-9+.-]*://(localhost|\[::1?\]|0\.0\.0\.0|127(\.\d{1,3}){3}|10(\.\d{1,3}){3}|192\.168(\.\d{1,3}){2}|172\.(1[6-9]|2\d|3[01])(\.\d{1,3}){2}|169\.254(\.\d{1,3}){2})([:/?#"]|$)'
+  condition: selection_op and (selection_file or selection_internal)
 falsepositives:
   - Agents deliberately pointed at local development servers. Exclude by agent name or workspace.
 level: high

@@ -3,7 +3,7 @@
  "atlas_version": "2026.10",
  "data_format": "6.1.0",
  "modified": "2026-10-28",
- "license_note": "MITRE ATLAS data is (c) The MITRE Corporation, used under the atlas-data repository license (Apache-2.0).",
+ "license_note": "IDs and names from MITRE ATLAS (atlas-data), Copyright 2021-2026 MITRE, Apache License 2.0.",
  "entries": {
   "AML.CS0000": {
    "type": "case-study",

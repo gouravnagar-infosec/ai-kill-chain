@@ -37,9 +37,9 @@ Where a field already exists in the [OpenTelemetry GenAI semantic conventions](h
 |---|---|---|
 | `gen_ai.operation.name` | OTel GenAI | `execute_tool`, `invoke_agent`, `create_memory`, `update_memory`, `upsert_memory`, and others |
 | `gen_ai.tool.name` | OTel GenAI | Name of the tool the agent called |
-| `gen_ai.tool.call.arguments` | OTel GenAI | Serialized tool call arguments. Often opt-in because it can hold sensitive data |
-| `gen_ai.tool.description` | OTel GenAI | Tool description as presented to the model |
+| `gen_ai.tool.call.arguments` | OTel GenAI | Tool call arguments. The conventions expect an object and mark it opt-in because it can hold sensitive data. The `contains` and `re` matches here assume your backend stores it as a string; adapt them if it keeps structured fields |
 | `mcp.method.name` | OTel GenAI (MCP) | MCP JSON-RPC method, for example `tools/list` or `tools/call` |
+| `ekc.tool.description` | EKC enrichment | Tool description from an MCP `tools/list` response, logged per tool by a gateway or client. OTel defines `gen_ai.tool.description` on tool-execution spans, not on `tools/list` |
 | `ekc.content_origin` | EKC enrichment | Where the content behind an action came from: `user`, `retrieved_content`, `tool_result`, `peer_agent` |
 | `ekc.memory_scope` | EKC enrichment | `user` for per-user memory, `shared` or `organization` for stores many principals read |
 | `ekc.agent_card.signature_status` | EKC enrichment | Result of verifying the peer's Agent Card JWS: `valid`, `invalid`, `missing` |

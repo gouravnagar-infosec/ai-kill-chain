@@ -17,14 +17,14 @@ Minor release. No change to the stage list or the EKC ID scheme. All v1.0 IDs ke
   - Agent-to-agent protocol abuse: EKC-1.6 Peer agent and Agent Card enumeration; EKC-3.8 Malicious or impersonated peer agent; EKC-6.6 Inter-agent session smuggling.
   - Agent credential and token theft: EKC-7c.6 Agent credential and token theft (MCP OAuth tokens, token passthrough, API keys, CI secrets).
   - Computer-use agent attacks: EKC-3.9 Interface-layer injection against computer-use agents; EKC-4.6 Computer-use action hijack.
-- `mappings/owasp-agentic-mapping.md`: mapping to the OWASP Top 10 for Agentic Applications (2026), ASI01 to ASI10, with a generated per-ID cross-reference table. Every sub-technique now carries `owasp_agentic` tags.
+- `mappings/owasp-agentic-mapping.md`: mapping to the OWASP Top 10 for Agentic Applications (2026), ASI01 to ASI10, with a generated per-ID cross-reference table. 40 of the 55 sub-techniques carry `owasp_agentic` tags; the rest (mostly reconnaissance, weaponization and model extraction) have no Agentic Top 10 counterpart.
 - Machine-readable export under `data/`, generated from a single source file:
   - `data/ekc.yaml`: source of truth for stages, sub-techniques, and cross-references.
   - `data/ekc.json`: JSON export with ATLAS and OWASP IDs resolved to names and URLs. Schema in `data/schema/ekc.schema.json`.
-  - `data/ekc-stix-2.1.json`: STIX 2.1 bundle with 55 attack-patterns (stage in `kill_chain_phases`, kill chain name `extended-cyber-kill-chain-ai`), 46 courses of action, 152 `mitigates` relationships, and an extension-definition for the `x_ekc_*` properties. Object IDs are UUIDv4, registered in `data/stix-ids.json` so they stay stable across releases.
+  - `data/ekc-stix-2.1.json`: STIX 2.1 bundle with 55 attack-patterns (stage in `kill_chain_phases`, kill chain name `extended-cyber-kill-chain-ai`), 46 courses of action, 152 `mitigates` relationships, and an extension-definition for the `x_ekc_*` properties. Object IDs are UUIDv4, registered in `data/stix-ids.json` with their first-publication date, so IDs and `created` timestamps stay fixed across releases.
   - `data/vendor/atlas-index.json`: IDs and names from the pinned MITRE ATLAS release, used to validate every cross-reference.
 - `tools/build.py` (generate and validate; `--check` for CI), `tools/refresh_atlas.py` (re-pin ATLAS), `tools/validate_sigma.py`, `tools/requirements.txt`, and `.github/workflows/validate.yml`.
-- Four 2026 case studies in `examples/case-studies.md`, each reconstructed only from named public sources: AI Recommendation Poisoning (Microsoft, February 2026), PleaseFix (Zenity Labs, March 2026), Claude Code GitHub Action secret exposure (Microsoft, June 2026), and a multi-agent framework used against Taiwanese government systems (Dream Research Labs, August 2026).
+- Four 2026 case studies in `examples/case-studies.md`, each reconstructed only from named public sources: AI Recommendation Poisoning (Microsoft, February 2026), PleaseFix (Zenity Labs, March 2026), Claude Code GitHub Action secret exposure (Microsoft, June 2026), and a multi-agent framework used against government systems in Asia (Dream Research Labs, August 2026).
 - `detections/`: ten example Sigma rules (nine detection rules and one correlation rule) tagged `ekc.<id>`, using generic `ai_agent` and `mcp` log sources with OpenTelemetry GenAI field names where they exist. Clearly labeled as examples.
 
 ### Changed
@@ -58,10 +58,10 @@ Every new factual claim, ID and date in v1.1 was checked against a primary sourc
 - MCP: token passthrough, confused deputy and scope guidance from the Model Context Protocol specification, version 2025-11-25, "Security Best Practices".
 - A2A: Agent Card signing (JWS, RFC 7515, over JCS, RFC 8785), the well-known Agent Card path, and extended-card access control from the A2A specification at the `v1.0.0` tag of `a2aproject/A2A` (tagged March 12, 2026). The project's README states it is a Linux Foundation project contributed by Google.
 - Agent session smuggling: Unit 42, Lu and Chen, October 31, 2025. Unit 42 states it found no vulnerability in the A2A protocol itself; EKC-6.6 is described accordingly.
-- Case 5: Microsoft Security Blog, February 10, 2026 (50 prompts, 31 companies, 60 days). Case 6: Zenity Labs disclosure, March 3, 2026. Case 7: Microsoft Security Blog, June 5, 2026 (reported April 29, 2026; fixed in Claude Code 2.1.128 on May 5, 2026). Case 8: Dream Research Labs, August 12, 2026 (activity July 1 to 4, 2026), cross-checked against ATLAS AML.CS0071 and AI Incident Database incident 1646. Attribution is reported as Dream's inference only.
+- Case 5: Microsoft Security Blog, February 10, 2026 (over 50 prompts, 31 companies, 14 industries, 60 days). Case 6: Zenity Labs disclosure, March 3, 2026. Case 7: Microsoft Security Blog (Microsoft Defender Security Research Team), June 5, 2026 (reported April 29, 2026; fixed in Claude Code 2.1.128 on May 5, 2026). Case 8: Dream Research Labs, August 12, 2026 (activity July 1 to 4, 2026), cross-checked against ATLAS AML.CS0071 and AI Incident Database incident 1646. Dream does not name the target; the Taiwan identification is attributed to Financial Times reporting as cited by ATLAS, and the case does not claim a confirmed link to the Ministry of Digital Affairs statement. Attribution is reported as Dream's inference only.
 - "Agents Rule of Two": Meta, ai.meta.com/blog/practical-ai-agent-security.
 - OpenTelemetry GenAI field names used in the Sigma examples come from `open-telemetry/semantic-conventions-genai`, where they are at `development` stability.
-- LibreChat advisory GHSA-pmw7-gqwj-f954 (CVE-2026-31951, March 27, 2026) is cited as an example of MCP-related OAuth token exposure.
+- LibreChat advisory GHSA-pmw7-gqwj-f954 (CVE-2026-31951, published March 27, 2026 in the danny-avila/LibreChat repository) is cited as an example of MCP-related OAuth token exposure.
 
 ### Notes
 

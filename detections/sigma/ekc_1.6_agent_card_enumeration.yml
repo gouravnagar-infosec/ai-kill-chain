@@ -30,7 +30,10 @@ status: experimental
 description: |
   EXAMPLE RULE. Not production-tuned.
   One client fetching Agent Cards from many distinct hosts within ten minutes looks like peer-agent
-  discovery for targeting (EKC-1.6). Tune the threshold to the number of agents you run.
+  discovery for targeting (EKC-1.6). This only works where you collect web logs from many of your own
+  agents in one place (an API gateway, a reverse proxy in front of an agent fleet, or a central log
+  store). A single agent's logs only ever show one host. Tune the threshold to the number of agents
+  you run.
 author: Gourav Nagar
 date: 2026-11-08
 tags:

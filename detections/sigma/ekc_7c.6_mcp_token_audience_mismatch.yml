@@ -10,7 +10,7 @@ description: |
   ekc.token.audience_valid.
 references:
   - https://modelcontextprotocol.io/specification/2025-11-25/basic/security_best_practices
-  - https://github.com/LibreChat-AI/LibreChat/security/advisories/GHSA-pmw7-gqwj-f954
+  - https://github.com/danny-avila/LibreChat/security/advisories/GHSA-pmw7-gqwj-f954
 author: Gourav Nagar
 date: 2026-11-08
 tags:

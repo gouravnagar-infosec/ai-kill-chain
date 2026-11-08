@@ -5,8 +5,8 @@ description: |
   EXAMPLE RULE. Not production-tuned.
   Detects web requests to AI assistant domains where the prompt is passed in the URL and asks the
   assistant to remember a source as trusted or authoritative. This is the "AI Recommendation
-  Poisoning" pattern Microsoft reported in February 2026: 50 distinct prompts from 31 companies over
-  60 days. Delivery is EKC-3.7; a successful memory write is EKC-5.1.
+  Poisoning" pattern Microsoft reported in February 2026: over 50 distinct prompts from 31 companies
+  across 14 industries in 60 days. Delivery is EKC-3.7; a successful memory write is EKC-5.1.
   The keyword list follows the indicators Microsoft published. Extend the host list to the assistants
   your users actually reach.
 references:
@@ -22,10 +22,12 @@ logsource:
   category: proxy
 detection:
   selection_host:
-    cs-host|endswith:
+    cs-host:
       - 'copilot.microsoft.com'
       - 'chatgpt.com'
+      - 'www.chatgpt.com'
       - 'claude.ai'
+      - 'www.perplexity.ai'
       - 'perplexity.ai'
       - 'grok.com'
   selection_param:

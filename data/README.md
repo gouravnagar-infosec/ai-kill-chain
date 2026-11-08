@@ -50,7 +50,9 @@ jq -r '.stages[].sub_techniques[] | select(any(.atlas_techniques[]; .id=="AML.T0
 | `extension-definition` | 1 | Declares the `x_ekc_*` top-level properties. Schema in `schema/stix-extension-ekc.json` |
 | `identity`, `marking-definition` | 1 each | Author, and a statement marking with the CC BY 4.0 notice |
 
-Object IDs are random UUIDv4 values, as STIX 2.1 recommends for domain objects, allocated once and recorded in `stix-ids.json`. Re-importing a newer release updates the same objects instead of creating duplicates. `modified` is set to the release date.
+Object IDs are random UUIDv4 values, as STIX 2.1 recommends for domain objects, allocated once and recorded in `stix-ids.json` together with the date the object was first published. That date is the object's `created` timestamp and never changes; `modified` moves to each new release date. Re-importing a newer release updates the same objects instead of creating duplicates.
+
+Attack-patterns are keyed by EKC ID, so they are permanent. Courses of action are keyed by the mitigation text, so rewording a mitigation retires the old object and creates a new one. The build prunes retired entries from the registry, and `--check` fails if the registry and the bundle disagree.
 
 The bundle passes the OASIS `stix2-validator` with no errors or warnings (the external-reference hash check is disabled, since the references are documentation links). It loads with the `stix2` Python library, and any platform that imports STIX 2.1 `attack-pattern` objects can ingest it. Kill-chain grouping depends on whether the platform reads `kill_chain_phases` for non-ATT&CK kill chains.
 

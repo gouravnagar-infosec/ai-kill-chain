@@ -50,7 +50,7 @@ Re-validating against MITRE's data also surfaced errors that were already presen
 | EKC-1.3 | Capability and tool enumeration | Discovery | Discover AI Agent Configuration: Tool Definitions (AML.T0084.001); Discover AI Agent Runtime Capabilities (AML.T0133); Enterprise Resource Discovery (AML.T0075) |  |
 | EKC-1.4 | Guardrail mapping | Reconnaissance; Discovery | Discover LLM System Information (AML.T0069); Active Scanning: Probe AI Agent Trigger Channels (AML.T0006.003); Search Open Websites/Domains (AML.T0095) |  |
 | EKC-1.5 | Embedding and retrieval surface discovery | Reconnaissance; Discovery; Collection | Gather RAG-Indexed Targets (AML.T0064); Discover AI Agent Configuration (AML.T0084); Data from AI Services: RAG Databases (AML.T0085.000) |  |
-| EKC-1.6 | Peer agent and Agent Card enumeration (new in 1.1) | Resource Development; Discovery | Discover AI Agent Runtime Capabilities (AML.T0133); Discover AI Agent Configuration: Call Chains (AML.T0084.003); Acquire Public AI Artifacts: AI Agent Configuration (AML.T0002.002) |  |
+| EKC-1.6 | Peer agent and Agent Card enumeration (added in 1.1) | Resource Development; Discovery | Discover AI Agent Runtime Capabilities (AML.T0133); Acquire Public AI Artifacts: AI Agent Configuration (AML.T0002.002) |  |
 | EKC-2.1 | Adversarial prompt crafting | Defense Evasion; AI Attack Adaptation | LLM Prompt Crafting (AML.T0065); LLM Prompt Obfuscation (AML.T0068) |  |
 | EKC-2.2 | Multi-modal payload construction | Defense Evasion; AI Attack Adaptation | LLM Prompt Crafting (AML.T0065); Triggers in Multimodal Inputs (AML.T0129) |  |
 | EKC-2.3 | Malicious tool or MCP package | Resource Development | Develop Capabilities: AI Agent Tools (AML.T0017.002); Publish Poisoned AI Artifacts: AI Agent Tools (AML.T0115.002) |  |
@@ -62,27 +62,27 @@ Re-validating against MITRE's data also surfaced errors that were already presen
 | EKC-3.4 | Document-borne injection | Initial Access; Execution; Persistence | LLM Prompt Injection: Indirect (AML.T0051.001); Prompt Infiltration via Public-Facing Application (AML.T0093) |  |
 | EKC-3.5 | Tool-description poisoning | Execution; Persistence | AI Agent Tool Poisoning: Definition and Instructions (AML.T0110.000); User Execution: Poisoned AI Agent Tool (AML.T0011.002) |  |
 | EKC-3.6 | Image, audio, or QR-code injection | Execution; Defense Evasion | LLM Prompt Injection: Indirect (AML.T0051.001); Triggers in Multimodal Inputs (AML.T0129) |  |
-| EKC-3.7 | Crafted assistant link delivery (new in 1.1) | Initial Access; Defense Evasion | Crafted AI Assistant Links (AML.T0131); LLM Prompt Obfuscation (AML.T0068) | AML.CS0072 |
-| EKC-3.8 | Malicious or impersonated peer agent (new in 1.1) | Execution; Defense Evasion | Impersonation (AML.T0073); LLM Prompt Injection: Indirect (AML.T0051.001) |  |
-| EKC-3.9 | Interface-layer injection against computer-use agents (new in 1.1) | Execution; Defense Evasion | AI Agent Clickbait (AML.T0100); AI Targeted Cloaking (AML.T0134); Triggers in Multimodal Inputs (AML.T0129) | AML.CS0055 |
+| EKC-3.7 | Crafted assistant link delivery (added in 1.1) | Initial Access; Defense Evasion | Crafted AI Assistant Links (AML.T0131); LLM Prompt Obfuscation (AML.T0068) | AML.CS0072 |
+| EKC-3.8 | Malicious or impersonated peer agent (added in 1.1) | Execution; Defense Evasion | Impersonation (AML.T0073); LLM Prompt Injection: Indirect (AML.T0051.001) |  |
+| EKC-3.9 | Interface-layer injection against computer-use agents (added in 1.1) | Execution; Defense Evasion | AI Agent Clickbait (AML.T0100); AI Targeted Cloaking (AML.T0134); Triggers in Multimodal Inputs (AML.T0129) | AML.CS0055 |
 | EKC-4.1 | Direct prompt injection success | Execution | LLM Prompt Injection: Direct (AML.T0051.000) |  |
 | EKC-4.2 | Indirect prompt injection success | Execution | LLM Prompt Injection: Indirect (AML.T0051.001); LLM Prompt Injection: Triggered (AML.T0051.002) |  |
 | EKC-4.3 | Confused-deputy tool invocation | Execution; Privilege Escalation; Lateral Movement | AI Agent Tool Invocation (AML.T0053); AI Agent Clickbait (AML.T0100) |  |
 | EKC-4.4 | Guardrail or classifier bypass | Initial Access; Privilege Escalation; Defense Evasion; Impact | LLM Jailbreak (AML.T0054); Evade AI Model (AML.T0015); LLM Prompt Obfuscation (AML.T0068) |  |
 | EKC-4.5 | Memory or context pollution | Persistence; Defense Evasion | AI Agent Context Poisoning: Thread (AML.T0080.001); AI Agent Context Poisoning: Memory (AML.T0080.000); Manipulate User LLM Chat History (AML.T0092) |  |
-| EKC-4.6 | Computer-use action hijack (new in 1.1) | Execution; Privilege Escalation; Lateral Movement; Impact | Machine Compromise: Local AI Agent (AML.T0112.000); AI Agent Tool Invocation (AML.T0053); Data Destruction via AI Agent Tool Invocation (AML.T0101) | AML.CS0046; AML.CS0055 |
+| EKC-4.6 | Computer-use action hijack (added in 1.1) | Execution; Privilege Escalation; Lateral Movement; Impact | Machine Compromise: Local AI Agent (AML.T0112.000); AI Agent Tool Invocation (AML.T0053); Data Destruction via AI Agent Tool Invocation (AML.T0101) | AML.CS0046; AML.CS0055 |
 | EKC-5.1 | Persistent memory implant | Persistence | AI Agent Context Poisoning: Memory (AML.T0080.000) | AML.CS0040; AML.CS0066 |
 | EKC-5.2 | System prompt override | Persistence; Defense Evasion; AI Attack Adaptation | Modify AI Agent Configuration (AML.T0081); Manipulate AI Model: Modify Prompt Construction Logic (AML.T0018.003) |  |
 | EKC-5.3 | Malicious connector installation | Execution; Persistence; Defense Evasion | Modify AI Agent Configuration (AML.T0081); User Execution: Poisoned AI Agent Tool (AML.T0011.002); Deploy AI Agent (AML.T0103) |  |
 | EKC-5.4 | RAG corpus persistence | Persistence; Defense Evasion | RAG Poisoning (AML.T0070); Delay Execution of LLM Instructions (AML.T0094) |  |
 | EKC-5.5 | Stored skill or workflow contamination | Persistence; Defense Evasion | Modify AI Agent Configuration (AML.T0081); Event Triggered Execution (AML.T0142) | AML.CS0049 |
-| EKC-5.6 | Shared agent memory poisoning (new in 1.1) | Persistence; Lateral Movement | AI Agent Context Poisoning: Memory (AML.T0080.000); LLM Prompt Propagation (AML.T0143); LLM Prompt Self-Replication (AML.T0061) |  |
+| EKC-5.6 | Shared agent memory poisoning (added in 1.1) | Persistence; Lateral Movement | AI Agent Context Poisoning: Memory (AML.T0080.000); LLM Prompt Propagation (AML.T0143); LLM Prompt Self-Replication (AML.T0061) |  |
 | EKC-6.1 | LLM channel as C2 | Command and Control | AI Service API (AML.T0096); AI Service Web Interface (AML.T0114); AI Agent (AML.T0108) | AML.CS0042; AML.CS0051; AML.CS0061 |
 | EKC-6.2 | Memory-mediated C2 | Persistence | AI Agent Context Poisoning: Memory (AML.T0080.000) |  |
 | EKC-6.3 | RAG-mediated C2 | Persistence | RAG Poisoning (AML.T0070); AI Agent Tool Data Poisoning (AML.T0099) |  |
 | EKC-6.4 | Tool-output C2 | Persistence; Command and Control | AI Agent Tool Poisoning: Runtime Response (AML.T0110.002); AI Agent (AML.T0108) |  |
 | EKC-6.5 | Cross-session steganographic C2 | Defense Evasion | LLM Prompt Obfuscation (AML.T0068); Delay Execution of LLM Instructions (AML.T0094) | AML.CS0038 |
-| EKC-6.6 | Inter-agent session smuggling (new in 1.1) | Execution; Persistence | LLM Prompt Injection: Indirect (AML.T0051.001); AI Agent Context Poisoning: Thread (AML.T0080.001) |  |
+| EKC-6.6 | Inter-agent session smuggling (added in 1.1) | Execution; Persistence | LLM Prompt Injection: Indirect (AML.T0051.001); AI Agent Context Poisoning: Thread (AML.T0080.001) |  |
 | EKC-7a | Classical data exfiltration | Collection; Exfiltration | Exfiltration via AI Inference API (AML.T0024); Exfiltration via AI Agent Tool Invocation (AML.T0086); Exfiltration via AI User Interface (AML.T0136); Data from AI Services (AML.T0085); Exfiltration via Cyber Means (AML.T0025) |  |
 | EKC-7b.1 | API-based model extraction | Resource Development; Discovery; Collection; AI Attack Adaptation | Replicate AI Model Behavior (AML.T0005); Replicate AI Model Behavior: Replicate Behavior from Model Outputs (AML.T0005.001); Outputs from AI Models (AML.T0135); Recover AI Model Internals (AML.T0144) | AML.CS0056; AML.CS0058; AML.CS0075; AML.CS0076 |
 | EKC-7b.2 | Training-data extraction | Collection | Training Data Information from AI Models: Extract Memorized Data (AML.T0137.003) |  |
@@ -94,7 +94,7 @@ Re-validating against MITRE's data also surfaced errors that were already presen
 | EKC-7c.3 | Identity confusion attack | Lateral Movement | Use Alternate Authentication Material: Application Access Token (AML.T0091.000) |  |
 | EKC-7c.4 | Recursive agent abuse | Execution; Lateral Movement | LLM Prompt Propagation (AML.T0143); Deploy AI Agent (AML.T0103) |  |
 | EKC-7c.5 | Workflow weaponization | Persistence; Defense Evasion; Impact | Modify AI Agent Configuration (AML.T0081); Data Destruction via AI Agent Tool Invocation (AML.T0101); Event Triggered Execution (AML.T0142) |  |
-| EKC-7c.6 | Agent credential and token theft (new in 1.1) | Credential Access; Lateral Movement | AI Agent Tool Credential Harvesting (AML.T0098); Credentials from AI Agent Configuration (AML.T0083); Unsecured Credentials (AML.T0055); Use Alternate Authentication Material: Application Access Token (AML.T0091.000); Steal Web Session Cookie (AML.T0113) | AML.CS0048; AML.CS0067 |
+| EKC-7c.6 | Agent credential and token theft (added in 1.1) | Credential Access; Lateral Movement | AI Agent Tool Credential Harvesting (AML.T0098); Credentials from AI Agent Configuration (AML.T0083); Unsecured Credentials (AML.T0055); Use Alternate Authentication Material: Application Access Token (AML.T0091.000); Steal Web Session Cookie (AML.T0113) | AML.CS0048; AML.CS0067 |
 
 <!-- END GENERATED: forward -->
 
@@ -134,7 +134,7 @@ Second, ATLAS Lateral Movement, Credential Access and Privilege Escalation all s
 
 Third, Stage 7b no longer surfaces under ATLAS Exfiltration. In v2026.10 MITRE moved membership inference, memorized-data extraction and output harvesting into Collection (AML.T0137, AML.T0135), and model replication sits under Resource Development and AI Attack Adaptation (AML.T0005). ATLAS now treats "gathering the model's knowledge" as collection and "building a copy" as preparation. The EKC keeps all of it in Stage 7b because, for the defender, the control set is the same: query-pattern analytics, per-account query budgets and output watermarking on the inference surface.
 
-Fourth, ATLAS has no technique yet for a malicious or impersonated *peer* agent in a delegation protocol such as A2A (EKC-3.8). AML.T0118 Autonomous AI Agent Communication describes adversary-operated agents talking to each other, which is the attacker's own tooling rather than an attack on the victim's agent fabric. EKC-3.8 cites the nearest techniques (Impersonation, indirect prompt injection) and should be re-mapped when ATLAS adds coverage.
+Fourth, ATLAS covers impersonating a trusted AI agent (Impersonation, AML.T0073), but it has no technique specific to abusing a delegation protocol such as A2A: a peer agent that is exactly who it claims to be and still returns hostile instructions (EKC-3.8), or one that smuggles instructions into an open multi-turn session (EKC-6.6). AML.T0118 Autonomous AI Agent Communication describes adversary-operated agents talking to each other, which is the attacker's own tooling rather than an attack on the victim's agent fabric. Both EKC IDs cite the nearest techniques and should be re-mapped when ATLAS adds coverage.
 
 ## Notes on the mapping
 

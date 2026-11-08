@@ -81,11 +81,12 @@ For the citation case, set up tracking once published:
 
 ## 6. Releasing a minor version (1.1 and later)
 
-1. Merge the release pull request after CI is green.
-2. Draft a new release on GitHub with tag `1.1` (no `v`, matching `1.0` and `1.0.1`) and title `1.1. Extended Cyber Kill Chain for AI-Era Threats`.
-3. Paste the 1.1 section of `CHANGELOG.md` as the description. Attach `data/ekc-stix-2.1.json` and `data/ekc.json` as release assets so people can download them without cloning.
-4. Publish. Zenodo mints a version DOI under the concept DOI `10.5281/zenodo.20349357`. Version, title, and creators come from `.zenodo.json`.
-5. Add topics to the repo if not already there: `stix`, `sigma`, `owasp-agentic-top10`, `mcp-security`, `a2a`.
+1. Before merging, make sure the new version and its date are in `RELEASE_DATES` in `tools/build.py` and `framework.release_date` in `data/ekc.yaml` matches, then run `python tools/build.py`. If the tag goes out on a different day, update both dates and rebuild.
+2. Merge the release pull request after CI is green.
+3. Draft a new release on GitHub with tag `1.1` (no `v`, matching `1.0` and `1.0.1`) and title `1.1. Extended Cyber Kill Chain for AI-Era Threats`.
+4. Paste the 1.1 section of `CHANGELOG.md` as the description. Attach `data/ekc-stix-2.1.json` and `data/ekc.json` as release assets so people can download them without cloning.
+5. Publish. Zenodo mints a version DOI under the concept DOI `10.5281/zenodo.20349357`. Version, title, and creators come from `.zenodo.json`.
+6. Add topics to the repo if not already there: `stix`, `sigma`, `owasp-agentic-top10`, `mcp-security`, `a2a`.
 
 ## 7. After v1.0
 

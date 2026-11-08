@@ -43,7 +43,7 @@ The framework uses semantic versioning (major.minor.patch).
 
 A tagged release on GitHub triggers a new Zenodo DOI version. Tags use the bare version number (`1.0`, `1.0.1`, `1.1`), not a `v` prefix. Citations should reference the specific version used.
 
-The JSON export (`data/ekc.json`) follows the same rule for its fields: minor releases only add fields. STIX object IDs never change once assigned.
+The JSON export (`data/ekc.json`) follows the same rule for its fields: minor releases only add fields. STIX attack-pattern IDs never change once assigned. Rewording a mitigation creates a new course-of-action object, so keep mitigation edits to real content changes.
 
 ## Code of conduct
 
