@@ -1,8 +1,8 @@
 {
   "title": "Extended Cyber Kill Chain for AI-Era Threats",
-  "description": "A defender-side extension of the Lockheed Martin Cyber Kill Chain for LLM and agentic AI threats. Adds a model supply chain compromise pre-attack stage (Stage 0), AI-specific sub-techniques across the original seven stages, and a split of Actions on Objectives into classical data exfiltration, model extraction, and agentic pivot. Includes mappings to MITRE ATLAS and the OWASP Top 10 for LLM Applications.",
+  "description": "A defender-side extension of the Lockheed Martin Cyber Kill Chain for LLM and agentic AI threats. Adds a model supply chain compromise pre-attack stage (Stage 0), AI-specific sub-techniques across the original seven stages, and a split of Actions on Objectives into classical data exfiltration, model extraction, and agentic pivot. Version 1.1 adds sub-techniques for agent memory poisoning, agent-to-agent protocol abuse, agent credential and token theft, and computer-use agent attacks; refreshes the MITRE ATLAS mapping to v2026.10; adds a mapping to the OWASP Top 10 for Agentic Applications (2026); publishes the framework as JSON and a STIX 2.1 bundle; and includes four 2026 case studies and example Sigma rules tagged with EKC IDs.",
   "upload_type": "software",
-  "version": "1.0",
+  "version": "1.1",
   "license": "CC-BY-4.0",
   "creators": [
     {
@@ -20,6 +20,10 @@
     "threat modeling",
     "mitre atlas",
     "owasp llm top 10",
-    "detection engineering"
+    "detection engineering",
+    "owasp agentic top 10",
+    "mcp security",
+    "stix",
+    "sigma"
   ]
 }
